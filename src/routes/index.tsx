@@ -47,6 +47,7 @@ function HomePage() {
       <BenefitsSection />
       <AudienceSection />
       <StatsBand />
+      <PriceBreakdown />
       <Testimonials />
       <MoreSolutions />
       <RatgeberSection />
