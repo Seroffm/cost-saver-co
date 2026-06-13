@@ -585,62 +585,72 @@ function SavingsCalculator() {
 }
 
 function ComparisonCard() {
-  const rows = [
-    { l: "Persönlicher Berater statt Chatbot", us: true, them: false },
-    { l: "Kündigung beim Altanbieter inklusive", us: true, them: false },
-    { l: "Tarife manuell auf Fallen geprüft", us: true, them: false },
-    { l: "Kein Bonus-Hopping nach 12 Monaten", us: true, them: false },
-    { l: "Provision wird offen ausgewiesen", us: true, them: false },
-    { l: "100 % kostenlos", us: true, them: true },
+  const us = [
+    "Ein fester Berater begleitet dich – per Telefon, kein Chatbot.",
+    "Wir kündigen deinen Altvertrag und übernehmen den Wechsel komplett.",
+    "Tarife werden manuell auf Preisgarantie, Boni-Fallen und Laufzeit geprüft.",
+  ];
+  const them = [
+    "Anonyme Maske, kein persönlicher Ansprechpartner bei Problemen.",
+    "Kündigung und Anbieterwechsel musst du selbst koordinieren.",
+    "Ranking folgt der Provision – nicht zwingend dem besten Tarif für dich.",
   ];
 
   return (
-    <div className="rounded-3xl border border-border bg-card p-2 shadow-card">
-      <div className="grid grid-cols-[1fr_auto_auto] gap-x-4 rounded-2xl bg-primary px-5 py-4 text-primary-foreground">
-        <div className="text-xs uppercase tracking-[0.18em] opacity-70">Leistung</div>
-        <div className="w-24 text-center font-display text-sm font-bold text-success">Wir</div>
-        <div className="w-24 text-center font-display text-sm font-bold opacity-60">Portal</div>
-      </div>
-      <ul className="divide-y divide-border">
-        {rows.map((r) => (
-          <li key={r.l} className="grid grid-cols-[1fr_auto_auto] items-center gap-x-4 px-5 py-3.5 transition hover:bg-success/5">
-            <div className="text-sm text-foreground">{r.l}</div>
-            <div className="flex w-24 justify-center">
-              <span className="grid h-7 w-7 place-items-center rounded-full bg-success text-success-foreground">
-                <CheckCircle2 className="h-4 w-4" />
-              </span>
-            </div>
-            <div className="flex w-24 justify-center">
-              {r.them ? (
-                <span className="grid h-7 w-7 place-items-center rounded-full bg-muted text-muted-foreground">
-                  <CheckCircle2 className="h-4 w-4" />
-                </span>
-              ) : (
-                <span className="grid h-7 w-7 place-items-center rounded-full bg-destructive/10 text-destructive">
-                  <AlertTriangle className="h-3.5 w-3.5" />
-                </span>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      {/* Live ticker */}
-      <div className="m-2 mt-3 flex items-center justify-between gap-4 rounded-2xl bg-surface p-4">
-        <div className="flex items-center gap-3">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success/60" />
-            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-success" />
-          </span>
+    <div className="grid gap-4">
+      {/* Wir */}
+      <article className="relative overflow-hidden rounded-3xl border border-success/30 bg-card p-7 shadow-card md:p-8">
+        <div className="absolute inset-x-0 top-0 h-1 bg-success" aria-hidden />
+        <header className="flex items-baseline justify-between gap-4">
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-success">Heute gespart</div>
-            <div className="font-display text-lg font-extrabold tabular-nums text-primary">€ 18.420</div>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-success">Mit uns</div>
+            <h3 className="mt-1 font-display text-2xl font-bold text-primary">EnergieClever</h3>
           </div>
-        </div>
-        <div className="text-right text-xs text-muted-foreground">
-          <div className="font-semibold text-primary">47 Haushalte</div>
-          <div>in den letzten 24 h</div>
-        </div>
+          <div className="text-right">
+            <div className="font-display text-2xl font-extrabold tabular-nums text-primary">100 %</div>
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">kostenlos</div>
+          </div>
+        </header>
+        <ul className="mt-5 space-y-3">
+          {us.map((t) => (
+            <li key={t} className="flex gap-3 text-[15px] leading-relaxed text-foreground">
+              <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-success" aria-hidden />
+              <span>{t}</span>
+            </li>
+          ))}
+        </ul>
+      </article>
+
+      {/* Portal */}
+      <article className="relative overflow-hidden rounded-3xl border border-border bg-surface/60 p-7 md:p-8">
+        <header className="flex items-baseline justify-between gap-4">
+          <div>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">Vergleichsportal</div>
+            <h3 className="mt-1 font-display text-2xl font-bold text-muted-foreground/90 line-through decoration-muted-foreground/40 decoration-[1.5px]">
+              Klassisches Portal
+            </h3>
+          </div>
+          <div className="text-right">
+            <div className="font-display text-2xl font-extrabold tabular-nums text-muted-foreground">?</div>
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">Provision</div>
+          </div>
+        </header>
+        <ul className="mt-5 space-y-3">
+          {them.map((t) => (
+            <li key={t} className="flex gap-3 text-[15px] leading-relaxed text-muted-foreground">
+              <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-muted-foreground/40" aria-hidden />
+              <span>{t}</span>
+            </li>
+          ))}
+        </ul>
+      </article>
+
+      {/* Vertrauenssignal */}
+      <div className="flex flex-wrap items-center justify-between gap-3 px-2 text-xs text-muted-foreground">
+        <span className="font-semibold tracking-wide text-primary">4,8 / 5</span>
+        <span>aus 1.240 verifizierten Bewertungen</span>
+        <span className="hidden h-3 w-px bg-border sm:block" />
+        <span>Berater Mo–Fr, 8–20 Uhr</span>
       </div>
     </div>
   );
