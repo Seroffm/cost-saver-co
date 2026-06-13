@@ -43,16 +43,24 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const validPlz = initialPlz && /^\d{5}$/.test(initialPlz) ? initialPlz : undefined;
     setData((d) => ({
       ...d,
-      energyType: d.energyType ?? initialEnergy,
-      plz: d.plz ?? (initialPlz && /^\d{5}$/.test(initialPlz) ? initialPlz : d.plz),
-      stromVerbrauchKwh: d.stromVerbrauchKwh ?? (initialKwh && (initialEnergy === "strom" || initialEnergy === "beides" || initialEnergy === "gewerbe") ? initialKwh : d.stromVerbrauchKwh),
-      gasVerbrauchKwh: d.gasVerbrauchKwh ?? (initialKwh && (initialEnergy === "gas" || initialEnergy === "beides") ? initialKwh : d.gasVerbrauchKwh),
+      energyType: initialEnergy ?? d.energyType,
+      plz: validPlz ?? d.plz,
+      stromVerbrauchKwh:
+        initialKwh && (initialEnergy === "strom" || initialEnergy === "beides" || initialEnergy === "gewerbe")
+          ? initialKwh
+          : d.stromVerbrauchKwh,
+      gasVerbrauchKwh:
+        initialKwh && (initialEnergy === "gas" || initialEnergy === "beides")
+          ? initialKwh
+          : d.gasVerbrauchKwh,
     }));
     track("form_started");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   useEffect(() => {
     try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
