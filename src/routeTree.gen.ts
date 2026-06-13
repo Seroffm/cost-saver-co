@@ -15,6 +15,8 @@ import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
+import { Route as DankeRouteImport } from './routes/danke'
+import { Route as AngebotRouteImport } from './routes/angebot'
 import { Route as AblaufRouteImport } from './routes/ablauf'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -48,6 +50,16 @@ const DatenschutzRoute = DatenschutzRouteImport.update({
   path: '/datenschutz',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DankeRoute = DankeRouteImport.update({
+  id: '/danke',
+  path: '/danke',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AngebotRoute = AngebotRouteImport.update({
+  id: '/angebot',
+  path: '/angebot',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AblaufRoute = AblaufRouteImport.update({
   id: '/ablauf',
   path: '/ablauf',
@@ -62,6 +74,8 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/ablauf': typeof AblaufRoute
+  '/angebot': typeof AngebotRoute
+  '/danke': typeof DankeRoute
   '/datenschutz': typeof DatenschutzRoute
   '/faq': typeof FaqRoute
   '/impressum': typeof ImpressumRoute
@@ -72,6 +86,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/ablauf': typeof AblaufRoute
+  '/angebot': typeof AngebotRoute
+  '/danke': typeof DankeRoute
   '/datenschutz': typeof DatenschutzRoute
   '/faq': typeof FaqRoute
   '/impressum': typeof ImpressumRoute
@@ -83,6 +99,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/ablauf': typeof AblaufRoute
+  '/angebot': typeof AngebotRoute
+  '/danke': typeof DankeRoute
   '/datenschutz': typeof DatenschutzRoute
   '/faq': typeof FaqRoute
   '/impressum': typeof ImpressumRoute
@@ -95,6 +113,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/ablauf'
+    | '/angebot'
+    | '/danke'
     | '/datenschutz'
     | '/faq'
     | '/impressum'
@@ -105,6 +125,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/ablauf'
+    | '/angebot'
+    | '/danke'
     | '/datenschutz'
     | '/faq'
     | '/impressum'
@@ -115,6 +137,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/ablauf'
+    | '/angebot'
+    | '/danke'
     | '/datenschutz'
     | '/faq'
     | '/impressum'
@@ -126,6 +150,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AblaufRoute: typeof AblaufRoute
+  AngebotRoute: typeof AngebotRoute
+  DankeRoute: typeof DankeRoute
   DatenschutzRoute: typeof DatenschutzRoute
   FaqRoute: typeof FaqRoute
   ImpressumRoute: typeof ImpressumRoute
@@ -178,6 +204,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DatenschutzRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/danke': {
+      id: '/danke'
+      path: '/danke'
+      fullPath: '/danke'
+      preLoaderRoute: typeof DankeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/angebot': {
+      id: '/angebot'
+      path: '/angebot'
+      fullPath: '/angebot'
+      preLoaderRoute: typeof AngebotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ablauf': {
       id: '/ablauf'
       path: '/ablauf'
@@ -198,6 +238,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AblaufRoute: AblaufRoute,
+  AngebotRoute: AngebotRoute,
+  DankeRoute: DankeRoute,
   DatenschutzRoute: DatenschutzRoute,
   FaqRoute: FaqRoute,
   ImpressumRoute: ImpressumRoute,
