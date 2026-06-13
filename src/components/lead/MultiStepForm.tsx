@@ -43,6 +43,16 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Bei Seiten-Reload zurück zur Startseite (vor Schritt 1)
+    try {
+      const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+      if (nav?.type === "reload") {
+        sessionStorage.removeItem(STORAGE_KEY);
+        navigate({ to: "/", search: {} as never });
+        return;
+      }
+    } catch {}
+
     const validPlz = initialPlz && /^\d{5}$/.test(initialPlz) ? initialPlz : undefined;
     setData((d) => ({
       ...d,
@@ -60,6 +70,7 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
     track("form_started");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
 
   useEffect(() => {
