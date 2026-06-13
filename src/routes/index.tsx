@@ -81,7 +81,7 @@ function Hero() {
       <div className="mx-auto max-w-6xl px-4 pt-12 pb-10 md:pt-20 md:pb-16">
 
         <div className="grid items-start gap-10 lg:grid-cols-[1.05fr_1fr]">
-          <motion.div {...fadeUp}>
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={fadeUp.transition}>
             <span className="inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3 py-1 text-xs font-semibold text-success">
               <BadgeCheck className="h-3.5 w-3.5" /> TÜV-geprüfte Anbieter · 100 % kostenlos
             </span>
