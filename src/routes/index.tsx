@@ -256,70 +256,145 @@ function TrustStrip() {
 
 function HowItWorks() {
   const steps = [
-    { n: "01", icon: FileSearch, t: "Daten eingeben", d: "PLZ, Verbrauch, Wunsch. Mehr brauchen wir nicht.", k: "~ 90 Sek." },
-    { n: "02", icon: TrendingDown, t: "Persönliches Angebot", d: "Ein echter Berater prüft 1.200+ Tarife und ruft zurück.", k: "≤ 24 Std." },
-    { n: "03", icon: CheckCircle2, t: "Wechseln & sparen", d: "Wir übernehmen Kündigung und Anmeldung lückenlos.", k: "Ø 380 €/Jahr" },
+    {
+      n: "01", icon: FileSearch, t: "Daten eingeben", k: "~ 90 Sek.",
+      d: "PLZ, Jahresverbrauch und Wunsch — fertig. Keine Registrierung, keine Zwangsfelder.",
+      bullets: ["Online oder telefonisch", "Auch ohne alte Rechnung", "Verschlüsselte Übertragung"],
+    },
+    {
+      n: "02", icon: PhoneCall, t: "Persönliches Angebot", k: "≤ 24 Std.",
+      d: "Ein echter Berater prüft 1.200+ Tarife manuell und ruft mit dem besten Vorschlag zurück.",
+      bullets: ["Vergleich inkl. Kleingedrucktem", "Bonus-Fallen ausgeschlossen", "Festpreisgarantie möglich"],
+    },
+    {
+      n: "03", icon: FileSignature, t: "Wechseln & sparen", k: "Ø 380 €/Jahr",
+      d: "Wir übernehmen Kündigung beim Altanbieter und Anmeldung beim Neuen — Sie machen nichts.",
+      bullets: ["Lückenlose Versorgung", "Schriftliche Bestätigung", "Erinnerung vor Vertragsende"],
+    },
   ];
+  const [active, setActive] = useState(0);
+  const step = steps[active];
+  const Icon = step.icon;
+
   return (
-    <section className="relative mx-auto max-w-6xl px-4 py-20 md:py-28">
-      {/* Editorial header */}
-      <div className="grid items-end gap-8 border-b border-border pb-10 md:grid-cols-[auto_1fr_auto]">
-        <div className="font-serif text-sm italic text-success">— Ausgabe №01 · Der Wechsel</div>
-        <motion.h2 {...fadeUp} className="font-display text-4xl font-extrabold leading-[1.05] text-primary md:text-6xl">
-          Drei Schritte. <span className="font-serif italic font-normal text-muted-foreground">Null</span> Papierkram.
-        </motion.h2>
-        <div className="hidden text-right text-xs uppercase tracking-[0.2em] text-muted-foreground md:block">
-          Lesezeit · 30 Sek.
-        </div>
+    <section className="mx-auto max-w-6xl px-4 py-20 md:py-28">
+      <div className="mx-auto max-w-2xl text-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 px-3 py-1 text-xs font-semibold text-success">
+          <Sparkles className="h-3.5 w-3.5" /> So einfach geht's
+        </span>
+        <h2 className="mt-3 font-display text-3xl font-bold text-primary md:text-5xl">
+          Drei Schritte. <span className="text-success">Null</span> Papierkram.
+        </h2>
+        <p className="mt-3 text-muted-foreground">Klick durch die Schritte und sieh, was wir für dich übernehmen.</p>
       </div>
 
-      {/* Animated energy flow line */}
-      <div className="relative mt-16">
-        <svg
-          aria-hidden
-          viewBox="0 0 1200 40"
-          preserveAspectRatio="none"
-          className="absolute inset-x-0 top-6 hidden h-10 w-full md:block"
-        >
-          <defs>
-            <linearGradient id="flow" x1="0" x2="1">
-              <stop offset="0%" stopColor="#0a1f44" stopOpacity="0.05" />
-              <stop offset="50%" stopColor="#00c389" stopOpacity="0.6" />
-              <stop offset="100%" stopColor="#0a1f44" stopOpacity="0.05" />
-            </linearGradient>
-          </defs>
-          <path d="M0 20 Q 300 0 600 20 T 1200 20" stroke="url(#flow)" strokeWidth="1.5" fill="none" />
-          <path d="M0 20 Q 300 0 600 20 T 1200 20" stroke="#00c389" strokeWidth="2" fill="none"
-            strokeDasharray="6 14" className="[stroke-dashoffset:0] animate-[energyflow_3.5s_linear_infinite]"
-            style={{ animation: "energyflow 3.5s linear infinite" } as never} />
-          <style>{`@keyframes energyflow { to { stroke-dashoffset: -40; } }`}</style>
-        </svg>
-
-        <div className="relative grid gap-6 md:grid-cols-3">
-          {steps.map((s, i) => (
-            <motion.div
-              key={s.n}
-              {...fadeUp}
-              transition={{ ...fadeUp.transition, delay: i * 0.08 }}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-7 shadow-soft transition hover:-translate-y-0.5 hover:shadow-card"
-            >
-              <div className="flex items-start justify-between">
-                <div className="font-serif text-7xl font-normal leading-none text-primary/10 transition group-hover:text-success/40">
+      {/* Interactive stepper */}
+      <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_1.3fr] lg:items-start">
+        {/* Step pills */}
+        <div className="space-y-3">
+          {steps.map((s, i) => {
+            const isActive = active === i;
+            return (
+              <button
+                key={s.n}
+                type="button"
+                onMouseEnter={() => setActive(i)}
+                onClick={() => setActive(i)}
+                className={cn(
+                  "group flex w-full items-center gap-4 rounded-2xl border p-4 text-left transition-all",
+                  isActive
+                    ? "border-success bg-card shadow-card"
+                    : "border-border bg-card/60 hover:border-success/40 hover:bg-card",
+                )}
+              >
+                <div className={cn(
+                  "grid h-12 w-12 flex-none place-items-center rounded-xl font-display text-lg font-bold transition",
+                  isActive ? "bg-success text-success-foreground" : "bg-surface text-muted-foreground",
+                )}>
                   {s.n}
                 </div>
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-success/10 text-success">
-                  <s.icon className="h-5 w-5" />
+                <div className="min-w-0 flex-1">
+                  <div className="font-display text-base font-bold text-primary">{s.t}</div>
+                  <div className="truncate text-xs text-muted-foreground">{s.d}</div>
                 </div>
-              </div>
-              <h3 className="mt-6 font-display text-2xl font-bold text-primary">{s.t}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.d}</p>
-              <div className="mt-6 flex items-center justify-between border-t border-dashed border-border pt-4">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Dauer</span>
-                <span className="font-display text-base font-bold text-primary">{s.k}</span>
-              </div>
-            </motion.div>
-          ))}
+                <ArrowRight className={cn(
+                  "h-4 w-4 flex-none transition",
+                  isActive ? "translate-x-0 text-success" : "-translate-x-1 text-muted-foreground/40",
+                )} />
+              </button>
+            );
+          })}
         </div>
+
+        {/* Detail panel */}
+        <motion.div
+          key={active}
+          initial={{ opacity: 0, x: 12 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="relative overflow-hidden rounded-3xl border border-border bg-card p-8 shadow-card md:p-10"
+        >
+          <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-success/10 blur-3xl" aria-hidden />
+
+          {/* Progress dots */}
+          <div className="relative flex items-center gap-2">
+            {steps.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setActive(i)}
+                aria-label={`Schritt ${i + 1}`}
+                className={cn(
+                  "h-1.5 rounded-full transition-all",
+                  i === active ? "w-10 bg-success" : "w-4 bg-border hover:bg-success/40",
+                )}
+              />
+            ))}
+            <span className="ml-auto text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Schritt {active + 1}/3
+            </span>
+          </div>
+
+          <div className="relative mt-6 flex items-start gap-5">
+            <div className="grid h-14 w-14 flex-none place-items-center rounded-2xl bg-success text-success-foreground shadow-soft">
+              <Icon className="h-6 w-6" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-display text-2xl font-bold text-primary md:text-3xl">{step.t}</h3>
+              <p className="mt-2 text-base leading-relaxed text-muted-foreground">{step.d}</p>
+            </div>
+          </div>
+
+          <ul className="relative mt-7 grid gap-3 sm:grid-cols-3">
+            {step.bullets.map((b) => (
+              <li key={b} className="flex items-start gap-2 rounded-xl bg-surface p-3 text-sm text-foreground">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-success" />
+                {b}
+              </li>
+            ))}
+          </ul>
+
+          <div className="relative mt-7 flex items-center justify-between border-t border-dashed border-border pt-5">
+            <div>
+              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Dauer</div>
+              <div className="font-display text-xl font-bold text-primary">{step.k}</div>
+            </div>
+            {active < steps.length - 1 ? (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setActive((a) => Math.min(a + 1, steps.length - 1))}
+                className="border-success/40 text-primary hover:bg-success/10"
+              >
+                Nächster Schritt <ArrowRight className="ml-1 h-4 w-4" />
+              </Button>
+            ) : (
+              <Button asChild className="bg-success text-success-foreground hover:bg-success/90">
+                <Link to="/angebot">Jetzt starten <ArrowRight className="ml-1 h-4 w-4" /></Link>
+              </Button>
+            )}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -328,121 +403,225 @@ function HowItWorks() {
 /* -------------------------------- BENEFITS -------------------------------- */
 
 function BenefitsSection() {
+  return (
+    <section className="bg-surface py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 px-3 py-1 text-xs font-semibold text-success">
+            <TrendingDown className="h-3.5 w-3.5" /> Spar-Rechner
+          </span>
+          <h2 className="mt-3 font-display text-3xl font-bold text-primary md:text-5xl">
+            Wie viel <span className="text-success">sparst du</span>?
+          </h2>
+          <p className="mt-3 text-muted-foreground">Schieb die Regler — wir rechnen live.</p>
+        </div>
+
+        <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_1fr]">
+          <SavingsCalculator />
+          <ComparisonCard />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SavingsCalculator() {
+  const [persons, setPersons] = useState(3);
+  const [kwh, setKwh] = useState(3500);
+  const [energy, setEnergy] = useState<"strom" | "gas">("strom");
+
+  const result = useMemo(() => {
+    const pricePerKwh = energy === "strom" ? 0.41 : 0.12;
+    const cleverPrice = energy === "strom" ? 0.31 : 0.085;
+    const base = energy === "strom" ? 145 : 110;
+    const grund = Math.round(base + kwh * pricePerKwh);
+    const portal = Math.round(grund * 0.87);
+    const clever = Math.round(base + kwh * cleverPrice);
+    const saved = grund - clever;
+    return { grund, portal, clever, saved };
+  }, [kwh, energy]);
+
+  const max = Math.max(result.grund, result.portal, result.clever);
+
+  return (
+    <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-7 shadow-card md:p-9">
+      <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-success/10 blur-3xl" aria-hidden />
+
+      {/* Energy switch */}
+      <div className="relative flex items-center justify-between">
+        <div className="inline-flex rounded-full bg-surface p-1">
+          {(["strom", "gas"] as const).map((e) => (
+            <button
+              key={e}
+              type="button"
+              onClick={() => {
+                setEnergy(e);
+                setKwh(e === "gas" ? 14000 : 3500);
+              }}
+              className={cn(
+                "inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-semibold transition",
+                energy === e ? "bg-card text-primary shadow-soft" : "text-muted-foreground hover:text-primary",
+              )}
+            >
+              {e === "strom" ? <Zap className="h-3.5 w-3.5" /> : <Flame className="h-3.5 w-3.5" />}
+              {e === "strom" ? "Strom" : "Gas"}
+            </button>
+          ))}
+        </div>
+        <div className="rounded-full bg-success/10 px-3 py-1 text-xs font-semibold text-success">
+          Live-Rechnung
+        </div>
+      </div>
+
+      {/* Persons slider */}
+      <div className="relative mt-7">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+            <Users className="h-4 w-4 text-success" /> Personen im Haushalt
+          </div>
+          <div className="font-display text-xl font-extrabold tabular-nums text-primary">{persons}</div>
+        </div>
+        <Slider
+          value={[persons]}
+          min={1}
+          max={6}
+          step={1}
+          onValueChange={(v) => {
+            const p = v[0];
+            setPersons(p);
+            const map = energy === "gas"
+              ? { 1: 5000, 2: 9000, 3: 14000, 4: 18000, 5: 22000, 6: 26000 }
+              : { 1: 1500, 2: 2500, 3: 3500, 4: 4500, 5: 5500, 6: 6500 };
+            setKwh(map[p as 1 | 2 | 3 | 4 | 5 | 6]);
+          }}
+          className="mt-4"
+        />
+        <div className="mt-1 flex justify-between text-[10px] uppercase tracking-wider text-muted-foreground">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6+</span>
+        </div>
+      </div>
+
+      {/* kWh slider */}
+      <div className="relative mt-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+            <PlugZap className="h-4 w-4 text-success" /> Jahresverbrauch
+          </div>
+          <div className="font-display text-xl font-extrabold tabular-nums text-primary">
+            {kwh.toLocaleString("de-DE")} <span className="text-sm font-bold text-muted-foreground">kWh</span>
+          </div>
+        </div>
+        <Slider
+          value={[kwh]}
+          min={energy === "gas" ? 3000 : 1000}
+          max={energy === "gas" ? 30000 : 8000}
+          step={energy === "gas" ? 500 : 100}
+          onValueChange={(v) => setKwh(v[0])}
+          className="mt-4"
+        />
+      </div>
+
+      {/* Live bar chart */}
+      <div className="relative mt-8 space-y-3">
+        {[
+          { label: "Grundversorger", value: result.grund, color: "bg-primary/70", text: "text-primary" },
+          { label: "Portal-Tarif", value: result.portal, color: "bg-primary/40", text: "text-primary" },
+          { label: "EnergieClever", value: result.clever, color: "bg-success", text: "text-success", highlight: true },
+        ].map((b) => (
+          <div key={b.label}>
+            <div className="flex justify-between text-xs">
+              <span className={cn(b.highlight ? "font-semibold text-success" : "text-muted-foreground")}>
+                {b.label}
+              </span>
+              <span className={cn("font-semibold tabular-nums", b.text)}>{b.value.toLocaleString("de-DE")} €/Jahr</span>
+            </div>
+            <div className="mt-1 h-2.5 rounded-full bg-border/60">
+              <div
+                className={cn("h-full rounded-full transition-all duration-500 ease-out", b.color)}
+                style={{ width: `${(b.value / max) * 100}%` }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Saving callout */}
+      <div className="relative mt-7 flex items-center justify-between gap-4 rounded-2xl bg-gradient-to-r from-success/15 via-success/10 to-transparent p-5">
+        <div>
+          <div className="text-xs font-semibold uppercase tracking-wider text-success">Deine Ersparnis</div>
+          <div className="font-display text-4xl font-extrabold tabular-nums text-primary">
+            {result.saved.toLocaleString("de-DE")} €<span className="text-base font-bold text-muted-foreground"> / Jahr</span>
+          </div>
+        </div>
+        <Button asChild size="lg" className="bg-success text-success-foreground hover:bg-success/90">
+          <Link to="/angebot">Sichern <ArrowRight className="ml-1 h-4 w-4" /></Link>
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function ComparisonCard() {
   const rows = [
     { l: "Persönlicher Berater statt Chatbot", us: true, them: false },
-    { l: "Kündigung beim alten Anbieter inklusive", us: true, them: false },
-    { l: "Tarife werden manuell auf Fallen geprüft", us: true, them: false },
+    { l: "Kündigung beim Altanbieter inklusive", us: true, them: false },
+    { l: "Tarife manuell auf Fallen geprüft", us: true, them: false },
     { l: "Kein Bonus-Hopping nach 12 Monaten", us: true, them: false },
     { l: "Provision wird offen ausgewiesen", us: true, them: false },
     { l: "100 % kostenlos", us: true, them: true },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-surface py-20 md:py-28">
-      {/* Subtle energy grid background */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
-        aria-hidden
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgb(10 31 68 / 0.06) 1px, transparent 1px), linear-gradient(to bottom, rgb(10 31 68 / 0.06) 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
-          maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
-        }}
-      />
-
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-4 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
-        {/* Editorial pull-quote */}
-        <div>
-          <div className="font-serif text-sm italic text-success">— Warum wir?</div>
-          <h2 className="mt-4 font-display text-4xl font-extrabold leading-[1.05] text-primary md:text-5xl">
-            Vergleichsportale<br />
-            <span className="font-serif italic font-normal text-muted-foreground">verkaufen Klicks.</span><br />
-            Wir verkaufen <span className="text-success">Klarheit.</span>
-          </h2>
-          <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
-            Bei uns spricht ein Mensch mit Ihnen — keine Auktionsmaschine, die den Tarif mit der höchsten
-            Provision oben anzeigt. Das ist der Unterschied zwischen <em>billig</em> und <em>günstig</em>.
-          </p>
-
-          {/* Live-Sparticker */}
-          <div className="mt-8 inline-flex items-stretch overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
-            <div className="flex items-center gap-2 bg-success/10 px-4 text-xs font-semibold uppercase tracking-wider text-success">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success/60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
+    <div className="rounded-3xl border border-border bg-card p-2 shadow-card">
+      <div className="grid grid-cols-[1fr_auto_auto] gap-x-4 rounded-2xl bg-primary px-5 py-4 text-primary-foreground">
+        <div className="text-xs uppercase tracking-[0.18em] opacity-70">Leistung</div>
+        <div className="w-24 text-center font-display text-sm font-bold text-success">Wir</div>
+        <div className="w-24 text-center font-display text-sm font-bold opacity-60">Portal</div>
+      </div>
+      <ul className="divide-y divide-border">
+        {rows.map((r) => (
+          <li key={r.l} className="grid grid-cols-[1fr_auto_auto] items-center gap-x-4 px-5 py-3.5 transition hover:bg-success/5">
+            <div className="text-sm text-foreground">{r.l}</div>
+            <div className="flex w-24 justify-center">
+              <span className="grid h-7 w-7 place-items-center rounded-full bg-success text-success-foreground">
+                <CheckCircle2 className="h-4 w-4" />
               </span>
-              Heute gespart
             </div>
-            <div className="px-5 py-3">
-              <div className="font-display text-2xl font-extrabold tabular-nums text-primary">€ 18.420</div>
-              <div className="text-[10px] uppercase tracking-wider text-muted-foreground">von 47 Haushalten</div>
+            <div className="flex w-24 justify-center">
+              {r.them ? (
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-muted text-muted-foreground">
+                  <CheckCircle2 className="h-4 w-4" />
+                </span>
+              ) : (
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-destructive/10 text-destructive">
+                  <AlertTriangle className="h-3.5 w-3.5" />
+                </span>
+              )}
             </div>
+          </li>
+        ))}
+      </ul>
+
+      {/* Live ticker */}
+      <div className="m-2 mt-3 flex items-center justify-between gap-4 rounded-2xl bg-surface p-4">
+        <div className="flex items-center gap-3">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success/60" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-success" />
+          </span>
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-success">Heute gespart</div>
+            <div className="font-display text-lg font-extrabold tabular-nums text-primary">€ 18.420</div>
           </div>
         </div>
-
-        {/* Comparison table */}
-        <motion.div {...fadeUp} className="rounded-2xl border border-border bg-card p-2 shadow-card">
-          <div className="grid grid-cols-[1fr_auto_auto] gap-x-4 rounded-xl bg-primary px-5 py-4 text-primary-foreground">
-            <div className="text-xs uppercase tracking-[0.18em] opacity-70">Leistung</div>
-            <div className="w-24 text-center font-display text-sm font-bold text-success">EnergieClever</div>
-            <div className="w-24 text-center font-display text-sm font-bold opacity-60">Tarif-Portal</div>
-          </div>
-          <ul className="divide-y divide-border">
-            {rows.map((r) => (
-              <li key={r.l} className="grid grid-cols-[1fr_auto_auto] items-center gap-x-4 px-5 py-4">
-                <div className="text-sm text-foreground">{r.l}</div>
-                <div className="flex w-24 justify-center">
-                  {r.us ? (
-                    <span className="grid h-7 w-7 place-items-center rounded-full bg-success text-success-foreground">
-                      <CheckCircle2 className="h-4 w-4" />
-                    </span>
-                  ) : (
-                    <span className="text-2xl leading-none text-muted-foreground">·</span>
-                  )}
-                </div>
-                <div className="flex w-24 justify-center">
-                  {r.them ? (
-                    <span className="grid h-7 w-7 place-items-center rounded-full bg-muted text-muted-foreground">
-                      <CheckCircle2 className="h-4 w-4" />
-                    </span>
-                  ) : (
-                    <span className="grid h-7 w-7 place-items-center rounded-full bg-destructive/10 text-destructive">
-                      <AlertTriangle className="h-3.5 w-3.5" />
-                    </span>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          {/* Mini bar chart */}
-          <div className="rounded-xl bg-surface p-5">
-            <div className="flex items-baseline justify-between">
-              <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Beispiel · Familie, 4.500 kWh
-              </div>
-              <div className="font-serif text-xs italic text-success">— spart 412 €/Jahr</div>
-            </div>
-            <div className="mt-4 space-y-3">
-              <div>
-                <div className="flex justify-between text-xs"><span className="text-muted-foreground">Grundversorger</span><span className="font-semibold text-primary tabular-nums">1.842 €</span></div>
-                <div className="mt-1 h-2 rounded-full bg-border"><div className="h-full rounded-full bg-primary/70" style={{ width: "100%" }} /></div>
-              </div>
-              <div>
-                <div className="flex justify-between text-xs"><span className="text-muted-foreground">Portal-Tarif</span><span className="font-semibold text-primary tabular-nums">1.598 €</span></div>
-                <div className="mt-1 h-2 rounded-full bg-border"><div className="h-full rounded-full bg-primary/40" style={{ width: "86%" }} /></div>
-              </div>
-              <div>
-                <div className="flex justify-between text-xs"><span className="font-semibold text-success">EnergieClever</span><span className="font-semibold text-success tabular-nums">1.430 €</span></div>
-                <div className="mt-1 h-2 rounded-full bg-success/15"><div className="h-full rounded-full bg-success transition-all" style={{ width: "77%" }} /></div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+        <div className="text-right text-xs text-muted-foreground">
+          <div className="font-semibold text-primary">47 Haushalte</div>
+          <div>in den letzten 24 h</div>
+        </div>
       </div>
-    </section>
+    </div>
   );
+}
 }
 
 /* -------------------------------- AUDIENCE -------------------------------- */
