@@ -27,7 +27,7 @@ const TOTAL_STEPS = 8;
 
 const initial: Draft = { ziele: [] };
 
-export function MultiStepForm({ initialEnergy }: { initialEnergy?: LeadInput["energyType"] }) {
+export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initialEnergy?: LeadInput["energyType"]; initialPlz?: string; initialKwh?: number }) {
   const navigate = useNavigate();
   const submit = useServerFn(submitLead);
   const [step, setStep] = useState(1);
@@ -42,9 +42,13 @@ export function MultiStepForm({ initialEnergy }: { initialEnergy?: LeadInput["en
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (initialEnergy && !data.energyType) {
-      setData((d) => ({ ...d, energyType: initialEnergy }));
-    }
+    setData((d) => ({
+      ...d,
+      energyType: d.energyType ?? initialEnergy,
+      plz: d.plz ?? (initialPlz && /^\d{5}$/.test(initialPlz) ? initialPlz : d.plz),
+      stromVerbrauchKwh: d.stromVerbrauchKwh ?? (initialKwh && (initialEnergy === "strom" || initialEnergy === "beides" || initialEnergy === "gewerbe") ? initialKwh : d.stromVerbrauchKwh),
+      gasVerbrauchKwh: d.gasVerbrauchKwh ?? (initialKwh && (initialEnergy === "gas" || initialEnergy === "beides") ? initialKwh : d.gasVerbrauchKwh),
+    }));
     track("form_started");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
