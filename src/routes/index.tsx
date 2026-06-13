@@ -6,7 +6,7 @@ import {
   Star, ShieldCheck, BadgeCheck, Award, Phone, MapPin,
   PhoneCall, FileSignature, PlugZap, Users, Sparkles, ChevronRight,
 } from "lucide-react";
-import { Fragment, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -308,42 +308,43 @@ function HowItWorks() {
       </div>
 
       <div className="mt-12 grid gap-6 lg:grid-cols-2 lg:items-stretch">
-        {/* LEFT — Icon combo card */}
+        {/* LEFT — 3 clean step cards */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col justify-center rounded-3xl bg-success-soft p-6 sm:p-10 md:p-12"
+          className="flex flex-col justify-center rounded-3xl bg-success-soft p-6 sm:p-10"
         >
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5">
+          <div className="grid grid-cols-3 gap-3 sm:gap-5">
             {steps.map((s, i) => {
               const Ic = s.icon;
               return (
-                <Fragment key={s.n}>
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.85 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                    className="flex w-[28%] min-w-[88px] max-w-[140px] flex-col items-center text-center"
-                  >
-                    <div className="grid aspect-square w-full place-items-center rounded-2xl bg-card shadow-soft ring-1 ring-border/40">
-                      <Ic className="h-8 w-8 text-success sm:h-10 sm:w-10 md:h-12 md:w-12" />
-                    </div>
-                    <div className="mt-3 text-xs font-semibold text-primary sm:text-sm">
-                      {s.t}
-                    </div>
-                  </motion.div>
+                <motion.div
+                  key={s.n}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative flex flex-col items-center text-center"
+                >
+                  {/* connecting line */}
                   {i < steps.length - 1 && (
-                    <span
+                    <div
                       aria-hidden
-                      className="flex shrink-0 items-center justify-center text-muted-foreground"
-                    >
-                      <ChevronRight className="h-6 w-6 sm:h-7 sm:w-7" strokeWidth={1.5} />
-                    </span>
+                      className="absolute left-[calc(50%+24px)] top-[26px] hidden h-[2px] w-[calc(100%-48px)] bg-success/20 sm:block"
+                    />
                   )}
-                </Fragment>
+                  <div className="relative grid aspect-square w-full max-w-[110px] place-items-center rounded-2xl bg-card shadow-soft ring-1 ring-border/40">
+                    <Ic className="h-7 w-7 text-success sm:h-9 sm:w-9 md:h-10 md:w-10" />
+                  </div>
+                  <div className="mt-3 text-[11px] font-bold uppercase tracking-wider text-success sm:text-xs">
+                    Schritt {s.n}
+                  </div>
+                  <div className="mt-1 text-sm font-semibold text-primary sm:text-base">
+                    {s.t}
+                  </div>
+                </motion.div>
               );
             })}
           </div>
