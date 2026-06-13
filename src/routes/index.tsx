@@ -45,6 +45,7 @@ function HomePage() {
       <AudienceSection />
       <StatsBand />
       <Testimonials />
+      <MoreSolutions />
       <RatgeberSection />
       <FaqSection />
       <FinalCta />
