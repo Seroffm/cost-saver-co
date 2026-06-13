@@ -65,12 +65,12 @@ function HomePage() {
               <div className="rounded-3xl border border-border bg-card p-6 shadow-card">
                 <div className="text-sm font-medium text-muted-foreground">Wofür suchen Sie einen Tarif?</div>
                 <div className="mt-4 grid grid-cols-2 gap-3">
-                  {[
+                  {([
                     { key: "strom", label: "Strom", desc: "Privathaushalt" },
                     { key: "gas", label: "Gas", desc: "Heizung & Warmwasser" },
                     { key: "beides", label: "Strom & Gas", desc: "Im Paket sparen" },
                     { key: "gewerbe", label: "Gewerbe", desc: "Unternehmenstarif" },
-                  ].map((c) => (
+                  ] as const).map((c) => (
                     <Link
                       key={c.key}
                       to="/angebot"
