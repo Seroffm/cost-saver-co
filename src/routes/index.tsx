@@ -1223,7 +1223,123 @@ function FinalCta() {
   );
 }
 
-const faqs = [
+/* ----------------------------- WECHSEL CTA -------------------------------- */
+
+function WechselScene() {
+  return (
+    <svg viewBox="0 0 400 260" className="h-full w-full" aria-hidden>
+      {/* Sun */}
+      <motion.g
+        animate={{ scale: [1, 1.05, 1] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        style={{ transformOrigin: "90px 90px" }}
+      >
+        <circle cx="90" cy="90" r="46" fill="hsl(var(--success) / 0.25)" />
+        <circle cx="90" cy="90" r="34" fill="hsl(var(--success))" />
+      </motion.g>
+
+      {/* Cloud back */}
+      <motion.g
+        animate={{ x: [0, 14, 0] }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <ellipse cx="70" cy="180" rx="32" ry="14" fill="hsl(var(--success) / 0.35)" />
+      </motion.g>
+
+      {/* Cloud front */}
+      <motion.g
+        animate={{ x: [0, -10, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <ellipse cx="120" cy="195" rx="40" ry="16" fill="hsl(var(--success) / 0.55)" />
+      </motion.g>
+
+      {/* Windmill */}
+      <g transform="translate(240 70)">
+        {/* Pole */}
+        <rect x="-4" y="60" width="8" height="140" rx="3" fill="hsl(var(--primary-foreground) / 0.85)" />
+        {/* Blades */}
+        <motion.g
+          animate={{ rotate: 360 }}
+          transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "0px 60px" }}
+        >
+          {[0, 120, 240].map((deg) => (
+            <g key={deg} transform={`rotate(${deg} 0 60)`}>
+              <path
+                d="M0 60 C 6 30, 6 10, 0 -10 C -6 10, -6 30, 0 60 Z"
+                fill="hsl(var(--primary-foreground))"
+              />
+            </g>
+          ))}
+          <circle cx="0" cy="60" r="6" fill="hsl(var(--success))" />
+        </motion.g>
+      </g>
+    </svg>
+  );
+}
+
+function WechselCta() {
+  const [plz, setPlz] = useState("");
+  const navigate = useNavigate();
+  return (
+    <section className="bg-background py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-4">
+        <motion.div {...fadeUp} className="text-center">
+          <h2 className="font-display text-3xl font-extrabold text-success md:text-5xl">
+            Einmal wechseln, für immer faire Preise
+          </h2>
+          <p className="mt-4 text-base text-muted-foreground md:text-lg">
+            Wechsle zu Deutschlands smartem Strom- und Gasanbieter
+          </p>
+        </motion.div>
+
+        <motion.div
+          {...fadeUp}
+          className="mt-10 overflow-hidden rounded-3xl bg-primary p-6 text-primary-foreground shadow-card md:p-10"
+        >
+          <div className="grid items-center gap-8 md:grid-cols-[1.1fr_1fr]">
+            <div className="relative h-56 md:h-64">
+              <WechselScene />
+            </div>
+
+            <div>
+              <div className="text-sm font-semibold text-primary-foreground/80">
+                Hol' dir jetzt dein Angebot
+              </div>
+              <div className="mt-1 text-lg font-bold">Ökostrom / Gas</div>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (plz.length >= 4) navigate({ to: "/angebot", search: { plz } as never });
+                }}
+                className="mt-5 flex overflow-hidden rounded-xl bg-background"
+              >
+                <Input
+                  value={plz}
+                  onChange={(e) => setPlz(e.target.value.replace(/\D/g, "").slice(0, 5))}
+                  placeholder="Deine Postleitzahl"
+                  inputMode="numeric"
+                  className="h-12 flex-1 border-0 bg-transparent text-primary placeholder:text-muted-foreground focus-visible:ring-0"
+                />
+                <Button
+                  type="submit"
+                  className="h-12 rounded-none rounded-r-xl bg-success px-6 text-success-foreground hover:bg-success/90"
+                >
+                  Angebot einholen
+                </Button>
+              </form>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+const _faqsMarker = null;
+
   { q: "Ist die Beratung wirklich kostenlos?", a: "Ja. Wir werden vom neuen Anbieter vergütet, nicht von Ihnen. Für Sie entstehen keinerlei Kosten." },
   { q: "Wie lange dauert ein Wechsel?", a: "Der Wechselprozess dauert in der Regel 4–8 Wochen. Die Versorgung läuft währenddessen lückenlos weiter." },
   { q: "Gibt es eine Versorgungsunterbrechung?", a: "Nein. Strom und Gas fließen ohne Unterbrechung — nur der Vertragspartner wechselt." },
