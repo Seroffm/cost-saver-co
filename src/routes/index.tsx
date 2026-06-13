@@ -23,7 +23,7 @@ import finalCtaBg from "@/assets/final-cta-bg.jpg";
 import { z } from "zod";
 
 const homeSearchSchema = z.object({
-  start: z.enum(["strom", "gas", "beides"]).optional(),
+  start: z.enum(["strom", "gas", "beides", "gewerbe"]).optional(),
   plz: z.string().optional(),
   kwh: z.coerce.number().int().positive().optional(),
 }).optional();
