@@ -764,20 +764,31 @@ function RatgeberSection() {
 
 function FaqSection() {
   return (
-    <section className="bg-surface py-20 md:py-24">
-      <div className="mx-auto max-w-3xl px-4">
+    <section className="bg-background py-20 md:py-28">
+      <div className="mx-auto max-w-5xl px-4">
         <motion.div {...fadeUp} className="text-center">
-          <h2 className="font-display text-3xl font-bold text-primary md:text-4xl">Häufige Fragen</h2>
-          <p className="mt-3 text-muted-foreground">Alles, was Sie vor dem Wechsel wissen sollten.</p>
+          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-success">FAQ</div>
+          <h2 className="mt-3 font-display text-3xl font-bold text-primary md:text-5xl">
+            Häufige Fragen rund um Ihren Tarifwechsel
+          </h2>
         </motion.div>
-        <Accordion type="single" collapsible className="mt-10 space-y-2">
-          {faqs.map((f, i) => (
-            <AccordionItem key={i} value={`item-${i}`} className="rounded-xl border border-border bg-card px-5">
-              <AccordionTrigger className="text-left font-semibold text-primary">{f.q}</AccordionTrigger>
-              <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
-            </AccordionItem>
+
+        <div className="mt-14 grid gap-x-12 md:grid-cols-2">
+          {[faqs.slice(0, Math.ceil(faqs.length / 2)), faqs.slice(Math.ceil(faqs.length / 2))].map((col, ci) => (
+            <Accordion key={ci} type="single" collapsible className="divide-y divide-border border-t border-border">
+              {col.map((f, i) => (
+                <AccordionItem key={i} value={`c${ci}-${i}`} className="border-b-0">
+                  <AccordionTrigger className="py-5 text-left text-base font-semibold text-primary hover:text-success hover:no-underline [&[data-state=open]]:text-success">
+                    {f.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-5 text-sm leading-relaxed text-muted-foreground">
+                    {f.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           ))}
-        </Accordion>
+        </div>
       </div>
     </section>
   );
