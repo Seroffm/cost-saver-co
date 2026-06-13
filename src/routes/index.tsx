@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SiteLayout } from "@/components/site/SiteLayout";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { cn } from "@/lib/utils";
 import solutionAutostrom from "@/assets/solution-autostrom.jpg";
 import solutionWaermestrom from "@/assets/solution-waermestrom.jpg";
@@ -1225,110 +1226,89 @@ function FinalCta() {
 
 /* ----------------------------- WECHSEL CTA -------------------------------- */
 
-function WechselScene() {
-  return (
-    <svg viewBox="0 0 400 260" className="h-full w-full" aria-hidden>
-      {/* Sun */}
-      <motion.g
-        animate={{ scale: [1, 1.05, 1] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        style={{ transformOrigin: "90px 90px" }}
-      >
-        <circle cx="90" cy="90" r="46" fill="hsl(var(--success) / 0.25)" />
-        <circle cx="90" cy="90" r="34" fill="hsl(var(--success))" />
-      </motion.g>
-
-      {/* Cloud back */}
-      <motion.g
-        animate={{ x: [0, 14, 0] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <ellipse cx="70" cy="180" rx="32" ry="14" fill="hsl(var(--success) / 0.35)" />
-      </motion.g>
-
-      {/* Cloud front */}
-      <motion.g
-        animate={{ x: [0, -10, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <ellipse cx="120" cy="195" rx="40" ry="16" fill="hsl(var(--success) / 0.55)" />
-      </motion.g>
-
-      {/* Windmill */}
-      <g transform="translate(240 70)">
-        {/* Pole */}
-        <rect x="-4" y="60" width="8" height="140" rx="3" fill="hsl(var(--primary-foreground) / 0.85)" />
-        {/* Blades */}
-        <motion.g
-          animate={{ rotate: 360 }}
-          transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-          style={{ transformOrigin: "0px 60px" }}
-        >
-          {[0, 120, 240].map((deg) => (
-            <g key={deg} transform={`rotate(${deg} 0 60)`}>
-              <path
-                d="M0 60 C 6 30, 6 10, 0 -10 C -6 10, -6 30, 0 60 Z"
-                fill="hsl(var(--primary-foreground))"
-              />
-            </g>
-          ))}
-          <circle cx="0" cy="60" r="6" fill="hsl(var(--success))" />
-        </motion.g>
-      </g>
-    </svg>
-  );
-}
-
 function WechselCta() {
   const [plz, setPlz] = useState("");
   const navigate = useNavigate();
+  const valid = plz.length >= 4;
   return (
     <section className="bg-background py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-4">
         <motion.div {...fadeUp} className="text-center">
-          <h2 className="font-display text-3xl font-extrabold text-success md:text-5xl">
-            Einmal wechseln, für immer faire Preise
+          <div className="inline-flex items-center gap-2 rounded-full bg-success/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-success">
+            <Sparkles className="h-3.5 w-3.5" /> Jetzt wechseln
+          </div>
+          <h2 className="mt-4 font-display text-3xl font-extrabold text-primary md:text-5xl">
+            Einmal wechseln, <span className="text-success">für immer faire Preise</span>
           </h2>
           <p className="mt-4 text-base text-muted-foreground md:text-lg">
-            Wechsle zu Deutschlands smartem Strom- und Gasanbieter
+            Wechsle in 2 Minuten zu Deutschlands smartem Strom- und Gasanbieter.
           </p>
         </motion.div>
 
         <motion.div
           {...fadeUp}
-          className="mt-10 overflow-hidden rounded-3xl bg-primary p-6 text-primary-foreground shadow-card md:p-10"
+          className="relative mt-12 overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary via-primary to-primary/90 p-6 text-primary-foreground shadow-2xl md:p-12"
         >
-          <div className="grid items-center gap-8 md:grid-cols-[1.1fr_1fr]">
-            <div className="relative h-56 md:h-64">
-              <WechselScene />
+          {/* decorative glows */}
+          <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-success/30 blur-3xl" aria-hidden />
+          <div className="pointer-events-none absolute -bottom-32 -right-16 h-80 w-80 rounded-full bg-success/20 blur-3xl" aria-hidden />
+
+          <div className="relative grid items-center gap-10 md:grid-cols-[1fr_1.05fr]">
+            {/* Lottie scene */}
+            <div className="relative mx-auto h-64 w-full max-w-md md:h-80">
+              <DotLottieReact
+                src="https://assets-v2.lottiefiles.com/a/03a93c50-117f-11ee-84bc-ab12043c0786/Npcd1vaZXc.lottie"
+                loop
+                autoplay
+                className="h-full w-full"
+              />
             </div>
 
+            {/* Form */}
             <div>
-              <div className="text-sm font-semibold text-primary-foreground/80">
-                Hol' dir jetzt dein Angebot
+              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-success">
+                <Zap className="h-4 w-4" /> Ökostrom · Gas
               </div>
-              <div className="mt-1 text-lg font-bold">Ökostrom / Gas</div>
+              <h3 className="mt-3 font-display text-2xl font-bold md:text-3xl">
+                Hol' dir jetzt dein persönliches Angebot
+              </h3>
+              <p className="mt-2 text-sm text-primary-foreground/75">
+                Gib deine Postleitzahl ein – wir zeigen dir in Sekunden die besten Tarife in deiner Region.
+              </p>
 
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  if (plz.length >= 4) navigate({ to: "/angebot", search: { plz } as never });
+                  if (valid) navigate({ to: "/angebot", search: { plz } as never });
                 }}
-                className="mt-5 flex overflow-hidden rounded-xl bg-background"
+                className="mt-6"
               >
-                <Input
-                  value={plz}
-                  onChange={(e) => setPlz(e.target.value.replace(/\D/g, "").slice(0, 5))}
-                  placeholder="Deine Postleitzahl"
-                  inputMode="numeric"
-                  className="h-12 flex-1 border-0 bg-transparent text-primary placeholder:text-muted-foreground focus-visible:ring-0"
-                />
-                <Button
-                  type="submit"
-                  className="h-12 rounded-none rounded-r-xl bg-success px-6 text-success-foreground hover:bg-success/90"
-                >
-                  Angebot einholen
-                </Button>
+                <div className="group relative flex items-center gap-2 rounded-2xl bg-background/95 p-2 shadow-xl ring-1 ring-white/10 transition focus-within:ring-2 focus-within:ring-success">
+                  <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-success/10 text-success">
+                    <MapPin className="h-5 w-5" />
+                  </div>
+                  <Input
+                    value={plz}
+                    onChange={(e) => setPlz(e.target.value.replace(/\D/g, "").slice(0, 5))}
+                    placeholder="Deine Postleitzahl"
+                    inputMode="numeric"
+                    aria-label="Postleitzahl"
+                    className="h-11 flex-1 border-0 bg-transparent px-0 text-base font-semibold text-primary placeholder:font-normal placeholder:text-muted-foreground focus-visible:ring-0"
+                  />
+                  <Button
+                    type="submit"
+                    disabled={!valid}
+                    className="h-11 shrink-0 rounded-xl bg-success px-5 text-sm font-semibold text-success-foreground shadow-md transition hover:bg-success/90 hover:shadow-lg disabled:opacity-60"
+                  >
+                    Angebot einholen <ArrowRight className="ml-1 h-4 w-4" />
+                  </Button>
+                </div>
+
+                <ul className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-primary-foreground/80">
+                  <li className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-success" /> 100% kostenlos</li>
+                  <li className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-success" /> Unverbindlich</li>
+                  <li className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-success" /> Wechsel in 2 Min.</li>
+                </ul>
               </form>
             </div>
           </div>
