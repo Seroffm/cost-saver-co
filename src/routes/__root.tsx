@@ -83,6 +83,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: "Kostenlose, unverbindliche Strom- und Gasberatung. Persönlich, transparent, DSGVO-konform." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "EnergieClever – Strom & Gas günstiger machen" },
+      { name: "twitter:description", content: "Kostenlose, unverbindliche Strom- und Gasberatung. Persönlich, transparent, DSGVO-konform." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2e72fdec-f7f5-4add-9559-45eec1933508/id-preview-824a31ca--1e3d9cad-ee9e-405f-b7f2-4bc862fb8930.lovable.app-1781369723832.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2e72fdec-f7f5-4add-9559-45eec1933508/id-preview-824a31ca--1e3d9cad-ee9e-405f-b7f2-4bc862fb8930.lovable.app-1781369723832.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
