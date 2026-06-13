@@ -1361,7 +1361,7 @@ function WechselCta() {
                     placeholder="Deine Postleitzahl"
                     inputMode="numeric"
                     aria-label="Postleitzahl"
-                    className="h-11 flex-1 border-0 bg-transparent px-0 text-base font-semibold text-primary placeholder:font-normal placeholder:text-muted-foreground focus-visible:ring-0"
+                    className="h-11 flex-1 border-0 bg-transparent px-0 text-base font-semibold text-primary-foreground placeholder:font-normal placeholder:text-primary-foreground/50 focus-visible:ring-0"
                   />
                   <Button
                     type="submit"
