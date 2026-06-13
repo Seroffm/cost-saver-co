@@ -777,7 +777,7 @@ function PriceBreakdown() {
       label: "Beschaffung & Vertrieb",
       short: "Energiekosten",
       value: 43,
-      color: "hsl(var(--success))",
+      color: "#00c389",
       desc: "Einkauf der Energie an der Strombörse, Vertrieb, Service und Marge des Versorgers. Hier liegt das größte Sparpotenzial beim Anbieterwechsel.",
     },
     {
@@ -785,7 +785,7 @@ function PriceBreakdown() {
       label: "Netzentgelte & Messung",
       short: "Netz & Messung",
       value: 26,
-      color: "#1f3a2e",
+      color: "#0b3b2e",
       desc: "Regulierte Gebühren für die Nutzung der Strom- und Gasnetze sowie Messstellenbetrieb. Fix pro Region — unabhängig vom Anbieter.",
     },
     {
@@ -861,11 +861,12 @@ function PriceBreakdown() {
                     r={radius}
                     fill="none"
                     stroke={s.color}
-                    strokeWidth={isActive ? stroke + 6 : stroke}
+                    strokeWidth={stroke}
                     strokeDasharray={s.dasharray}
                     strokeDashoffset={s.dashoffset}
-                    className="cursor-pointer transition-all duration-300"
-                    style={{ opacity: isActive ? 1 : 0.55 }}
+                    strokeLinecap="butt"
+                    className="cursor-pointer transition-opacity duration-300"
+                    style={{ opacity: isActive ? 1 : 0.35 }}
                     onMouseEnter={() => setActive(s.key)}
                     onClick={() => setActive(s.key)}
                   />
