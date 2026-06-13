@@ -391,7 +391,7 @@ function Step7({ data, set }: StepProps) {
         <div><Label htmlFor="em">E-Mail <span className="text-success">*</span></Label><Input id="em" type="email" value={data.email ?? ""} onChange={(e) => set("email", e.target.value)} /></div>
         <div><Label htmlFor="tel">Telefon <span className="text-success">*</span></Label><Input id="tel" type="tel" value={data.telefon ?? ""} onChange={(e) => set("telefon", e.target.value)} /></div>
         <div className="sm:col-span-2">
-          <Label>Beste Erreichbarkeit</Label>
+          <Label>Beste Erreichbarkeit <span className="text-muted-foreground">(optional)</span></Label>
           <div className="mt-2 flex flex-wrap gap-2">
             {[
               { v: "vormittag", l: "Vormittag" }, { v: "nachmittag", l: "Nachmittag" }, { v: "abend", l: "Abend" }, { v: "egal", l: "Egal" },
@@ -482,7 +482,6 @@ function validateStep(step: number, d: Draft): boolean {
       !!d.nachname && d.nachname.length >= 2 &&
       !!d.email && /.+@.+\..+/.test(d.email) &&
       !!d.telefon && d.telefon.length >= 5 &&
-      !!d.erreichbarkeit &&
       d.datenschutzAkzeptiert === true &&
       d.kontaktAkzeptiert === true
     );
@@ -492,5 +491,5 @@ function validateStep(step: number, d: Draft): boolean {
 }
 
 function finalizePayload(d: Draft): LeadInput {
-  return d as LeadInput;
+  return { ...d, erreichbarkeit: d.erreichbarkeit ?? "egal" } as LeadInput;
 }
