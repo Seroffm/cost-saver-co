@@ -6,7 +6,7 @@ import {
   Star, ShieldCheck, BadgeCheck, Award, Phone, MapPin,
   PhoneCall, FileSignature, PlugZap, Users, Sparkles, ChevronRight,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -51,6 +51,40 @@ const fadeUp = {
 
 type Energy = "strom" | "gas" | "beides";
 
+function LazyLottie({ src }: { src: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setVisible(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "200px" },
+    );
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!visible) return;
+    const idle = (window as unknown as { requestIdleCallback?: (cb: () => void) => number }).requestIdleCallback;
+    if (idle) idle(() => setReady(true));
+    else setTimeout(() => setReady(true), 150);
+  }, [visible]);
+
+  return (
+    <div ref={ref} className="h-full w-full">
+      {ready && <DotLottieReact src={src} loop autoplay className="h-full w-full" />}
+    </div>
+  );
+}
+
 function HomePage() {
   return (
     <SiteLayout>
@@ -75,6 +109,22 @@ function HomePage() {
 /* ---------------------------------- HERO ---------------------------------- */
 
 function Hero() {
+  const [bgReady, setBgReady] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = heroBg;
+    if (img.decode) {
+      img.decode().then(() => setBgReady(true)).catch(() => setBgReady(true));
+    } else {
+      img.onload = () => setBgReady(true);
+      img.onerror = () => setBgReady(true);
+    }
+    // Failsafe
+    const t = setTimeout(() => setBgReady(true), 600);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <section
       className="relative isolate overflow-hidden"
@@ -86,12 +136,13 @@ function Hero() {
     >
       <div className="pointer-events-none absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-success/20 blur-3xl" aria-hidden />
 
-
-
       <div className="mx-auto max-w-6xl px-4 pt-12 pb-10 md:pt-20 md:pb-16">
-
         <div className="grid items-start gap-10 lg:grid-cols-[1.05fr_1fr]">
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={fadeUp.transition}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: bgReady ? 1 : 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
             <span className="inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3 py-1 text-xs font-semibold text-success">
               <BadgeCheck className="h-3.5 w-3.5" /> TÜV-geprüfte Anbieter · 100 % kostenlos
             </span>
@@ -132,7 +183,11 @@ function Hero() {
           </motion.div>
 
           {/* Quick Calculator (Check24-Style) */}
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ ...fadeUp.transition, delay: 0.1 }}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: bgReady ? 1 : 0 }}
+            transition={{ duration: 0.4, delay: 0.08, ease: "easeOut" }}
+          >
             <QuickCalculator />
           </motion.div>
         </div>
@@ -1360,12 +1415,7 @@ function WechselCta() {
           <div className="relative grid items-center gap-10 md:grid-cols-[1fr_1.05fr]">
             {/* Lottie scene */}
             <div className="relative mx-auto h-64 w-full max-w-md md:h-80">
-              <DotLottieReact
-                src="https://assets-v2.lottiefiles.com/a/03a93c50-117f-11ee-84bc-ab12043c0786/Npcd1vaZXc.lottie"
-                loop
-                autoplay
-                className="h-full w-full"
-              />
+              <LazyLottie src="https://assets-v2.lottiefiles.com/a/03a93c50-117f-11ee-84bc-ab12043c0786/Npcd1vaZXc.lottie" />
             </div>
 
             {/* Form */}
