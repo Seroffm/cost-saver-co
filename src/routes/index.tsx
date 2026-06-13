@@ -53,6 +53,7 @@ function HomePage() {
       <MoreSolutions />
       <RatgeberSection />
       <FaqSection />
+      <ContactSection />
       <FinalCta />
     </SiteLayout>
   );
