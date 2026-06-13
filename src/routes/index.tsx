@@ -62,8 +62,8 @@ function Hero() {
             <span className="inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3 py-1 text-xs font-semibold text-success">
               <BadgeCheck className="h-3.5 w-3.5" /> TÜV-geprüfte Anbieter · 100 % kostenlos
             </span>
-            <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.02] text-primary md:text-6xl">
-              Strom &amp; Gas <span className="font-serif italic font-normal text-success">clever</span> wechseln — in 2 Minuten.
+            <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] text-primary md:text-6xl">
+              Strom & Gas in 2 Minuten <span className="text-success">vergleichen.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">
               Bis zu <strong className="text-primary">850 € pro Jahr</strong> sparen — mit persönlicher
