@@ -373,7 +373,39 @@ function Step7({ data, set }: StepProps) {
       <div className="mt-5 space-y-3">
         <label className="flex items-start gap-3 text-sm text-foreground">
           <Checkbox className="mt-0.5" checked={!!data.datenschutzAkzeptiert} onCheckedChange={(v) => set("datenschutzAkzeptiert", (!!v) as true)} />
-          <span>Ich akzeptiere die <a href="/datenschutz" className="underline">Datenschutzerklärung</a>.</span>
+          <span>Ich akzeptiere die <Dialog>
+            <DialogTrigger asChild>
+              <button type="button" className="underline text-left">Datenschutzerklärung</button>
+            </DialogTrigger>
+            <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-2xl">
+              <DialogHeader>
+                <DialogTitle>Datenschutzerklärung</DialogTitle>
+                <DialogDescription>Wir verarbeiten Ihre Daten ausschließlich gemäß DSGVO.</DialogDescription>
+              </DialogHeader>
+              <div className="space-y-4 text-sm text-muted-foreground">
+                <div>
+                  <h3 className="font-semibold text-foreground">1. Verantwortlicher</h3>
+                  <p>EnergieClever GmbH (Platzhalter), Musterstraße 1, 10115 Berlin.</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-foreground">2. Welche Daten wir erheben</h3>
+                  <p>Kontaktdaten (Name, E-Mail, Telefon), Postleitzahl, Verbrauchsangaben sowie freiwillige Angaben aus dem Formular.</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-foreground">3. Zweck der Verarbeitung</h3>
+                  <p>Persönliche Tarifprüfung und Kontaktaufnahme im Rahmen Ihrer Anfrage.</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-foreground">4. Ihre Rechte</h3>
+                  <p>Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerruf der Einwilligung sowie Beschwerde bei der Aufsichtsbehörde.</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-foreground">5. Speicherdauer</h3>
+                  <p>Wir speichern Anfragen nur so lange wie zur Beratung erforderlich, maximal 24 Monate.</p>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>.</span>
         </label>
         <label className="flex items-start gap-3 text-sm text-foreground">
           <Checkbox className="mt-0.5" checked={!!data.kontaktAkzeptiert} onCheckedChange={(v) => set("kontaktAkzeptiert", (!!v) as true)} />
