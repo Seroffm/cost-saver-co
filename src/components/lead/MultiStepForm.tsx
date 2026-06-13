@@ -67,7 +67,13 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
     track("step_completed", { step });
     setStep((s) => Math.min(TOTAL_STEPS, s + 1));
   };
-  const back = () => setStep((s) => Math.max(1, s - 1));
+  const back = () => {
+    if (step === 1) {
+      navigate({ to: "/" });
+      return;
+    }
+    setStep((s) => Math.max(1, s - 1));
+  };
 
   async function handleSubmit() {
     if (!canContinue) return;
