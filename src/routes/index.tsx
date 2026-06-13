@@ -578,11 +578,6 @@ function SavingsCalculator() {
 }
 
 function ComparisonCard() {
-  const us = [
-    "Ein fester Berater begleitet dich – per Telefon, kein Chatbot.",
-    "Wir kündigen deinen Altvertrag und übernehmen den Wechsel komplett.",
-    "Tarife werden manuell auf Preisgarantie, Boni-Fallen und Laufzeit geprüft.",
-  ];
   const them = [
     "Anonyme Maske, kein persönlicher Ansprechpartner bei Problemen.",
     "Kündigung und Anbieterwechsel musst du selbst koordinieren.",
