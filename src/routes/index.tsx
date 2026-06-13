@@ -270,6 +270,9 @@ function QuickCalculator() {
           >
             Tarife vergleichen <ArrowRight className="ml-1 h-4 w-4" />
           </Button>
+          <p className="text-[11px] text-muted-foreground">
+            <span className="text-success">*</span> Pflichtfeld
+          </p>
         </form>
 
         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">

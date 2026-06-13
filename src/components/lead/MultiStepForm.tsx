@@ -138,6 +138,9 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
           </Button>
         )}
       </div>
+      <p className="mt-4 text-[11px] text-muted-foreground">
+        <span className="text-success">*</span> Pflichtfeld
+      </p>
     </div>
   );
 }
