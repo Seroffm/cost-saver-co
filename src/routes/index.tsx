@@ -122,7 +122,7 @@ function Hero() {
           </motion.div>
 
           {/* Quick Calculator (Check24-Style) */}
-          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }}>
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ ...fadeUp.transition, delay: 0.1 }}>
             <QuickCalculator />
           </motion.div>
         </div>
