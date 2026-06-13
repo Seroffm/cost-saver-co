@@ -13,6 +13,9 @@ import { Slider } from "@/components/ui/slider";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { cn } from "@/lib/utils";
+import solutionAutostrom from "@/assets/solution-autostrom.jpg";
+import solutionWaermestrom from "@/assets/solution-waermestrom.jpg";
+import solutionSolar from "@/assets/solution-solar.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -45,6 +48,7 @@ function HomePage() {
       <AudienceSection />
       <StatsBand />
       <Testimonials />
+      <MoreSolutions />
       <RatgeberSection />
       <FaqSection />
       <FinalCta />
@@ -709,6 +713,87 @@ function Testimonials() {
                 <div>
                   <div className="text-sm font-semibold text-primary">{r.n}</div>
                   <div className="text-xs text-muted-foreground">{r.c}</div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ----------------------------- MORE SOLUTIONS ----------------------------- */
+
+function MoreSolutions() {
+  const items = [
+    {
+      img: solutionAutostrom,
+      title: "Autostrom",
+      bullets: ["Zuhause und unterwegs laden", "Sondertarif für E-Auto-Halter", "100 % Ökostrom aus Europa"],
+      cta: "Zum Autostrom",
+      to: "/angebot",
+    },
+    {
+      img: solutionWaermestrom,
+      title: "Wärmestrom",
+      bullets: ["Günstiger heizen mit Strom", "Für Wärmepumpe & Nachtspeicher", "Alternativ zum Haushaltsstrom"],
+      cta: "Zum Wärmestrom",
+      to: "/angebot",
+    },
+    {
+      img: solutionSolar,
+      title: "Solaranlage",
+      bullets: ["Solaranlage kaufen oder mieten", "Mit geprüften Fach-Partnern", "Nachhaltig und unabhängig"],
+      cta: "Jetzt beraten lassen",
+      to: "/kontakt",
+    },
+  ];
+
+  return (
+    <section className="bg-success-soft py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-4">
+        <motion.h2 {...fadeUp} className="max-w-3xl font-display text-3xl font-extrabold leading-tight text-primary md:text-5xl">
+          Noch mehr clevere Energie-Lösungen<span className="text-success">.</span>
+        </motion.h2>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {items.map((it, i) => (
+            <motion.div
+              key={it.title}
+              {...fadeUp}
+              transition={{ ...fadeUp.transition, delay: i * 0.08 }}
+              className="flex flex-col overflow-hidden rounded-2xl bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-card"
+            >
+              <div className="aspect-[4/3] overflow-hidden bg-success-soft">
+                <img
+                  src={it.img}
+                  alt={it.title}
+                  loading="lazy"
+                  width={1024}
+                  height={768}
+                  className="h-full w-full object-cover transition duration-500 hover:scale-[1.03]"
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-8">
+                <h3 className="font-display text-3xl font-extrabold text-primary">
+                  {it.title}<span className="text-success">.</span>
+                </h3>
+                <ul className="mt-6 space-y-3 text-[15px] text-foreground">
+                  {it.bullets.map((b) => (
+                    <li key={b} className="flex items-start gap-3">
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none text-success" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8 pt-2">
+                  <Link
+                    to={it.to}
+                    className="inline-flex items-center gap-2 rounded-full border-2 border-success px-6 py-3 text-sm font-semibold text-primary transition hover:bg-success hover:text-success-foreground"
+                  >
+                    {it.cta} <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </div>
               </div>
             </motion.div>
