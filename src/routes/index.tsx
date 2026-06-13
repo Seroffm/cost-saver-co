@@ -4,10 +4,12 @@ import {
   ArrowRight, CheckCircle2, Zap, Flame, Layers, Briefcase,
   Home, Building2, TrendingDown, AlertTriangle, FileSearch,
   Star, ShieldCheck, BadgeCheck, Award, Phone, MapPin,
+  PhoneCall, FileSignature, PlugZap, Users, Sparkles,
 } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Slider } from "@/components/ui/slider";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { cn } from "@/lib/utils";
