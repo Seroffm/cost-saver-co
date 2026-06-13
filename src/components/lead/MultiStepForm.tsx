@@ -118,7 +118,7 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
       </div>
       <Progress value={(step / TOTAL_STEPS) * 100} className="mb-8 h-1.5" />
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={step}
           initial={{ opacity: 0, x: 24 }}
