@@ -136,6 +136,7 @@ function QuickCalculator() {
   const [energy, setEnergy] = useState<Energy>("strom");
   const [plz, setPlz] = useState("");
   const [kwh, setKwh] = useState<number>(2500);
+  const [plzError, setPlzError] = useState<string | null>(null);
 
   const tabs: { k: Energy; label: string; icon: typeof Zap }[] = [
     { k: "strom", label: "Strom", icon: Zap },
@@ -149,11 +150,17 @@ function QuickCalculator() {
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (!/^\d{5}$/.test(plz)) {
+      setPlzError("Bitte gib deine 5-stellige Postleitzahl ein.");
+      return;
+    }
+    setPlzError(null);
     navigate({
       to: "/angebot",
-      search: { start: energy, plz: plz || undefined, kwh: kwh || undefined } as never,
+      search: { start: energy, plz, kwh: kwh || undefined } as never,
     });
   }
+
 
   return (
     <div className="rounded-2xl border border-border bg-card p-1.5 shadow-hero">
@@ -192,25 +199,38 @@ function QuickCalculator() {
         <form onSubmit={submit} className="mt-5 space-y-4">
           <div>
             <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Postleitzahl
+              Postleitzahl <span className="text-success">*</span>
             </label>
             <div className="relative mt-1.5">
               <MapPin className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 inputMode="numeric"
                 maxLength={5}
+                required
+                aria-required="true"
+                aria-invalid={!!plzError}
                 value={plz}
-                onChange={(e) => setPlz(e.target.value.replace(/\D/g, ""))}
+                onChange={(e) => {
+                  setPlz(e.target.value.replace(/\D/g, ""));
+                  if (plzError) setPlzError(null);
+                }}
                 placeholder="z. B. 10115"
-                className="h-12 pl-9 text-base"
+                className={cn(
+                  "h-12 pl-9 text-base",
+                  plzError && "border-destructive focus-visible:ring-destructive",
+                )}
               />
             </div>
+            {plzError && (
+              <p className="mt-1.5 text-xs font-medium text-destructive">{plzError}</p>
+            )}
           </div>
 
           <div>
             <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Jahresverbrauch · {kwh.toLocaleString("de-DE")} kWh
             </label>
+
             <div className="mt-2 flex flex-wrap gap-2">
               {kwhPresets.map((p) => (
                 <button
