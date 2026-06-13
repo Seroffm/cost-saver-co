@@ -1,71 +1,57 @@
 ## Ziel
 
-Die Seite wirkt aktuell generisch (dunkelblauer Fintech-Look). Sie soll wie eine echte Energie-Vergleichsseite aussehen — frisch, hell, mit lebendigem Grün-Akzent (Lichtblick) und einem prominenten Tarifrechner direkt im Hero (Check24).
+Den aktuellen interaktiven Stepper in der Section **„So einfach geht's"** (`src/routes/index.tsx`, ca. Zeile 296–416) durch ein Layout im Stil der hochgeladenen Referenzgrafik ersetzen — passend zum Inhalt „3 Schritte zum Wechsel".
 
-## Design-Entscheidungen (vom Nutzer gewählt)
+## Neues Layout
 
-- **Palette**: Weiß-Basis, Dunkelblau `#0a1f44` für Text/Headlines, sattes Grün `#00c389` als CTA/Akzent, Hellgrau `#f2f6f4` als Surface
-- **Typo**: Sora (Display/Headlines) + Manrope (Body) via Google Fonts (`<link>` in `__root.tsx`)
-- **Layout**: Check24-Style — großer Tarifrechner im Hero, Trust-Badges direkt darunter, dann Content-Sektionen
+```text
+┌─────────────────────────────────────────────────────────────┐
+│                    Headline + Sub                            │
+├──────────────────────────┬──────────────────────────────────┤
+│  LINKS (Soft-Card)       │  RECHTS (Accordion)              │
+│                          │                                  │
+│   ┌──┐   ┌──┐   ┌──┐    │  So läuft dein Wechsel:          │
+│   │📝│ + │📞│ + │✍│    │  ▸ 1. Daten eingeben             │
+│   └──┘   └──┘   └──┘    │  ▸ 2. Persönliches Angebot       │
+│   Daten  Beratung Wechsel│  ▾ 3. Wechseln & sparen          │
+│                          │     [Detailtext + Checks]        │
+│                          │  ────────────────────────────    │
+│                          │  [CTA: Jetzt starten]            │
+└──────────────────────────┴──────────────────────────────────┘
+```
 
-## Was sich konkret ändert
+### Linke Karte (Icon-Combo)
+- Beige/Soft-Hintergrund (`bg-surface` / `bg-success-soft`), abgerundet (`rounded-3xl`), Padding `p-8 md:p-12`.
+- Drei weiße abgerundete Icon-Tiles (`rounded-2xl`, `shadow-soft`) mit jeweiligem Lucide-Icon (`FileText`, `PhoneCall`, `FileSignature`) in `text-success`.
+- Dazwischen zwei dezente `+`-Zeichen (`text-muted-foreground`).
+- Unter jedem Tile ein kurzes Label (`Daten eingeben`, `Persönliche Beratung`, `Vertragswechsel`).
+- Sanftes Stagger-In via `framer-motion` beim Scrollen in den Viewport.
 
-### 1. Design-Tokens (`src/styles.css`)
-- Primary → Dunkelblau `#0a1f44` (statt aktuelles OKLCH-Blau)
-- Success/Accent → frisches Grün `#00c389` (statt aktuelles Grün, das blasser ist)
-- Surface → `#f2f6f4` (warmes Hellgrau-Grün statt kaltem Weiß)
-- `--font-display: "Sora"`, `--font-sans: "Manrope"`
-- Headlines bekommen `font-display`, härtere Tracking, größere Größen
-- Card-Radius leicht reduziert (rounded-xl statt 2xl) → Check24-Anmutung
-- Schatten weicher, weniger „Fintech-glow"
+### Rechte Karte (Accordion)
+- Weiße Section-Überschrift: „So läuft dein Wechsel".
+- shadcn `<Accordion type="single" collapsible>` mit 3 Items (Schritt-Nummer + Titel als Trigger; Content = Beschreibung + Bullet-Checks + Mini-Meta „Dauer ≤ 24 Std." etc.).
+- Standardmäßig Item 1 geöffnet.
+- Darunter primärer CTA-Button (`Jetzt passendes Angebot sichern` → `/angebot`).
 
-### 2. Google Fonts laden (`src/routes/__root.tsx`)
-- `<link rel="preconnect">` zu fonts.googleapis/gstatic
-- Stylesheet-Link für Sora 600/700/800 + Manrope 400/500/600
+## Responsivität (kritisch)
 
-### 3. Hauptseite `/` (`src/routes/index.tsx`) — komplett überarbeitet
-- **Hero (Check24-Style)**: Heller Hintergrund mit dezentem grünen Verlauf, große Sora-Headline „Strom & Gas in 2 Minuten vergleichen", Subline, **Tarif-Schnellrechner direkt im Hero** als breite weiße Karte mit Schatten:
-  - Toggle Strom / Gas / Beides (Pills)
-  - PLZ-Input + Verbrauch-Select (1500/2500/3500/4500/5500 kWh) + großer grüner Button „Tarife vergleichen" → leitet auf `/angebot?start=…&plz=…&kwh=…`
-  - Rechts daneben dezentes „bis zu 850 €/Jahr sparen"-Badge
-- **Trust-Leiste** direkt unter Hero (TÜV-Hinweis, DSGVO, kostenlos, geprüfte Anbieter, 4,8/5 Sterne)
-- **„So einfach geht's" in 3 Schritten** (Karten mit großen Nummern + Icons, helles Grün)
-- **Vorteile-Sektion** (4 Karten: persönliche Beratung, alle Anbieter, kostenlos, sichere Abwicklung)
-- **Zielgruppen** (Privat / Gewerbe / Hausverwaltung — Karten mit echten Stock-Bildern via Unsplash-Pattern)
-- **Kennzahlen-Band** auf dunkelblauem Grund mit grünen Zahlen (50.000+ Wechsel, Ø 380 € Ersparnis, 4,8★, 100% kostenlos)
-- **Testimonials** (3 Karten mit Avatar-Initialen + Sterne)
-- **Ratgeber-Teaser** (Magazin-Anmutung: 3 Karten mit Bild, Titel, Lead — verlinken auf `/ablauf`, `/faq`, `/ueber-uns`)
-- **FAQ-Accordion** (8 Einträge, ruhig hell)
-- **Finaler CTA-Block** auf grünem Verlauf
+- Wrapper: `grid gap-6 lg:grid-cols-2 lg:items-stretch` — auf Mobile gestapelt, ab `lg` zweispaltig gleich hoch.
+- Icon-Reihe: `flex flex-wrap items-center justify-center gap-4 sm:gap-6`, Tiles `h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28`, `+`-Zeichen `shrink-0`. So bricht nichts auf 320px.
+- Labels: `text-xs sm:text-sm`, mittig unter Tile, `max-w-[7rem]` damit zwei Zeilen sauber brechen.
+- Accordion-Trigger: `min-w-0` + `truncate` auf den Titeln verhindert Overflow auf schmalen Screens.
+- Container `mx-auto max-w-6xl px-4` bleibt.
+- Keine fixen `width:`-Pixelwerte; alles über Tailwind-Tokens.
 
-### 4. Lead-Landingpage `/angebot` (`src/routes/angebot.tsx`) — Politur
-- Hero-Bereich: hellerer Hintergrund (Surface statt dunkelblau-getönt), Headline in Sora, Trust-Badge oben mit Sterne-Bewertung
-- Formular-Karte: weicherer Schatten, klarere Sektion-Trennung
-- Reduzierte Top-Bar bekommt 4,8★-Hinweis neben Telefonnummer
-- `useSearch` liest zusätzlich `plz` und `kwh` aus URL und prefilled Schritt 3+4 im `MultiStepForm`
+## Technische Änderungen
 
-### 5. Header / Footer (`src/components/site/Header.tsx`, `Footer.tsx`)
-- Header: weißer Hintergrund, dezenter Bottom-Border, Logo links, schlanke Nav, **grüner CTA-Button rechts** „Jetzt vergleichen"
-- Footer: heller (Surface), 4 Spalten (Produkte, Service, Rechtliches, Kontakt), unten Trust-Icons
+- **Nur** `src/routes/index.tsx`, Funktion `HowItWorksSection` (ca. Z. 296–417) wird ersetzt.
+- State `useState(active)` wird entfernt (wird durch Accordion-State ersetzt).
+- Imports: `Accordion, AccordionItem, AccordionTrigger, AccordionContent` aus `@/components/ui/accordion` ergänzen; `ArrowRight` weiter genutzt; nicht mehr benötigte Imports (`useState` nur falls woanders gebraucht — prüfen) bleiben unangetastet.
+- Inhalte (3 Schritte, Bullets, Dauer-Werte) bleiben 1:1 erhalten — nur neu visualisiert.
+- Design-Tokens aus `src/styles.css` (success, surface, card) — keine harten Farben.
+- Keine Backend-Änderungen.
 
-### 6. MultiStepForm (`src/components/lead/MultiStepForm.tsx`) — visuelle Anpassung
-- Progress-Bar grün
-- Auswahlkarten mit dickerem Border bei Selektion, Hover mit grünem Tint
-- „Weiter"-Button in Grün (`bg-success`)
-- Akzeptiert optional `initialPlz` und `initialKwh` Props für URL-Prefill
+## Was nicht geändert wird
 
-### 7. Reduzierte Top-Bar auf `/angebot`
-- Bleibt schlank, bekommt rechts neben Telefonnummer 4,8★-Mini-Trustbadge
-
-## Was NICHT geändert wird
-
-- Routenstruktur, Schema (`lead-schema.ts`), Server-Function (`submitLead`), Tracking, Validierung — alles Frontend-/Presentation-Layer
-- Statische Seiten (`/ablauf`, `/faq`, etc.) bekommen nur den Token-Refresh automatisch mit, kein neuer Content
-- Kein Backend, keine Bilder-Uploads — Stock-Bilder via `images.unsplash.com` als externe URLs
-
-## Technisches
-
-- Tailwind v4: alle Farben über `@theme inline` Tokens in `src/styles.css`, keine hardcoded Hex-Werte in Komponenten
-- Fonts via `<link>` im Root-Route-`head()`, nicht via `@import` in CSS (Lightning-CSS-konform)
-- Framer Motion bleibt für sanfte Section-Reveals
-- Lucide-Icons bleiben
+- Hero, Header, andere Sections.
+- Bestehende Routen / Daten / Logik.

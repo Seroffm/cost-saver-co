@@ -6,7 +6,7 @@ import {
   Star, ShieldCheck, BadgeCheck, Award, Phone, MapPin,
   PhoneCall, FileSignature, PlugZap, Users, Sparkles,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -289,10 +289,6 @@ function HowItWorks() {
       bullets: ["Lückenlose Versorgung", "Schriftliche Bestätigung", "Erinnerung vor Vertragsende"],
     },
   ];
-  const [active, setActive] = useState(0);
-  const step = steps[active];
-  const Icon = step.icon;
-
   return (
     <section className="mx-auto max-w-6xl px-4 py-20 md:py-28">
       <div className="mx-auto max-w-2xl text-center">
@@ -302,115 +298,120 @@ function HowItWorks() {
         <h2 className="mt-3 font-display text-3xl font-bold text-primary md:text-5xl">
           Drei Schritte. <span className="text-success">Null</span> Papierkram.
         </h2>
-        <p className="mt-3 text-muted-foreground">Klick durch die Schritte und sieh, was wir für dich übernehmen.</p>
+        <p className="mt-3 text-muted-foreground">
+          Links siehst du, was wir kombinieren — rechts, wie es im Detail abläuft.
+        </p>
       </div>
 
-      {/* Interactive stepper */}
-      <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_1.3fr] lg:items-start">
-        {/* Step pills */}
-        <div className="space-y-3">
-          {steps.map((s, i) => {
-            const isActive = active === i;
-            return (
-              <button
-                key={s.n}
-                type="button"
-                onMouseEnter={() => setActive(i)}
-                onClick={() => setActive(i)}
-                className={cn(
-                  "group flex w-full items-center gap-4 rounded-2xl border p-4 text-left transition-all",
-                  isActive
-                    ? "border-success bg-card shadow-card"
-                    : "border-border bg-card/60 hover:border-success/40 hover:bg-card",
-                )}
-              >
-                <div className={cn(
-                  "grid h-12 w-12 flex-none place-items-center rounded-xl font-display text-lg font-bold transition",
-                  isActive ? "bg-success text-success-foreground" : "bg-surface text-muted-foreground",
-                )}>
-                  {s.n}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="font-display text-base font-bold text-primary">{s.t}</div>
-                  <div className="truncate text-xs text-muted-foreground">{s.d}</div>
-                </div>
-                <ArrowRight className={cn(
-                  "h-4 w-4 flex-none transition",
-                  isActive ? "translate-x-0 text-success" : "-translate-x-1 text-muted-foreground/40",
-                )} />
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Detail panel */}
+      <div className="mt-12 grid gap-6 lg:grid-cols-2 lg:items-stretch">
+        {/* LEFT — Icon combo card */}
         <motion.div
-          key={active}
-          initial={{ opacity: 0, x: 12 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-3xl border border-border bg-card p-8 shadow-card md:p-10"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col justify-center rounded-3xl bg-success-soft p-6 sm:p-10 md:p-12"
         >
-          <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-success/10 blur-3xl" aria-hidden />
-
-          {/* Progress dots */}
-          <div className="relative flex items-center gap-2">
-            {steps.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => setActive(i)}
-                aria-label={`Schritt ${i + 1}`}
-                className={cn(
-                  "h-1.5 rounded-full transition-all",
-                  i === active ? "w-10 bg-success" : "w-4 bg-border hover:bg-success/40",
-                )}
-              />
-            ))}
-            <span className="ml-auto text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Schritt {active + 1}/3
-            </span>
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5">
+            {steps.map((s, i) => {
+              const Ic = s.icon;
+              return (
+                <Fragment key={s.n}>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.85 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex w-[28%] min-w-[88px] max-w-[140px] flex-col items-center text-center"
+                  >
+                    <div className="grid aspect-square w-full place-items-center rounded-2xl bg-card shadow-soft ring-1 ring-border/40">
+                      <Ic className="h-8 w-8 text-success sm:h-10 sm:w-10 md:h-12 md:w-12" />
+                    </div>
+                    <div className="mt-3 text-xs font-semibold text-primary sm:text-sm">
+                      {s.t}
+                    </div>
+                  </motion.div>
+                  {i < steps.length - 1 && (
+                    <span
+                      aria-hidden
+                      className="select-none text-2xl font-light text-muted-foreground sm:text-3xl"
+                    >
+                      +
+                    </span>
+                  )}
+                </Fragment>
+              );
+            })}
           </div>
+          <p className="mx-auto mt-8 max-w-sm text-center text-sm text-muted-foreground">
+            Dein Wunsch + unser Marktcheck + persönliche Betreuung — alles in einem Paket.
+          </p>
+        </motion.div>
 
-          <div className="relative mt-6 flex items-start gap-5">
-            <div className="grid h-14 w-14 flex-none place-items-center rounded-2xl bg-success text-success-foreground shadow-soft">
-              <Icon className="h-6 w-6" />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-display text-2xl font-bold text-primary md:text-3xl">{step.t}</h3>
-              <p className="mt-2 text-base leading-relaxed text-muted-foreground">{step.d}</p>
-            </div>
-          </div>
+        {/* RIGHT — Accordion card */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col rounded-3xl border border-border bg-card p-6 shadow-card sm:p-8"
+        >
+          <h3 className="font-display text-xl font-bold text-primary sm:text-2xl">
+            So läuft dein Wechsel:
+          </h3>
 
-          <ul className="relative mt-7 grid gap-3 sm:grid-cols-3">
-            {step.bullets.map((b) => (
-              <li key={b} className="flex items-start gap-2 rounded-xl bg-surface p-3 text-sm text-foreground">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-success" />
-                {b}
-              </li>
-            ))}
-          </ul>
+          <Accordion type="single" collapsible defaultValue="step-0" className="mt-4 flex-1">
+            {steps.map((s, i) => {
+              const Ic = s.icon;
+              return (
+                <AccordionItem
+                  key={s.n}
+                  value={`step-${i}`}
+                  className="border-b border-border last:border-b-0"
+                >
+                  <AccordionTrigger className="py-4 text-left hover:no-underline">
+                    <div className="flex min-w-0 items-center gap-3">
+                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-success/10 font-display text-sm font-bold text-success">
+                        {s.n}
+                      </span>
+                      <span className="min-w-0 truncate font-display text-base font-bold text-primary sm:text-lg">
+                        {s.t}
+                      </span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-5">
+                    <div className="flex items-start gap-3">
+                      <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-success text-success-foreground">
+                        <Ic className="h-5 w-5" />
+                      </div>
+                      <p className="text-sm leading-relaxed text-muted-foreground">{s.d}</p>
+                    </div>
+                    <ul className="mt-4 grid gap-2">
+                      {s.bullets.map((b) => (
+                        <li key={b} className="flex items-start gap-2 text-sm text-foreground">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                          <span className="min-w-0">{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1 text-xs font-semibold text-primary">
+                      <span className="uppercase tracking-wider text-muted-foreground">Dauer</span>
+                      <span>{s.k}</span>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })}
+          </Accordion>
 
-          <div className="relative mt-7 flex items-center justify-between border-t border-dashed border-border pt-5">
-            <div>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Dauer</div>
-              <div className="font-display text-xl font-bold text-primary">{step.k}</div>
-            </div>
-            {active < steps.length - 1 ? (
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setActive((a) => Math.min(a + 1, steps.length - 1))}
-                className="border-success/40 text-primary hover:bg-success/10"
-              >
-                Nächster Schritt <ArrowRight className="ml-1 h-4 w-4" />
-              </Button>
-            ) : (
-              <Button asChild className="bg-success text-success-foreground hover:bg-success/90">
-                <Link to="/angebot">Jetzt starten <ArrowRight className="ml-1 h-4 w-4" /></Link>
-              </Button>
-            )}
-          </div>
+          <Button
+            asChild
+            className="mt-6 w-full bg-success text-success-foreground hover:bg-success/90 sm:w-auto sm:self-start"
+          >
+            <Link to="/angebot">
+              Jetzt passendes Angebot sichern <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </section>
