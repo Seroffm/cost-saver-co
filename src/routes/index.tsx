@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import solutionAutostrom from "@/assets/solution-autostrom.jpg";
 import solutionWaermestrom from "@/assets/solution-waermestrom.jpg";
 import solutionSolar from "@/assets/solution-solar.jpg";
+import heroBg from "@/assets/hero-bg.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -61,9 +62,23 @@ function HomePage() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-success-soft via-background to-background">
-      <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-success/10 blur-3xl" aria-hidden />
+    <section className="relative overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0 -z-10">
+        <img
+          src={heroBg}
+          alt=""
+          width={1920}
+          height={1080}
+          className="h-full w-full object-cover"
+        />
+        {/* Readability overlays */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
+      </div>
+      <div className="absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-success/10 blur-3xl" aria-hidden />
       <div className="mx-auto max-w-6xl px-4 pt-12 pb-10 md:pt-20 md:pb-16">
+
         <div className="grid items-start gap-10 lg:grid-cols-[1.05fr_1fr]">
           <motion.div {...fadeUp}>
             <span className="inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3 py-1 text-xs font-semibold text-success">
