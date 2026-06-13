@@ -199,25 +199,38 @@ function QuickCalculator() {
         <form onSubmit={submit} className="mt-5 space-y-4">
           <div>
             <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Postleitzahl
+              Postleitzahl <span className="text-success">*</span>
             </label>
             <div className="relative mt-1.5">
               <MapPin className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 inputMode="numeric"
                 maxLength={5}
+                required
+                aria-required="true"
+                aria-invalid={!!plzError}
                 value={plz}
-                onChange={(e) => setPlz(e.target.value.replace(/\D/g, ""))}
+                onChange={(e) => {
+                  setPlz(e.target.value.replace(/\D/g, ""));
+                  if (plzError) setPlzError(null);
+                }}
                 placeholder="z. B. 10115"
-                className="h-12 pl-9 text-base"
+                className={cn(
+                  "h-12 pl-9 text-base",
+                  plzError && "border-destructive focus-visible:ring-destructive",
+                )}
               />
             </div>
+            {plzError && (
+              <p className="mt-1.5 text-xs font-medium text-destructive">{plzError}</p>
+            )}
           </div>
 
           <div>
             <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Jahresverbrauch · {kwh.toLocaleString("de-DE")} kWh
             </label>
+
             <div className="mt-2 flex flex-wrap gap-2">
               {kwhPresets.map((p) => (
                 <button
