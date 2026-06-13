@@ -1257,8 +1257,18 @@ function ContactSection() {
 function FinalCta() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-20">
-      <motion.div {...fadeUp} className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-success to-success/80 p-10 text-success-foreground shadow-card md:p-14">
-        <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" aria-hidden />
+      <motion.div {...fadeUp} className="relative overflow-hidden rounded-3xl p-10 text-white shadow-2xl md:p-14">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${finalCtaBg})` }}
+          aria-hidden
+        />
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/50" aria-hidden />
+        {/* Decorative glows */}
+        <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-success/20 blur-3xl" aria-hidden />
+        <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-primary/30 blur-3xl" aria-hidden />
         <div className="relative grid items-center gap-6 md:grid-cols-[1fr_auto]">
           <div>
             <h2 className="font-display text-3xl font-extrabold md:text-4xl">Bereit, weniger zu zahlen?</h2>
@@ -1269,7 +1279,7 @@ function FinalCta() {
               <Phone className="h-4 w-4" /> Lieber persönlich? <a className="font-semibold underline" href="tel:08001234567">0800 123 4567</a>
             </div>
           </div>
-          <Button asChild size="lg" className="h-12 bg-primary text-base text-primary-foreground hover:bg-primary/90">
+          <Button asChild size="lg" className="h-12 bg-white text-base font-semibold text-primary hover:bg-white/90">
             <Link to="/angebot">Persönliches Angebot erhalten <ArrowRight className="ml-1 h-4 w-4" /></Link>
           </Button>
         </div>
