@@ -1360,12 +1360,7 @@ function WechselCta() {
           <div className="relative grid items-center gap-10 md:grid-cols-[1fr_1.05fr]">
             {/* Lottie scene */}
             <div className="relative mx-auto h-64 w-full max-w-md md:h-80">
-              <DotLottieReact
-                src="https://assets-v2.lottiefiles.com/a/03a93c50-117f-11ee-84bc-ab12043c0786/Npcd1vaZXc.lottie"
-                loop
-                autoplay
-                className="h-full w-full"
-              />
+              <LazyLottie src="https://assets-v2.lottiefiles.com/a/03a93c50-117f-11ee-84bc-ab12043c0786/Npcd1vaZXc.lottie" />
             </div>
 
             {/* Form */}
