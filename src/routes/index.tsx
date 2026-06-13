@@ -4,7 +4,7 @@ import {
   ArrowRight, CheckCircle2, Zap, Flame, Layers, Briefcase,
   Home, Building2, TrendingDown, AlertTriangle, FileSearch,
   Star, ShieldCheck, BadgeCheck, Award, Phone, MapPin,
-  PhoneCall, FileSignature, PlugZap, Users, Sparkles,
+  PhoneCall, FileSignature, PlugZap, Users, Sparkles, ChevronRight,
 } from "lucide-react";
 import { Fragment, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
