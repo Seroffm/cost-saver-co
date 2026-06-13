@@ -861,11 +861,12 @@ function PriceBreakdown() {
                     r={radius}
                     fill="none"
                     stroke={s.color}
-                    strokeWidth={isActive ? stroke + 6 : stroke}
+                    strokeWidth={stroke}
                     strokeDasharray={s.dasharray}
                     strokeDashoffset={s.dashoffset}
-                    className="cursor-pointer transition-all duration-300"
-                    style={{ opacity: isActive ? 1 : 0.55 }}
+                    strokeLinecap="butt"
+                    className="cursor-pointer transition-opacity duration-300"
+                    style={{ opacity: isActive ? 1 : 0.35 }}
                     onMouseEnter={() => setActive(s.key)}
                     onClick={() => setActive(s.key)}
                   />
