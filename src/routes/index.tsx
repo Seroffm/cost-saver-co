@@ -54,6 +54,7 @@ function HomePage() {
       <RatgeberSection />
       <FaqSection />
       <ContactSection />
+      <WechselCta />
       <FinalCta />
     </SiteLayout>
   );
