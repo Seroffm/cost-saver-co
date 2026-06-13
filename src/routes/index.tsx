@@ -147,7 +147,7 @@ function QuickCalculator() {
   const [energy, setEnergy] = useState<Energy>(
     search?.start === "gas" || search?.start === "beides" ? search.start : "strom",
   );
-  const [plz, setPlz] = useState(search?.plz ?? "");
+  const [plz, setPlz] = useState((search?.plz ?? "").replace(/\D/g, "").slice(0, 5));
   const [kwh, setKwh] = useState<number>(search?.kwh ?? 2500);
   const [plzError, setPlzError] = useState<string | null>(null);
 
