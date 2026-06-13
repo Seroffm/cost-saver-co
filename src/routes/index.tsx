@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import solutionAutostrom from "@/assets/solution-autostrom.jpg";
 import solutionWaermestrom from "@/assets/solution-waermestrom.jpg";
 import solutionSolar from "@/assets/solution-solar.jpg";
+import heroBg from "@/assets/hero-bg.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
