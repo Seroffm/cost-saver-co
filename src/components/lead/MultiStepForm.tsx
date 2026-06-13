@@ -67,7 +67,13 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
     track("step_completed", { step });
     setStep((s) => Math.min(TOTAL_STEPS, s + 1));
   };
-  const back = () => setStep((s) => Math.max(1, s - 1));
+  const back = () => {
+    if (step === 1) {
+      navigate({ to: "/" });
+      return;
+    }
+    setStep((s) => Math.max(1, s - 1));
+  };
 
   async function handleSubmit() {
     if (!canContinue) return;
@@ -111,7 +117,7 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
       {error && <div className="mt-4 rounded-lg bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</div>}
 
       <div className="mt-8 flex items-center justify-between gap-3">
-        <Button type="button" variant="outline" onClick={back} disabled={step === 1 || submitting}>
+        <Button type="button" variant="outline" onClick={back} disabled={submitting}>
           <ArrowLeft className="mr-1 h-4 w-4" /> Zurück
         </Button>
         {step < TOTAL_STEPS ? (
