@@ -1358,7 +1358,7 @@ function WechselCta() {
                 }}
                 className="mt-6"
               >
-                <div className="group relative flex items-center gap-2 rounded-2xl bg-background/95 p-2 shadow-xl ring-1 ring-white/10 transition focus-within:ring-2 focus-within:ring-success">
+                <div className="group relative flex items-center gap-2 rounded-2xl p-2 shadow-xl ring-1 ring-white/10 transition focus-within:ring-2 focus-within:ring-success">
                   <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-success/10 text-success">
                     <MapPin className="h-5 w-5" />
                   </div>
