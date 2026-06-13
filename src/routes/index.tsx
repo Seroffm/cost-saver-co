@@ -62,7 +62,7 @@ function HomePage() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative isolate overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0 -z-10">
         <img
@@ -73,10 +73,11 @@ function Hero() {
           className="h-full w-full object-cover"
         />
         {/* Readability overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-background/10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background" />
       </div>
-      <div className="absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-success/10 blur-3xl" aria-hidden />
+      <div className="pointer-events-none absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-success/20 blur-3xl" aria-hidden />
+
       <div className="mx-auto max-w-6xl px-4 pt-12 pb-10 md:pt-20 md:pb-16">
 
         <div className="grid items-start gap-10 lg:grid-cols-[1.05fr_1fr]">
