@@ -43,10 +43,13 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Bei Seiten-Reload zurück zur Startseite (vor Schritt 1)
+    // Nur wenn die Angebotsseite selbst neu geladen wurde, zurück zur Startseite.
+    // Nach einem Reload auf der Startseite bleibt `navigation.type` ebenfalls "reload";
+    // deshalb prüfen wir zusätzlich die ursprünglich geladene Dokument-URL.
     try {
       const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
-      if (nav?.type === "reload") {
+      const initialPath = nav?.name ? new URL(nav.name).pathname : window.location.pathname;
+      if (nav?.type === "reload" && initialPath === "/angebot") {
         sessionStorage.removeItem(STORAGE_KEY);
         navigate({ to: "/", search: {} as never });
         return;
