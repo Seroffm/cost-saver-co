@@ -229,12 +229,19 @@ export function Header() {
                 onFocus={() => (n.dropdown ? open(n.label) : scheduleClose())}
                 className="relative"
               >
+                {isOpen && (
+                  <motion.span
+                    layoutId="nav-pill"
+                    transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                    className="absolute inset-0 -z-0 rounded-full bg-muted"
+                    aria-hidden
+                  />
+                )}
                 <Link
                   to={n.to}
                   className={cn(
-                    "inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm transition",
+                    "relative z-10 inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm transition-colors",
                     n.highlight ? "font-bold text-primary" : "font-medium text-primary hover:text-success",
-                    isOpen && "bg-muted text-primary",
                   )}
                   activeProps={{ className: "font-bold text-primary" }}
                 >
@@ -253,11 +260,10 @@ export function Header() {
             );
           })}
 
-          {/* Floating dropdown card */}
+          {/* Floating dropdown card — persistent shell so switching slides instead of fading */}
           <AnimatePresence>
             {activeItem?.dropdown && (
               <motion.div
-                key={activeItem.label}
                 initial={{ opacity: 0, y: -6, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -6, scale: 0.98 }}
@@ -266,61 +272,65 @@ export function Header() {
                 onMouseLeave={scheduleClose}
                 className="absolute right-0 top-full z-50 mt-2 w-[820px] max-w-[calc(100vw-2rem)] origin-top"
               >
-                {/* Caret */}
-                <div
+                {/* Caret — slides smoothly between triggers */}
+                <motion.div
                   className="absolute -top-1.5 h-3 w-3 rotate-45 bg-background border-l border-t border-border"
-                  style={{ left: Math.max(16, Math.min(caretLeft - 6, 820 - 24)) }}
+                  animate={{ left: Math.max(16, Math.min(caretLeft - 6, 820 - 24)) }}
+                  transition={{ type: "spring", stiffness: 380, damping: 32 }}
                   aria-hidden
                 />
                 <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-2xl">
-                  <div className="grid grid-cols-[minmax(220px,1fr)_1.6fr]">
-                    {/* Left column */}
-                    <div className="bg-background p-7">
-                      <div className="text-base font-bold text-primary">{activeItem.dropdown.title}</div>
-                      <ul className="mt-5 space-y-3">
-                        {activeItem.dropdown.mainLinks.map((l) => (
-                          <li key={l.label}>
-                            <Link
-                              to={l.to}
-                              onClick={() => setOpenKey(null)}
-                              className="text-sm text-primary transition hover:text-success"
-                            >
-                              {l.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                      {activeItem.dropdown.secondaryLinks && activeItem.dropdown.secondaryLinks.length > 0 && (
-                        <>
-                          <div className="my-5 h-px bg-border" />
-                          <ul className="space-y-3">
-                            {activeItem.dropdown.secondaryLinks.map((l) => (
-                              <li key={l.label}>
-                                <Link
-                                  to={l.to}
-                                  onClick={() => setOpenKey(null)}
-                                  className="text-sm text-primary transition hover:text-success"
-                                >
-                                  {l.label}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </>
-                      )}
-                    </div>
+                  <AnimatePresence mode="popLayout" initial={false}>
+                    <motion.div
+                      key={activeItem.label}
+                      initial={{ opacity: 0, x: 24 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -24 }}
+                      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      className="grid grid-cols-[minmax(220px,1fr)_1.6fr]"
+                    >
+                      {/* Left column */}
+                      <div className="bg-background p-7">
+                        <div className="text-base font-bold text-primary">{activeItem.dropdown.title}</div>
+                        <ul className="mt-5 space-y-3">
+                          {activeItem.dropdown.mainLinks.map((l) => (
+                            <li key={l.label}>
+                              <Link
+                                to={l.to}
+                                onClick={() => setOpenKey(null)}
+                                className="text-sm text-primary transition hover:text-success"
+                              >
+                                {l.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                        {activeItem.dropdown.secondaryLinks && activeItem.dropdown.secondaryLinks.length > 0 && (
+                          <>
+                            <div className="my-5 h-px bg-border" />
+                            <ul className="space-y-3">
+                              {activeItem.dropdown.secondaryLinks.map((l) => (
+                                <li key={l.label}>
+                                  <Link
+                                    to={l.to}
+                                    onClick={() => setOpenKey(null)}
+                                    className="text-sm text-primary transition hover:text-success"
+                                  >
+                                    {l.label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </>
+                        )}
+                      </div>
 
-                    {/* Right column — articles */}
-                    <div className="bg-muted/60 p-7">
-                      <div className="grid grid-cols-2 gap-5">
-                        {activeItem.dropdown.articles?.map((a, i) => (
-                          <motion.div
-                            key={a.title}
-                            initial={{ opacity: 0, y: 6 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.25, delay: 0.04 * i }}
-                          >
+                      {/* Right column — articles */}
+                      <div className="bg-muted/60 p-7">
+                        <div className="grid grid-cols-2 gap-5">
+                          {activeItem.dropdown.articles?.map((a) => (
                             <Link
+                              key={a.title}
                               to={a.to}
                               onClick={() => setOpenKey(null)}
                               className="group block"
@@ -328,6 +338,7 @@ export function Header() {
                               <div className="overflow-hidden rounded-lg bg-background">
                                 <img
                                   src={a.image}
+
                                   alt=""
                                   className="h-28 w-full object-cover transition duration-500 group-hover:scale-105"
                                 />
