@@ -62,25 +62,22 @@ function HomePage() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden">
-      {/* Background image */}
-      <div className="absolute inset-0 -z-10">
-        <img
-          src={heroBg}
-          alt=""
-          width={1920}
-          height={1080}
-          className="h-full w-full object-cover"
-        />
-        {/* Readability overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
-      </div>
-      <div className="absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-success/10 blur-3xl" aria-hidden />
+    <section
+      className="relative isolate overflow-hidden"
+      style={{
+        backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 38%, rgba(255,255,255,0.4) 70%, rgba(255,255,255,0.15) 100%), linear-gradient(to bottom, rgba(255,255,255,0) 60%, rgba(255,255,255,0.95) 100%), url(${heroBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="pointer-events-none absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-success/20 blur-3xl" aria-hidden />
+
+
+
       <div className="mx-auto max-w-6xl px-4 pt-12 pb-10 md:pt-20 md:pb-16">
 
         <div className="grid items-start gap-10 lg:grid-cols-[1.05fr_1fr]">
-          <motion.div {...fadeUp}>
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={fadeUp.transition}>
             <span className="inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3 py-1 text-xs font-semibold text-success">
               <BadgeCheck className="h-3.5 w-3.5" /> TÜV-geprüfte Anbieter · 100 % kostenlos
             </span>
@@ -121,7 +118,7 @@ function Hero() {
           </motion.div>
 
           {/* Quick Calculator (Check24-Style) */}
-          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }}>
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ ...fadeUp.transition, delay: 0.1 }}>
             <QuickCalculator />
           </motion.div>
         </div>
