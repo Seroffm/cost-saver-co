@@ -47,6 +47,7 @@ function HomePage() {
       <BenefitsSection />
       <AudienceSection />
       <StatsBand />
+      <PriceBreakdown />
       <Testimonials />
       <MoreSolutions />
       <RatgeberSection />
@@ -685,7 +686,180 @@ function StatsBand() {
   );
 }
 
+/* ----------------------------- PRICE BREAKDOWN ---------------------------- */
+
+type Slice = {
+  key: string;
+  label: string;
+  short: string;
+  value: number;
+  color: string;
+  desc: string;
+};
+
+function PriceBreakdown() {
+  const slices: Slice[] = [
+    {
+      key: "beschaffung",
+      label: "Beschaffung & Vertrieb",
+      short: "Energiekosten",
+      value: 43,
+      color: "hsl(var(--success))",
+      desc: "Einkauf der Energie an der Strombörse, Vertrieb, Service und Marge des Versorgers. Hier liegt das größte Sparpotenzial beim Anbieterwechsel.",
+    },
+    {
+      key: "netz",
+      label: "Netzentgelte & Messung",
+      short: "Netz & Messung",
+      value: 26,
+      color: "#1f3a2e",
+      desc: "Regulierte Gebühren für die Nutzung der Strom- und Gasnetze sowie Messstellenbetrieb. Fix pro Region — unabhängig vom Anbieter.",
+    },
+    {
+      key: "steuern",
+      label: "Steuern, Abgaben & Umlagen",
+      short: "Steuern & Abgaben",
+      value: 31,
+      color: "#e8a64b",
+      desc: "Stromsteuer, Konzessionsabgabe, KWKG-, Offshore- und §19-Umlage sowie Mehrwertsteuer. Gesetzlich festgelegt, für alle Anbieter gleich.",
+    },
+  ];
+
+  const [active, setActive] = useState<string>("beschaffung");
+  const current = slices.find((s) => s.key === active) ?? slices[0];
+
+  // Donut geometry
+  const size = 320;
+  const stroke = 46;
+  const radius = (size - stroke) / 2;
+  const cx = size / 2;
+  const cy = size / 2;
+  const circumference = 2 * Math.PI * radius;
+
+  let offset = 0;
+  const segments = slices.map((s) => {
+    const len = (s.value / 100) * circumference;
+    const seg = {
+      ...s,
+      dasharray: `${len} ${circumference - len}`,
+      dashoffset: -offset,
+    };
+    offset += len;
+    return seg;
+  });
+
+  return (
+    <section className="bg-muted/40 py-20 md:py-28">
+      <div className="container mx-auto max-w-6xl px-4">
+        <motion.div {...fadeUp} className="mx-auto mb-12 max-w-2xl text-center">
+          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-success">
+            Transparenz
+          </div>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-5xl">
+            Wie setzt sich dein Strompreis zusammen?
+          </h2>
+          <p className="mt-4 text-base text-muted-foreground md:text-lg">
+            Nur ein Bruchteil deiner Stromrechnung geht an den Anbieter selbst — der Rest sind Netze und Steuern. Genau hier setzen wir an.
+          </p>
+        </motion.div>
+
+        <motion.div
+          {...fadeUp}
+          className="grid items-center gap-12 rounded-3xl border border-border bg-background p-6 md:grid-cols-2 md:p-12"
+        >
+          {/* Donut */}
+          <div className="relative mx-auto flex aspect-square w-full max-w-[360px] items-center justify-center">
+            <svg viewBox={`0 0 ${size} ${size}`} className="h-full w-full -rotate-90">
+              <circle
+                cx={cx}
+                cy={cy}
+                r={radius}
+                fill="none"
+                stroke="hsl(var(--muted))"
+                strokeWidth={stroke}
+              />
+              {segments.map((s) => {
+                const isActive = s.key === active;
+                return (
+                  <circle
+                    key={s.key}
+                    cx={cx}
+                    cy={cy}
+                    r={radius}
+                    fill="none"
+                    stroke={s.color}
+                    strokeWidth={isActive ? stroke + 6 : stroke}
+                    strokeDasharray={s.dasharray}
+                    strokeDashoffset={s.dashoffset}
+                    className="cursor-pointer transition-all duration-300"
+                    style={{ opacity: isActive ? 1 : 0.55 }}
+                    onMouseEnter={() => setActive(s.key)}
+                    onClick={() => setActive(s.key)}
+                  />
+                );
+              })}
+            </svg>
+            <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
+              <div className="text-5xl font-bold tracking-tight md:text-6xl">
+                {current.value}<span className="text-2xl md:text-3xl">%</span>
+              </div>
+              <div className="mt-1 max-w-[55%] text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                {current.short}
+              </div>
+            </div>
+          </div>
+
+          {/* Legend / details */}
+          <div>
+            <div className="space-y-2">
+              {slices.map((s) => {
+                const isActive = s.key === active;
+                return (
+                  <button
+                    key={s.key}
+                    type="button"
+                    onMouseEnter={() => setActive(s.key)}
+                    onClick={() => setActive(s.key)}
+                    className={cn(
+                      "group flex w-full items-center gap-4 rounded-2xl border px-4 py-3 text-left transition-all",
+                      isActive
+                        ? "border-foreground/15 bg-muted/60 shadow-sm"
+                        : "border-transparent hover:bg-muted/40"
+                    )}
+                  >
+                    <span
+                      className="h-3 w-3 shrink-0 rounded-full"
+                      style={{ background: s.color }}
+                    />
+                    <span className="flex-1 text-sm font-semibold md:text-base">{s.label}</span>
+                    <span className="text-base font-bold tabular-nums md:text-lg">{s.value}%</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <motion.div
+              key={current.key}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="mt-6 rounded-2xl bg-muted/50 p-5 text-sm leading-relaxed text-muted-foreground md:text-base"
+            >
+              {current.desc}
+            </motion.div>
+
+            <p className="mt-6 text-xs text-muted-foreground">
+              Beispielhafte Aufteilung für einen Jahresverbrauch von 2.900 kWh. Anteile variieren je nach Tarif und Netzgebiet.
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 /* ------------------------------- TESTIMONIALS ----------------------------- */
+
 
 function Testimonials() {
   const items = [
