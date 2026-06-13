@@ -20,7 +20,16 @@ import solutionSolar from "@/assets/solution-solar.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
 import finalCtaBg from "@/assets/final-cta-bg.jpg";
 
+import { z } from "zod";
+
+const homeSearchSchema = z.object({
+  start: z.enum(["strom", "gas", "beides"]).optional(),
+  plz: z.string().optional(),
+  kwh: z.coerce.number().int().positive().optional(),
+}).optional();
+
 export const Route = createFileRoute("/")({
+  validateSearch: (s) => homeSearchSchema.parse(s) ?? {},
   head: () => ({
     meta: [
       { title: "EnergieClever – Strom & Gas vergleichen, bis zu 850 € sparen" },
@@ -31,6 +40,7 @@ export const Route = createFileRoute("/")({
   }),
   component: HomePage,
 });
+
 
 const fadeUp = {
   initial: { opacity: 0, y: 16 },
