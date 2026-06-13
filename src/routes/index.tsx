@@ -1067,6 +1067,135 @@ function FaqSection() {
   );
 }
 
+/* -------------------------------- CONTACT --------------------------------- */
+
+function ContactSection() {
+  const cards = [
+    {
+      title: (
+        <>Du hast Fragen zu deinem <span className="text-success">Strom- oder Gasvertrag</span>?</>
+      ),
+      items: [
+        {
+          icon: PhoneCall,
+          text: (
+            <>
+              <div>Ruf uns an Montag bis Freitag, 9:00 bis 17:00 Uhr</div>
+              <a href="tel:08004008010" className="font-semibold text-success underline-offset-4 hover:underline">0800 400 8010</a>
+            </>
+          ),
+        },
+        {
+          icon: FileSignature,
+          text: (
+            <>
+              <div>Schreib uns jederzeit</div>
+              <a href="mailto:hallo@energieclever.de" className="font-semibold text-success underline-offset-4 hover:underline">hallo@energieclever.de</a>
+            </>
+          ),
+        },
+        {
+          icon: FileSearch,
+          text: (
+            <>
+              <div>Oft gestellte Fragen (FAQ)</div>
+              <a href="#faq" className="font-semibold text-success underline-offset-4 hover:underline">Zu den Antworten</a>
+            </>
+          ),
+        },
+      ],
+      footer: (
+        <p className="mt-6 text-sm text-primary-foreground/80">
+          Bevor du uns kontaktierst, lies dir gerne unsere Gedanken zu einem{" "}
+          <a href="#" className="font-semibold text-success underline-offset-4 hover:underline">respektvollen Service</a> durch.
+        </p>
+      ),
+    },
+    {
+      title: (
+        <>Du hast Fragen zu deiner <span className="text-success">Wärmepumpe</span>?</>
+      ),
+      items: [
+        {
+          icon: PhoneCall,
+          text: (
+            <>
+              <div>Ruf uns an Montag bis Freitag, 9:00 bis 17:00 Uhr</div>
+              <a href="tel:08938031600" className="font-semibold text-success underline-offset-4 hover:underline">089 38031 600</a>
+            </>
+          ),
+        },
+        {
+          icon: FileSignature,
+          text: (
+            <>
+              <div>Schreib uns jederzeit:</div>
+              <a href="mailto:waermepumpe@energieclever.de" className="font-semibold text-success underline-offset-4 hover:underline">waermepumpe@energieclever.de</a>
+            </>
+          ),
+        },
+        {
+          icon: Users,
+          text: (
+            <>
+              <div>Sprich direkt mit uns auf unseren Wärmepumpen-Events.</div>
+              <a href="#" className="font-semibold text-success underline-offset-4 hover:underline">Unsere Eventübersicht findest du hier.</a>
+            </>
+          ),
+        },
+        {
+          icon: FileSearch,
+          text: (
+            <>
+              <div>Oft gestellte Fragen (FAQ)</div>
+              <a href="#faq" className="font-semibold text-success underline-offset-4 hover:underline">Zu den Antworten</a>
+            </>
+          ),
+        },
+      ],
+      footer: (
+        <p className="mt-6 text-sm text-primary-foreground/80">
+          Unsere Wärmepumpen-AGB findest du{" "}
+          <a href="#" className="font-semibold text-success underline-offset-4 hover:underline">hier.</a>
+        </p>
+      ),
+    },
+  ];
+
+  return (
+    <section className="bg-background py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-4">
+        <motion.div {...fadeUp} className="grid gap-6 md:grid-cols-2">
+          {cards.map((c, i) => (
+            <div
+              key={i}
+              className="rounded-3xl bg-primary p-8 text-primary-foreground shadow-card md:p-10"
+            >
+              <h3 className="font-display text-xl font-bold md:text-2xl">{c.title}</h3>
+              <ul className="mt-6 space-y-5">
+                {c.items.map((it, j) => {
+                  const Icon = it.icon;
+                  return (
+                    <li key={j} className="flex gap-4">
+                      <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-success/15 text-success">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div className="min-w-0 text-sm leading-relaxed text-primary-foreground/90">
+                        {it.text}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+              {c.footer}
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 /* -------------------------------- FINAL CTA ------------------------------- */
 
 function FinalCta() {
