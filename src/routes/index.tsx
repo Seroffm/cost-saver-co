@@ -63,9 +63,12 @@ function HomePage() {
 function Hero() {
   return (
     <section
-      className="relative isolate overflow-hidden bg-cover bg-center"
+      className="relative isolate overflow-hidden"
       style={{
-        backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.05) 100%), url(${heroBg})`,
+        backgroundImage: `url(${heroBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundColor: "red",
       }}
     >
       <div className="pointer-events-none absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-success/20 blur-3xl" aria-hidden />
