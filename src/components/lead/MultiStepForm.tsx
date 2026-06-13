@@ -69,7 +69,15 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
   };
   const back = () => {
     if (step === 1) {
-      navigate({ to: "/" });
+      const kwh = data.stromVerbrauchKwh ?? data.gasVerbrauchKwh;
+      navigate({
+        to: "/",
+        search: {
+          start: data.energyType,
+          plz: data.plz,
+          kwh: kwh,
+        } as never,
+      });
       return;
     }
     setStep((s) => Math.max(1, s - 1));
