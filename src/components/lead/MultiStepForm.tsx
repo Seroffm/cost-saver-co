@@ -24,6 +24,7 @@ type Draft = Partial<LeadInput> & { ziele: LeadInput["ziele"] };
 
 const STORAGE_KEY = "lead-draft-v1";
 const TOTAL_STEPS = 8;
+let handledOfferReloadRedirect = false;
 
 const initial: Draft = { ziele: [] };
 
@@ -48,7 +49,8 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
     try {
       const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
       const initialPath = nav?.name ? new URL(nav.name).pathname : window.location.pathname;
-      if (nav?.type === "reload" && initialPath === "/angebot") {
+      if (!handledOfferReloadRedirect && nav?.type === "reload" && initialPath === "/angebot") {
+        handledOfferReloadRedirect = true;
         sessionStorage.removeItem(STORAGE_KEY);
         navigate({ to: "/", search: {} as never });
         return;
