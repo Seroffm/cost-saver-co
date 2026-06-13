@@ -20,7 +20,16 @@ import solutionSolar from "@/assets/solution-solar.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
 import finalCtaBg from "@/assets/final-cta-bg.jpg";
 
+import { z } from "zod";
+
+const homeSearchSchema = z.object({
+  start: z.enum(["strom", "gas", "beides", "gewerbe"]).optional(),
+  plz: z.string().optional(),
+  kwh: z.coerce.number().int().positive().optional(),
+}).optional();
+
 export const Route = createFileRoute("/")({
+  validateSearch: (s) => homeSearchSchema.parse(s) ?? {},
   head: () => ({
     meta: [
       { title: "EnergieClever – Strom & Gas vergleichen, bis zu 850 € sparen" },
@@ -31,6 +40,7 @@ export const Route = createFileRoute("/")({
   }),
   component: HomePage,
 });
+
 
 const fadeUp = {
   initial: { opacity: 0, y: 16 },
@@ -133,10 +143,14 @@ function Hero() {
 
 function QuickCalculator() {
   const navigate = useNavigate();
-  const [energy, setEnergy] = useState<Energy>("strom");
-  const [plz, setPlz] = useState("");
-  const [kwh, setKwh] = useState<number>(2500);
+  const search = Route.useSearch() as { start?: Energy; plz?: string; kwh?: number } | undefined;
+  const [energy, setEnergy] = useState<Energy>(
+    search?.start === "gas" || search?.start === "beides" ? search.start : "strom",
+  );
+  const [plz, setPlz] = useState(search?.plz ?? "");
+  const [kwh, setKwh] = useState<number>(search?.kwh ?? 2500);
   const [plzError, setPlzError] = useState<string | null>(null);
+
 
   const tabs: { k: Energy; label: string; icon: typeof Zap }[] = [
     { k: "strom", label: "Strom", icon: Zap },
