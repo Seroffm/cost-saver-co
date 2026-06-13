@@ -51,6 +51,40 @@ const fadeUp = {
 
 type Energy = "strom" | "gas" | "beides";
 
+function LazyLottie({ src }: { src: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setVisible(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "200px" },
+    );
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!visible) return;
+    const idle = (window as unknown as { requestIdleCallback?: (cb: () => void) => number }).requestIdleCallback;
+    if (idle) idle(() => setReady(true));
+    else setTimeout(() => setReady(true), 150);
+  }, [visible]);
+
+  return (
+    <div ref={ref} className="h-full w-full">
+      {ready && <DotLottieReact src={src} loop autoplay className="h-full w-full" />}
+    </div>
+  );
+}
+
 function HomePage() {
   return (
     <SiteLayout>
