@@ -328,13 +328,6 @@ function HowItWorks() {
                   transition={{ duration: 0.4, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
                   className="relative flex flex-col items-center text-center"
                 >
-                  {/* connecting line */}
-                  {i < steps.length - 1 && (
-                    <div
-                      aria-hidden
-                      className="absolute left-[calc(50%+24px)] top-[26px] hidden h-[2px] w-[calc(100%-48px)] bg-success/20 sm:block"
-                    />
-                  )}
                   <div className="relative grid aspect-square w-full max-w-[110px] place-items-center rounded-2xl bg-card shadow-soft ring-1 ring-border/40">
                     <Ic className="h-7 w-7 text-success sm:h-9 sm:w-9 md:h-10 md:w-10" />
                   </div>
