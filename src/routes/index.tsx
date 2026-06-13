@@ -316,7 +316,7 @@ function HowItWorks() {
             {steps.map((s, i) => {
               const Ic = s.icon;
               return (
-                <React.Fragment key={s.n}>
+                <Fragment key={s.n}>
                   <motion.div
                     initial={{ opacity: 0, scale: 0.85 }}
                     whileInView={{ opacity: 1, scale: 1 }}
@@ -339,7 +339,7 @@ function HowItWorks() {
                       +
                     </span>
                   )}
-                </React.Fragment>
+                </Fragment>
               );
             })}
           </div>
