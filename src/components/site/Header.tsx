@@ -3,7 +3,9 @@ import { Zap, Phone, UserPlus, Smartphone, User, ChevronDown, Menu, X } from "lu
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-const mainNav = [
+type NavItem = { to: string; label: string; hasDropdown: boolean; highlight?: boolean };
+
+const mainNav: NavItem[] = [
   { to: "/angebot", label: "Strom", hasDropdown: true },
   { to: "/angebot", label: "Gas", hasDropdown: true },
   { to: "/angebot", label: "Strom + Gas", hasDropdown: true, highlight: true },
@@ -11,7 +13,7 @@ const mainNav = [
   { to: "/faq", label: "Wissen", hasDropdown: false },
   { to: "/kontakt", label: "Service", hasDropdown: true },
   { to: "/ueber-uns", label: "Über uns", hasDropdown: true },
-] as const;
+];
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
