@@ -334,9 +334,9 @@ function HowItWorks() {
                   {i < steps.length - 1 && (
                     <span
                       aria-hidden
-                      className="select-none text-2xl font-light text-muted-foreground sm:text-3xl"
+                      className="flex shrink-0 items-center justify-center text-muted-foreground"
                     >
-                      +
+                      <ChevronRight className="h-6 w-6 sm:h-7 sm:w-7" strokeWidth={1.5} />
                     </span>
                   )}
                 </Fragment>
