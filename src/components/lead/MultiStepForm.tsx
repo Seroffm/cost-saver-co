@@ -243,12 +243,12 @@ function Step3({ data, set }: StepProps) {
       <StepHead title="Wo wohnen Sie?" sub="Tarife sind regional unterschiedlich – wir brauchen mindestens Ihre PLZ." />
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <Label htmlFor="plz">Postleitzahl *</Label>
+          <Label htmlFor="plz">Postleitzahl <span className="text-success">*</span></Label>
           <Input id="plz" inputMode="numeric" maxLength={5} placeholder="z.B. 10115"
             value={data.plz ?? ""} onChange={(e) => set("plz", e.target.value.replace(/\D/g, ""))} />
         </div>
         <div>
-          <Label htmlFor="ort">Ort *</Label>
+          <Label htmlFor="ort">Ort <span className="text-success">*</span></Label>
           <Input id="ort" placeholder="z.B. Berlin" value={data.ort ?? ""} onChange={(e) => set("ort", e.target.value)} />
         </div>
         <div className="sm:col-span-2">
@@ -371,10 +371,10 @@ function Step7({ data, set }: StepProps) {
     <Field>
       <StepHead title="Wie können wir Sie erreichen?" sub="Wir melden uns persönlich mit Ihrem Angebot." />
       <div className="grid gap-4 sm:grid-cols-2">
-        <div><Label htmlFor="vn">Vorname *</Label><Input id="vn" value={data.vorname ?? ""} onChange={(e) => set("vorname", e.target.value)} /></div>
-        <div><Label htmlFor="nn">Nachname *</Label><Input id="nn" value={data.nachname ?? ""} onChange={(e) => set("nachname", e.target.value)} /></div>
-        <div><Label htmlFor="em">E-Mail *</Label><Input id="em" type="email" value={data.email ?? ""} onChange={(e) => set("email", e.target.value)} /></div>
-        <div><Label htmlFor="tel">Telefon *</Label><Input id="tel" type="tel" value={data.telefon ?? ""} onChange={(e) => set("telefon", e.target.value)} /></div>
+        <div><Label htmlFor="vn">Vorname <span className="text-success">*</span></Label><Input id="vn" value={data.vorname ?? ""} onChange={(e) => set("vorname", e.target.value)} /></div>
+        <div><Label htmlFor="nn">Nachname <span className="text-success">*</span></Label><Input id="nn" value={data.nachname ?? ""} onChange={(e) => set("nachname", e.target.value)} /></div>
+        <div><Label htmlFor="em">E-Mail <span className="text-success">*</span></Label><Input id="em" type="email" value={data.email ?? ""} onChange={(e) => set("email", e.target.value)} /></div>
+        <div><Label htmlFor="tel">Telefon <span className="text-success">*</span></Label><Input id="tel" type="tel" value={data.telefon ?? ""} onChange={(e) => set("telefon", e.target.value)} /></div>
         <div className="sm:col-span-2">
           <Label>Beste Erreichbarkeit</Label>
           <div className="mt-2 flex flex-wrap gap-2">
