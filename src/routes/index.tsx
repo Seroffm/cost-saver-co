@@ -18,6 +18,7 @@ import solutionAutostrom from "@/assets/solution-autostrom.jpg";
 import solutionWaermestrom from "@/assets/solution-waermestrom.jpg";
 import solutionSolar from "@/assets/solution-solar.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
+import finalCtaBg from "@/assets/final-cta-bg.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
