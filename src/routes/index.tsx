@@ -681,22 +681,75 @@ function AudienceSection() {
 
 function StatsBand() {
   const stats = [
-    { v: "50.000+", l: "Erfolgreiche Wechsel" },
-    { v: "380 €", l: "Ø Ersparnis pro Jahr" },
-    { v: "4,8 ★", l: "Kundenzufriedenheit" },
-    { v: "100 %", l: "Kostenlos & unverbindlich" },
+    { v: "50.000+", l: "Erfolgreiche Wechsel", sub: "seit 2018", icon: Users },
+    { v: "380 €", l: "Ø Ersparnis pro Jahr", sub: "pro Haushalt", icon: TrendingDown },
+    { v: "4,8 ★", l: "Kundenzufriedenheit", sub: "aus 2.400+ Bewertungen", icon: Star },
+    { v: "100 %", l: "Kostenlos & unverbindlich", sub: "keine versteckten Kosten", icon: ShieldCheck },
   ];
   return (
-    <section className="relative overflow-hidden bg-primary py-16 text-primary-foreground">
-      <div className="absolute -left-20 top-0 h-72 w-72 rounded-full bg-success/20 blur-3xl" aria-hidden />
-      <div className="absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-success/10 blur-3xl" aria-hidden />
-      <div className="relative mx-auto grid max-w-6xl gap-8 px-4 md:grid-cols-4">
-        {stats.map((s) => (
-          <motion.div key={s.l} {...fadeUp} className="text-center md:text-left">
-            <div className="font-display text-4xl font-extrabold text-success md:text-5xl">{s.v}</div>
-            <div className="mt-1 text-sm opacity-80">{s.l}</div>
-          </motion.div>
-        ))}
+    <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary to-primary/95 py-20 text-primary-foreground md:py-24">
+      {/* glows */}
+      <div className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-success/25 blur-3xl" aria-hidden />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-success/15 blur-3xl" aria-hidden />
+      {/* grid pattern */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.07]"
+        style={{
+          backgroundImage:
+            "linear-gradient(hsl(var(--primary-foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary-foreground)) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
+        }}
+        aria-hidden
+      />
+
+      <div className="relative mx-auto max-w-6xl px-4">
+        <motion.div {...fadeUp} className="mx-auto max-w-2xl text-center">
+          <div className="inline-flex items-center gap-2 rounded-full bg-success/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-success ring-1 ring-success/30">
+            <Sparkles className="h-3.5 w-3.5" /> Zahlen, die überzeugen
+          </div>
+          <h2 className="mt-5 font-display text-3xl font-extrabold md:text-5xl">
+            Tausende Haushalte sparen <span className="text-success">bereits jetzt</span>
+          </h2>
+          <p className="mt-3 text-sm text-primary-foreground/70 md:text-base">
+            Echte Ergebnisse von echten Kund:innen – transparent und nachprüfbar.
+          </p>
+        </motion.div>
+
+        <div className="relative mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <motion.div
+                key={s.l}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -4 }}
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition hover:border-success/40 hover:bg-white/[0.08]"
+              >
+                <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-success/20 blur-2xl opacity-0 transition group-hover:opacity-100" aria-hidden />
+                <div className="relative flex items-start justify-between">
+                  <div className="grid h-11 w-11 place-items-center rounded-xl bg-success/15 text-success ring-1 ring-success/30">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-primary-foreground/40">
+                    0{i + 1}
+                  </span>
+                </div>
+                <div className="relative mt-6 font-display text-4xl font-extrabold leading-none text-success md:text-5xl">
+                  {s.v}
+                </div>
+                <div className="relative mt-2 text-sm font-semibold text-primary-foreground">
+                  {s.l}
+                </div>
+                <div className="relative mt-1 text-xs text-primary-foreground/60">
+                  {s.sub}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
