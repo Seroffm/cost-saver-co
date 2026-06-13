@@ -6,7 +6,7 @@ import {
   Star, ShieldCheck, BadgeCheck, Award, Phone, MapPin,
   PhoneCall, FileSignature, PlugZap, Users, Sparkles, ChevronRight,
 } from "lucide-react";
-import { Fragment, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
