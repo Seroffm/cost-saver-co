@@ -109,6 +109,22 @@ function HomePage() {
 /* ---------------------------------- HERO ---------------------------------- */
 
 function Hero() {
+  const [bgReady, setBgReady] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = heroBg;
+    if (img.decode) {
+      img.decode().then(() => setBgReady(true)).catch(() => setBgReady(true));
+    } else {
+      img.onload = () => setBgReady(true);
+      img.onerror = () => setBgReady(true);
+    }
+    // Failsafe
+    const t = setTimeout(() => setBgReady(true), 600);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <section
       className="relative isolate overflow-hidden"
@@ -120,12 +136,13 @@ function Hero() {
     >
       <div className="pointer-events-none absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-success/20 blur-3xl" aria-hidden />
 
-
-
       <div className="mx-auto max-w-6xl px-4 pt-12 pb-10 md:pt-20 md:pb-16">
-
         <div className="grid items-start gap-10 lg:grid-cols-[1.05fr_1fr]">
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={fadeUp.transition}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: bgReady ? 1 : 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
             <span className="inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3 py-1 text-xs font-semibold text-success">
               <BadgeCheck className="h-3.5 w-3.5" /> TÜV-geprüfte Anbieter · 100 % kostenlos
             </span>
@@ -166,7 +183,11 @@ function Hero() {
           </motion.div>
 
           {/* Quick Calculator (Check24-Style) */}
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ ...fadeUp.transition, delay: 0.1 }}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: bgReady ? 1 : 0 }}
+            transition={{ duration: 0.4, delay: 0.08, ease: "easeOut" }}
+          >
             <QuickCalculator />
           </motion.div>
         </div>
