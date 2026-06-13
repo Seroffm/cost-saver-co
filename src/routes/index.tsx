@@ -143,10 +143,14 @@ function Hero() {
 
 function QuickCalculator() {
   const navigate = useNavigate();
-  const [energy, setEnergy] = useState<Energy>("strom");
-  const [plz, setPlz] = useState("");
-  const [kwh, setKwh] = useState<number>(2500);
+  const search = Route.useSearch() as { start?: Energy; plz?: string; kwh?: number } | undefined;
+  const [energy, setEnergy] = useState<Energy>(
+    search?.start === "gas" || search?.start === "beides" ? search.start : "strom",
+  );
+  const [plz, setPlz] = useState(search?.plz ?? "");
+  const [kwh, setKwh] = useState<number>(search?.kwh ?? 2500);
   const [plzError, setPlzError] = useState<string | null>(null);
+
 
   const tabs: { k: Energy; label: string; icon: typeof Zap }[] = [
     { k: "strom", label: "Strom", icon: Zap },
