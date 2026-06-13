@@ -136,6 +136,7 @@ function QuickCalculator() {
   const [energy, setEnergy] = useState<Energy>("strom");
   const [plz, setPlz] = useState("");
   const [kwh, setKwh] = useState<number>(2500);
+  const [plzError, setPlzError] = useState<string | null>(null);
 
   const tabs: { k: Energy; label: string; icon: typeof Zap }[] = [
     { k: "strom", label: "Strom", icon: Zap },
@@ -149,11 +150,17 @@ function QuickCalculator() {
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (!/^\d{5}$/.test(plz)) {
+      setPlzError("Bitte gib deine 5-stellige Postleitzahl ein.");
+      return;
+    }
+    setPlzError(null);
     navigate({
       to: "/angebot",
-      search: { start: energy, plz: plz || undefined, kwh: kwh || undefined } as never,
+      search: { start: energy, plz, kwh: kwh || undefined } as never,
     });
   }
+
 
   return (
     <div className="rounded-2xl border border-border bg-card p-1.5 shadow-hero">
