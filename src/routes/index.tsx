@@ -196,7 +196,7 @@ function QuickCalculator() {
           })}
         </div>
 
-        <form onSubmit={submit} className="mt-5 space-y-4">
+        <form onSubmit={submit} noValidate className="mt-5 space-y-4">
           <div>
             <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Postleitzahl <span className="text-success">*</span>
