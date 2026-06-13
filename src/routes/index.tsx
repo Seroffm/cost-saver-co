@@ -65,10 +65,9 @@ function Hero() {
     <section
       className="relative isolate overflow-hidden"
       style={{
-        backgroundImage: `url(${heroBg})`,
+        backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 38%, rgba(255,255,255,0.4) 70%, rgba(255,255,255,0.15) 100%), linear-gradient(to bottom, rgba(255,255,255,0) 60%, rgba(255,255,255,0.95) 100%), url(${heroBg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundColor: "red",
       }}
     >
       <div className="pointer-events-none absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-success/20 blur-3xl" aria-hidden />
