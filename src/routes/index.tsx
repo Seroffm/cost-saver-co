@@ -206,7 +206,6 @@ function QuickCalculator() {
               <Input
                 inputMode="numeric"
                 maxLength={5}
-                required
                 aria-required="true"
                 aria-invalid={!!plzError}
                 value={plz}
