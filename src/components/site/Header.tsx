@@ -347,15 +347,16 @@ export function Header() {
                                 {a.title}
                               </div>
                             </Link>
-                          </motion.div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
+
         </nav>
       </div>
 
