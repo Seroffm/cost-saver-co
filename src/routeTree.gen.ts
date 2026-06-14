@@ -41,6 +41,7 @@ import { Route as MitarbeiterKundenRouteImport } from './routes/mitarbeiter.kund
 import { Route as MitarbeiterEinstellungenRouteImport } from './routes/mitarbeiter.einstellungen'
 import { Route as MitarbeiterDashboardRouteImport } from './routes/mitarbeiter.dashboard'
 import { Route as MitarbeiterAnbieterRouteImport } from './routes/mitarbeiter.anbieter'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as MitarbeiterLeadsIdRouteImport } from './routes/mitarbeiter.leads.$id'
 
 const WissenRoute = WissenRouteImport.update({
@@ -205,6 +206,11 @@ const MitarbeiterAnbieterRoute = MitarbeiterAnbieterRouteImport.update({
   path: '/anbieter',
   getParentRoute: () => MitarbeiterRoute,
 } as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MitarbeiterLeadsIdRoute = MitarbeiterLeadsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -231,6 +237,7 @@ export interface FileRoutesByFullPath {
   '/ueber-uns': typeof UeberUnsRoute
   '/widerruf': typeof WiderrufRoute
   '/wissen': typeof WissenRouteWithChildren
+  '/api/chat': typeof ApiChatRoute
   '/mitarbeiter/anbieter': typeof MitarbeiterAnbieterRoute
   '/mitarbeiter/dashboard': typeof MitarbeiterDashboardRoute
   '/mitarbeiter/einstellungen': typeof MitarbeiterEinstellungenRoute
@@ -265,6 +272,7 @@ export interface FileRoutesByTo {
   '/ueber-uns': typeof UeberUnsRoute
   '/widerruf': typeof WiderrufRoute
   '/wissen': typeof WissenRouteWithChildren
+  '/api/chat': typeof ApiChatRoute
   '/mitarbeiter/anbieter': typeof MitarbeiterAnbieterRoute
   '/mitarbeiter/dashboard': typeof MitarbeiterDashboardRoute
   '/mitarbeiter/einstellungen': typeof MitarbeiterEinstellungenRoute
@@ -301,6 +309,7 @@ export interface FileRoutesById {
   '/ueber-uns': typeof UeberUnsRoute
   '/widerruf': typeof WiderrufRoute
   '/wissen': typeof WissenRouteWithChildren
+  '/api/chat': typeof ApiChatRoute
   '/mitarbeiter/anbieter': typeof MitarbeiterAnbieterRoute
   '/mitarbeiter/dashboard': typeof MitarbeiterDashboardRoute
   '/mitarbeiter/einstellungen': typeof MitarbeiterEinstellungenRoute
@@ -338,6 +347,7 @@ export interface FileRouteTypes {
     | '/ueber-uns'
     | '/widerruf'
     | '/wissen'
+    | '/api/chat'
     | '/mitarbeiter/anbieter'
     | '/mitarbeiter/dashboard'
     | '/mitarbeiter/einstellungen'
@@ -372,6 +382,7 @@ export interface FileRouteTypes {
     | '/ueber-uns'
     | '/widerruf'
     | '/wissen'
+    | '/api/chat'
     | '/mitarbeiter/anbieter'
     | '/mitarbeiter/dashboard'
     | '/mitarbeiter/einstellungen'
@@ -407,6 +418,7 @@ export interface FileRouteTypes {
     | '/ueber-uns'
     | '/widerruf'
     | '/wissen'
+    | '/api/chat'
     | '/mitarbeiter/anbieter'
     | '/mitarbeiter/dashboard'
     | '/mitarbeiter/einstellungen'
@@ -443,6 +455,7 @@ export interface RootRouteChildren {
   UeberUnsRoute: typeof UeberUnsRoute
   WiderrufRoute: typeof WiderrufRoute
   WissenRoute: typeof WissenRouteWithChildren
+  ApiChatRoute: typeof ApiChatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -671,6 +684,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MitarbeiterAnbieterRouteImport
       parentRoute: typeof MitarbeiterRoute
     }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mitarbeiter/leads/$id': {
       id: '/mitarbeiter/leads/$id'
       path: '/$id'
@@ -757,17 +777,8 @@ const rootRouteChildren: RootRouteChildren = {
   UeberUnsRoute: UeberUnsRoute,
   WiderrufRoute: WiderrufRoute,
   WissenRoute: WissenRouteWithChildren,
+  ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

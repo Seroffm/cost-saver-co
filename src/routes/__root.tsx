@@ -12,6 +12,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { MockAuthProvider } from "../lib/mock-auth";
+import { AiChatWidget } from "../components/site/AiChatWidget";
+import { useRouterState } from "@tanstack/react-router";
 
 function NotFoundComponent() {
   return (
@@ -118,12 +120,15 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const hideChat = pathname.startsWith("/danke") || pathname.startsWith("/mitarbeiter");
 
   return (
     <QueryClientProvider client={queryClient}>
       <MockAuthProvider>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
+        {!hideChat && <AiChatWidget />}
       </MockAuthProvider>
     </QueryClientProvider>
   );
