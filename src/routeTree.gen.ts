@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WissenRouteImport } from './routes/wissen'
 import { Route as WiderrufRouteImport } from './routes/widerruf'
 import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
+import { Route as StromGasRouteImport } from './routes/strom-gas'
+import { Route as StromRouteImport } from './routes/strom'
+import { Route as SolarRouteImport } from './routes/solar'
+import { Route as ServiceRouteImport } from './routes/service'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as ImpressumRouteImport } from './routes/impressum'
+import { Route as GasRouteImport } from './routes/gas'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as DankeRouteImport } from './routes/danke'
@@ -20,6 +26,11 @@ import { Route as AngebotRouteImport } from './routes/angebot'
 import { Route as AblaufRouteImport } from './routes/ablauf'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WissenRoute = WissenRouteImport.update({
+  id: '/wissen',
+  path: '/wissen',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WiderrufRoute = WiderrufRouteImport.update({
   id: '/widerruf',
   path: '/widerruf',
@@ -30,6 +41,26 @@ const UeberUnsRoute = UeberUnsRouteImport.update({
   path: '/ueber-uns',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StromGasRoute = StromGasRouteImport.update({
+  id: '/strom-gas',
+  path: '/strom-gas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StromRoute = StromRouteImport.update({
+  id: '/strom',
+  path: '/strom',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SolarRoute = SolarRouteImport.update({
+  id: '/solar',
+  path: '/solar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiceRoute = ServiceRouteImport.update({
+  id: '/service',
+  path: '/service',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KontaktRoute = KontaktRouteImport.update({
   id: '/kontakt',
   path: '/kontakt',
@@ -38,6 +69,11 @@ const KontaktRoute = KontaktRouteImport.update({
 const ImpressumRoute = ImpressumRouteImport.update({
   id: '/impressum',
   path: '/impressum',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GasRoute = GasRouteImport.update({
+  id: '/gas',
+  path: '/gas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -78,10 +114,16 @@ export interface FileRoutesByFullPath {
   '/danke': typeof DankeRoute
   '/datenschutz': typeof DatenschutzRoute
   '/faq': typeof FaqRoute
+  '/gas': typeof GasRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/service': typeof ServiceRoute
+  '/solar': typeof SolarRoute
+  '/strom': typeof StromRoute
+  '/strom-gas': typeof StromGasRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/widerruf': typeof WiderrufRoute
+  '/wissen': typeof WissenRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -90,10 +132,16 @@ export interface FileRoutesByTo {
   '/danke': typeof DankeRoute
   '/datenschutz': typeof DatenschutzRoute
   '/faq': typeof FaqRoute
+  '/gas': typeof GasRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/service': typeof ServiceRoute
+  '/solar': typeof SolarRoute
+  '/strom': typeof StromRoute
+  '/strom-gas': typeof StromGasRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/widerruf': typeof WiderrufRoute
+  '/wissen': typeof WissenRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -103,10 +151,16 @@ export interface FileRoutesById {
   '/danke': typeof DankeRoute
   '/datenschutz': typeof DatenschutzRoute
   '/faq': typeof FaqRoute
+  '/gas': typeof GasRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/service': typeof ServiceRoute
+  '/solar': typeof SolarRoute
+  '/strom': typeof StromRoute
+  '/strom-gas': typeof StromGasRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/widerruf': typeof WiderrufRoute
+  '/wissen': typeof WissenRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -117,10 +171,16 @@ export interface FileRouteTypes {
     | '/danke'
     | '/datenschutz'
     | '/faq'
+    | '/gas'
     | '/impressum'
     | '/kontakt'
+    | '/service'
+    | '/solar'
+    | '/strom'
+    | '/strom-gas'
     | '/ueber-uns'
     | '/widerruf'
+    | '/wissen'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -129,10 +189,16 @@ export interface FileRouteTypes {
     | '/danke'
     | '/datenschutz'
     | '/faq'
+    | '/gas'
     | '/impressum'
     | '/kontakt'
+    | '/service'
+    | '/solar'
+    | '/strom'
+    | '/strom-gas'
     | '/ueber-uns'
     | '/widerruf'
+    | '/wissen'
   id:
     | '__root__'
     | '/'
@@ -141,10 +207,16 @@ export interface FileRouteTypes {
     | '/danke'
     | '/datenschutz'
     | '/faq'
+    | '/gas'
     | '/impressum'
     | '/kontakt'
+    | '/service'
+    | '/solar'
+    | '/strom'
+    | '/strom-gas'
     | '/ueber-uns'
     | '/widerruf'
+    | '/wissen'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -154,14 +226,27 @@ export interface RootRouteChildren {
   DankeRoute: typeof DankeRoute
   DatenschutzRoute: typeof DatenschutzRoute
   FaqRoute: typeof FaqRoute
+  GasRoute: typeof GasRoute
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
+  ServiceRoute: typeof ServiceRoute
+  SolarRoute: typeof SolarRoute
+  StromRoute: typeof StromRoute
+  StromGasRoute: typeof StromGasRoute
   UeberUnsRoute: typeof UeberUnsRoute
   WiderrufRoute: typeof WiderrufRoute
+  WissenRoute: typeof WissenRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wissen': {
+      id: '/wissen'
+      path: '/wissen'
+      fullPath: '/wissen'
+      preLoaderRoute: typeof WissenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/widerruf': {
       id: '/widerruf'
       path: '/widerruf'
@@ -176,6 +261,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UeberUnsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/strom-gas': {
+      id: '/strom-gas'
+      path: '/strom-gas'
+      fullPath: '/strom-gas'
+      preLoaderRoute: typeof StromGasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/strom': {
+      id: '/strom'
+      path: '/strom'
+      fullPath: '/strom'
+      preLoaderRoute: typeof StromRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/solar': {
+      id: '/solar'
+      path: '/solar'
+      fullPath: '/solar'
+      preLoaderRoute: typeof SolarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/service': {
+      id: '/service'
+      path: '/service'
+      fullPath: '/service'
+      preLoaderRoute: typeof ServiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/kontakt': {
       id: '/kontakt'
       path: '/kontakt'
@@ -188,6 +301,13 @@ declare module '@tanstack/react-router' {
       path: '/impressum'
       fullPath: '/impressum'
       preLoaderRoute: typeof ImpressumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gas': {
+      id: '/gas'
+      path: '/gas'
+      fullPath: '/gas'
+      preLoaderRoute: typeof GasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -242,10 +362,16 @@ const rootRouteChildren: RootRouteChildren = {
   DankeRoute: DankeRoute,
   DatenschutzRoute: DatenschutzRoute,
   FaqRoute: FaqRoute,
+  GasRoute: GasRoute,
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
+  ServiceRoute: ServiceRoute,
+  SolarRoute: SolarRoute,
+  StromRoute: StromRoute,
+  StromGasRoute: StromGasRoute,
   UeberUnsRoute: UeberUnsRoute,
   WiderrufRoute: WiderrufRoute,
+  WissenRoute: WissenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
