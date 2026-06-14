@@ -87,15 +87,15 @@ function Dashboard() {
         <Card>
           <CardHeader><CardTitle className="text-base">Team-Performance</CardTitle></CardHeader>
           <CardContent className="space-y-5">
-            {employees.map((e) => {
+            {employees.filter(e => e.active).map((e) => {
               const total = e.closed + e.open;
-              const pct = Math.round((e.closed / total) * 100);
+              const pct = total > 0 ? Math.round((e.closed / total) * 100) : 0;
               return (
                 <div key={e.name}>
                   <div className="mb-1 flex items-center justify-between text-sm">
                     <div>
                       <div className="font-medium">{e.name}</div>
-                      <div className="text-xs text-muted-foreground">{e.role}</div>
+                      <div className="text-xs text-muted-foreground capitalize">{e.role}</div>
                     </div>
                     <div className="text-right text-xs text-muted-foreground">{e.closed} / {total}</div>
                   </div>
