@@ -4,16 +4,20 @@ import { DefaultChatTransport, type UIMessage } from "ai";
 import { MessageCircle, X, Send, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+const WELCOME_TEXT =
+  "Hallo, ich bin der Prime Energieberater.\n\nIch unterstütze Sie bei Fragen zu Strom-, Gas- und Energietarifen. Gerne helfe ich Ihnen dabei, passende Tarife zu finden, Ihre Angaben zu verstehen oder Fragen zum Anbieterwechsel zu beantworten.\n\nWie kann ich Ihnen helfen?";
+
+const QUICK_ACTIONS = [
+  "Welcher Tarif passt zu mir?",
+  "Ich suche einen Öko-Stromtarif",
+  "Lohnt sich ein Wechsel?",
+];
+
 const INITIAL: UIMessage[] = [
   {
     id: "welcome",
     role: "assistant",
-    parts: [
-      {
-        type: "text",
-        text: "Hallo! Ich bin dein KI-Berater von EnergieClever. Frag mich gerne zu Strom, Gas, Solar, Tarifen oder unserem Ablauf.",
-      },
-    ],
+    parts: [{ type: "text", text: WELCOME_TEXT }],
   } as UIMessage,
 ];
 
@@ -30,25 +34,29 @@ export function AiChatWidget() {
   });
 
   const busy = status === "submitted" || status === "streaming";
+  const showQuickActions = messages.length <= 1 && !busy;
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages, open]);
 
+  const send = (text: string) => {
+    if (!text.trim() || busy) return;
+    void sendMessage({ text: text.trim() });
+  };
+
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const text = input.trim();
-    if (!text || busy) return;
+    const text = input;
     setInput("");
-    void sendMessage({ text });
+    send(text);
   };
 
   return (
     <>
-      {/* Floating button */}
       <button
         type="button"
-        aria-label={open ? "KI-Chat schließen" : "KI-Berater öffnen"}
+        aria-label={open ? "Chat schließen" : "Prime Assistent öffnen"}
         onClick={() => setOpen((v) => !v)}
         className={cn(
           "fixed bottom-5 right-5 z-[60] grid h-14 w-14 place-items-center rounded-full text-primary-foreground shadow-hero transition-all hover:scale-105",
@@ -58,39 +66,33 @@ export function AiChatWidget() {
         {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
         {!open && (
           <span className="absolute -top-1 -right-1 grid h-5 w-5 place-items-center rounded-full bg-success text-[10px] font-bold text-white ring-2 ring-background">
-            KI
+            !
           </span>
         )}
       </button>
 
-      {/* Panel */}
       {open && (
         <div
           role="dialog"
-          aria-label="KI-Berater"
-          className="fixed bottom-24 right-5 z-[60] flex h-[min(560px,calc(100vh-7rem))] w-[min(380px,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-hero animate-in slide-in-from-bottom-4 fade-in"
+          aria-label="Prime Assistent"
+          className="fixed bottom-24 right-5 z-[60] flex h-[min(620px,calc(100vh-7rem))] w-[min(380px,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-hero animate-in slide-in-from-bottom-4 fade-in"
         >
           <header className="flex items-center gap-3 border-b border-border bg-primary px-4 py-3 text-primary-foreground">
             <div className="grid h-9 w-9 place-items-center rounded-full bg-success/20">
               <Sparkles className="h-5 w-5 text-success" />
             </div>
             <div className="flex-1">
-              <div className="text-sm font-semibold">KI-Berater</div>
+              <div className="text-sm font-semibold">Prime Assistent</div>
               <div className="text-xs text-primary-foreground/70">Antwortet meist sofort</div>
             </div>
           </header>
 
           <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto bg-surface px-4 py-4">
             {messages.map((m) => {
-              const text = m.parts
-                .map((p) => (p.type === "text" ? p.text : ""))
-                .join("");
+              const text = m.parts.map((p) => (p.type === "text" ? p.text : "")).join("");
               const isUser = m.role === "user";
               return (
-                <div
-                  key={m.id}
-                  className={cn("flex", isUser ? "justify-end" : "justify-start")}
-                >
+                <div key={m.id} className={cn("flex", isUser ? "justify-end" : "justify-start")}>
                   <div
                     className={cn(
                       "max-w-[85%] whitespace-pre-wrap rounded-2xl px-3 py-2 text-sm shadow-soft",
@@ -115,6 +117,20 @@ export function AiChatWidget() {
                 </div>
               </div>
             )}
+            {showQuickActions && (
+              <div className="space-y-2 pt-2">
+                {QUICK_ACTIONS.map((q) => (
+                  <button
+                    key={q}
+                    type="button"
+                    onClick={() => send(q)}
+                    className="block w-full rounded-full border border-primary/30 bg-background px-4 py-2 text-left text-sm text-primary transition hover:border-primary hover:bg-primary/5"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            )}
             {error && (
               <div className="rounded-md bg-destructive/10 px-3 py-2 text-xs text-destructive">
                 Es gab ein Problem. Bitte später erneut versuchen.
@@ -130,7 +146,7 @@ export function AiChatWidget() {
               autoFocus
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Frag mich etwas zu Strom & Gas…"
+              placeholder="Ihre Frage zu Strom oder Gas…"
               className="flex-1 rounded-full border border-border bg-surface px-4 py-2 text-sm outline-none transition focus:border-success"
               disabled={busy}
             />
@@ -144,7 +160,7 @@ export function AiChatWidget() {
             </button>
           </form>
           <div className="px-3 pb-2 text-[10px] text-muted-foreground">
-            KI-generierte Antworten. Keine verbindliche Beratung.
+            Automatisierte Antworten. Keine verbindliche Beratung.
           </div>
         </div>
       )}
