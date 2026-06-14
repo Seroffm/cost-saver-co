@@ -56,8 +56,8 @@ function StromPage() {
         bullets={[
           "Haushaltsstrom. Stabil, einfach, transparent",
           "100 % Ökostrom, zertifiziert nach OK-Power oder Grüner Strom-Label",
-          "Autostrom. Sondertarif für Wallbox & E-Auto",
-          "Wärmestrom. Für Nachtspeicher- und Wärmepumpenheizungen",
+          "Autostrom: Sondertarif für Wallbox und E-Auto",
+          "Wärmestrom: Für Nachtspeicher- und Wärmepumpenheizungen",
         ]}
       />
 
