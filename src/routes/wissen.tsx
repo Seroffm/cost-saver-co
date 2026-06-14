@@ -149,7 +149,7 @@ function WissenPage() {
             <div className="max-w-xl">
               <BookOpen className="h-10 w-10 text-success" />
               <h2 className="mt-4 text-3xl font-bold md:text-4xl">Lieber direkt sparen?</h2>
-              <p className="mt-3 text-primary-foreground/80">Statt zu lesen, einfach prüfen lassen – 2 Minuten Ihrer Zeit, bis zu 850 € Ersparnis pro Jahr.</p>
+              <p className="mt-3 text-primary-foreground/80">Lassen Sie Ihren Tarif in nur 2 Minuten prüfen. Möglich sind bis zu 850 € Ersparnis pro Jahr.</p>
             </div>
             <Link to="/" className="inline-flex items-center gap-2 rounded-full bg-success px-6 py-3 text-sm font-bold text-success-foreground transition hover:bg-success/90">
               Jetzt Tarif prüfen <ArrowRight className="h-4 w-4" />
