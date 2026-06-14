@@ -52,7 +52,7 @@ const featured: Article = {
 };
 
 const articles: Article[] = [
-  { title: "Ökostrom erkennen: Echte Labels im Vergleich", teaser: "OK-Power, Grüner Strom-Label, TÜV Süd EE01 – welches Siegel garantiert wirklich neuen Ökostrom?", image: imgStrom, tag: "Strom · Ökostrom", read: "6 min", slug: "oekostrom-labels" },
+  { title: "Ökostrom erkennen: Echte Labels im Vergleich", teaser: "OK-Power, Grüner Strom-Label, TÜV Süd EE01. Welches Siegel garantiert wirklich neuen Ökostrom?", image: imgStrom, tag: "Strom · Ökostrom", read: "6 min", slug: "oekostrom-labels" },
   { title: "Gaspreise 2026: Prognose & Spar-Tipps", teaser: "Wie sich der Gaspreis im kommenden Heizjahr entwickeln dürfte. Und wann sich ein Festpreis lohnt.", image: imgGas, tag: "Gas · Prognose", read: "7 min", slug: "gaspreise-2026" },
   { title: "Solaranlage-Kosten 2026: Alles auf einen Blick", teaser: "Was Sie heute für eine 10-kWp-Anlage zahlen, wie schnell sie sich rechnet und welche Förderung greift.", image: imgSolar, tag: "Solar · Investition", read: "9 min", slug: "solaranlage-kosten-2026" },
   { title: "Strom & Gas bündeln: Wann sich der Doppel-Bonus lohnt", teaser: "Bundles können doppelt sparen. Oder nichts bringen. Diese drei Fragen entscheiden.", image: imgBundle, tag: "Bundle · Ratgeber", read: "5 min", slug: "bundle-doppelbonus" },
