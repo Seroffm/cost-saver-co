@@ -675,11 +675,6 @@ function ComparisonCard() {
     "Wir kündigen deinen Altvertrag und übernehmen den Wechsel komplett.",
     "Tarife werden manuell auf Preisgarantie, Boni-Fallen und Laufzeit geprüft.",
   ];
-  const them = [
-    "Anonyme Maske, kein persönlicher Ansprechpartner bei Problemen.",
-    "Kündigung und Anbieterwechsel musst du selbst koordinieren.",
-    "Ranking folgt der Provision – nicht zwingend dem besten Tarif für dich.",
-  ];
 
   return (
     <div className="grid gap-4">
@@ -717,29 +712,6 @@ function ComparisonCard() {
         </div>
       </article>
 
-      {/* Portal */}
-      <article className="relative overflow-hidden rounded-3xl border border-border bg-surface/60 p-7 md:p-8">
-        <header className="flex items-baseline justify-between gap-4">
-          <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">Vergleichsportal</div>
-            <h3 className="mt-1 font-display text-2xl font-bold text-muted-foreground/90 line-through decoration-muted-foreground/40 decoration-[1.5px]">
-              Klassisches Portal
-            </h3>
-          </div>
-          <div className="text-right">
-            <div className="font-display text-2xl font-extrabold tabular-nums text-muted-foreground">?</div>
-            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">Provision</div>
-          </div>
-        </header>
-        <ul className="mt-5 space-y-3">
-          {them.map((t) => (
-            <li key={t} className="flex gap-3 text-[15px] leading-relaxed text-muted-foreground">
-              <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-muted-foreground/40" aria-hidden />
-              <span>{t}</span>
-            </li>
-          ))}
-        </ul>
-      </article>
 
       {/* Vertrauenssignal */}
       <div className="flex flex-wrap items-center justify-between gap-3 px-2 text-xs text-muted-foreground">
