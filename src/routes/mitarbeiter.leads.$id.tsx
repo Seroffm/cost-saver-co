@@ -87,6 +87,9 @@ function LeadDetail() {
   const [wvTime, setWvTime] = useState("");
   const [wvComment, setWvComment] = useState("");
 
+  const [callOpen, setCallOpen] = useState(false);
+  const [callNote, setCallNote] = useState("");
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // TODO Supabase: Notiz per Server-Function in `lead_notes` einfügen (insert), Liste per Query laden.
@@ -230,6 +233,47 @@ function LeadDetail() {
     lead.documents = updated;
     e.target.value = "";
     toast.success(newDocs.length === 1 ? "Dokument hochgeladen" : `${newDocs.length} Dokumente hochgeladen`);
+  }
+
+  function openCallDialog() {
+    setCallNote("");
+    setCallOpen(true);
+  }
+
+  // Gesprächsnotiz aus dem Anruf-Dialog speichern – fachlich eine normale Notiz mit
+  // "Telefonat:"-Präfix + zusätzlicher Aktivitäts-Eintrag im Verlauf.
+  // TODO Supabase: addLeadNote({ leadId: lead.id, text: newNote.text }) statt lokaler Mutation.
+  function handleSaveCallNote() {
+    const text = callNote.trim();
+    if (!text) return;
+    const now = new Date().toISOString();
+
+    const newNote: LeadNote = {
+      id: `n${Date.now()}`,
+      author: user.name,
+      authorRole: user.role,
+      date: now,
+      text: `Telefonat: ${text}`,
+      isImportant: false,
+    };
+    const updatedNotes = [newNote, ...notes];
+    setNotes(updatedNotes);
+    lead.notes = updatedNotes;
+
+    const entry: LeadHistoryEntry = {
+      id: `h${Date.now()}`,
+      date: now,
+      author: user.name,
+      type: "note",
+      text: `${user.name} hat am ${formatDateTimeDe(now)} eine Gesprächsnotiz zum Telefonat hinzugefügt.`,
+    };
+    const updatedHistory = [entry, ...history];
+    setHistory(updatedHistory);
+    lead.history = updatedHistory;
+
+    setCallNote("");
+    setCallOpen(false);
+    toast.success("Gesprächsnotiz gespeichert");
   }
 
   return (
@@ -502,7 +546,9 @@ function LeadDetail() {
           <Card>
             <CardHeader><CardTitle className="text-base">Schnellaktionen</CardTitle></CardHeader>
             <CardContent className="space-y-2">
-              <Button variant="outline" className="w-full justify-start" size="sm"><Phone className="mr-2 h-4 w-4" />Anrufen</Button>
+              <Button variant="outline" className="w-full justify-start" size="sm" onClick={openCallDialog} disabled={!lead.phone}>
+                <Phone className="mr-2 h-4 w-4" />Anrufen
+              </Button>
               <Button variant="outline" className="w-full justify-start" size="sm"><Mail className="mr-2 h-4 w-4" />E-Mail senden</Button>
               <Button variant="outline" className="w-full justify-start" size="sm"><MessageSquare className="mr-2 h-4 w-4" />Rückfrage senden</Button>
               <Button variant="outline" className="w-full justify-start" size="sm"><FileText className="mr-2 h-4 w-4" />Angebot anfordern</Button>
@@ -549,6 +595,42 @@ function LeadDetail() {
           <DialogFooter>
             <Button variant="outline" onClick={() => setWvOpen(false)}>Abbrechen</Button>
             <Button onClick={handleSaveWiedervorlage} disabled={!wvDate}>Speichern</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={callOpen} onOpenChange={setCallOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2"><Phone className="h-5 w-5" />Anruf</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="rounded-lg border bg-muted/30 p-5 text-center">
+              <div className="text-lg font-semibold">{lead.name}</div>
+              <div className="text-xs text-muted-foreground">{lead.id}</div>
+              <a
+                href={`tel:${lead.phone.replace(/\s/g, "")}`}
+                className="mt-3 block text-3xl font-bold tracking-wider text-primary hover:underline"
+              >
+                {lead.phone || "Keine Telefonnummer hinterlegt"}
+              </a>
+              <Badge className={`${statusColor[currentStatus]} border-0 mt-3 px-4 py-1.5 text-sm font-bold`}>
+                {statusLabel[currentStatus]}
+              </Badge>
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="call-note">Gesprächsnotiz</Label>
+              <Textarea
+                id="call-note"
+                placeholder="Was wurde im Telefonat besprochen?"
+                value={callNote}
+                onChange={(e) => setCallNote(e.target.value)}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setCallOpen(false)}>Abbrechen</Button>
+            <Button onClick={handleSaveCallNote} disabled={!callNote.trim()}>Gesprächsnotiz speichern</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
