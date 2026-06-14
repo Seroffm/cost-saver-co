@@ -55,7 +55,7 @@ function StromPage() {
         imageAlt="E-Auto wird zuhause an Wallbox geladen"
         bullets={[
           "Haushaltsstrom. Stabil, einfach, transparent",
-          "Ökostrom 100 % – zertifiziert nach OK-Power oder Grüner Strom-Label",
+          "100 % Ökostrom, zertifiziert nach OK-Power oder Grüner Strom-Label",
           "Autostrom. Sondertarif für Wallbox & E-Auto",
           "Wärmestrom. Für Nachtspeicher- und Wärmepumpenheizungen",
         ]}
