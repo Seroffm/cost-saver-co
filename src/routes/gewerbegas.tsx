@@ -32,7 +32,7 @@ function GewerbegasPage() {
     <SiteLayout>
       <TopicHero
         kicker="Gewerbegas"
-        title={<>Gas für Ihr Unternehmen – <span className="text-success">festgepreist statt schwankend.</span></>}
+        title={<>Gas für Ihr Unternehmen. <span className="text-success">Festgepreist statt schwankend.</span></>}
         lead="Vom Restaurant bis zur Produktion: Wir verhandeln planbare Gewerbegas-Tarife mit echter Preisgarantie. Kostenlos und unverbindlich."
         image={heroImg}
         imageAlt="Industrielle Anlage mit Gas-Heizsystem"
