@@ -5,7 +5,7 @@ export const customerTypes = ["privat", "gewerbe", "hausverwaltung", "mehrere_st
 export const heatingTypes = ["gasheizung", "etagenheizung", "kombitherme", "andere"] as const;
 export const reachability = ["vormittag", "nachmittag", "abend", "egal"] as const;
 export const goals = [
-  "guenstigster_preis",
+  "guenstigster_preis" ,
   "preisgarantie",
   "oekostrom",
   "kurze_laufzeit",
