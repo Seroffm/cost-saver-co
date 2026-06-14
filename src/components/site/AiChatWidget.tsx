@@ -1,8 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
-import { MessageCircle, X, Send, Sparkles } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import { MessageCircle, X, Send, Sparkles, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+const ACTION_RE = /\[\[ACTION:([^|\]]+)\|([^\]]+)\]\]/g;
+
+function parseMessage(text: string): { body: string; actions: { label: string; href: string }[] } {
+  const actions: { label: string; href: string }[] = [];
+  const body = text.replace(ACTION_RE, (_m, label: string, href: string) => {
+    actions.push({ label: label.trim(), href: href.trim() });
+    return "";
+  }).trim();
+  return { body, actions };
+}
 
 const WELCOME_TEXT =
   "Hallo, ich bin der Prime Energieberater.\n\nIch unterstütze Sie bei Fragen zu Strom-, Gas- und Energietarifen. Gerne helfe ich Ihnen dabei, passende Tarife zu finden, Ihre Angaben zu verstehen oder Fragen zum Anbieterwechsel zu beantworten.\n\nWie kann ich Ihnen helfen?";
@@ -25,6 +37,7 @@ export function AiChatWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
   const transport = useRef(new DefaultChatTransport({ api: "/api/chat" })).current;
 
   const { messages, sendMessage, status, error } = useChat({
@@ -91,8 +104,11 @@ export function AiChatWidget() {
             {messages.map((m) => {
               const text = m.parts.map((p) => (p.type === "text" ? p.text : "")).join("");
               const isUser = m.role === "user";
+              const { body, actions } = isUser
+                ? { body: text, actions: [] as { label: string; href: string }[] }
+                : parseMessage(text);
               return (
-                <div key={m.id} className={cn("flex", isUser ? "justify-end" : "justify-start")}>
+                <div key={m.id} className={cn("flex flex-col gap-2", isUser ? "items-end" : "items-start")}>
                   <div
                     className={cn(
                       "max-w-[85%] whitespace-pre-wrap rounded-2xl px-3 py-2 text-sm shadow-soft",
@@ -101,8 +117,26 @@ export function AiChatWidget() {
                         : "rounded-bl-sm bg-background text-foreground",
                     )}
                   >
-                    {text || (busy && !isUser ? "…" : "")}
+                    {body || (busy && !isUser ? "…" : "")}
                   </div>
+                  {!isUser && actions.length > 0 && (
+                    <div className="flex w-[85%] flex-col gap-1.5">
+                      {actions.map((a, i) => (
+                        <button
+                          key={`${m.id}-a-${i}`}
+                          type="button"
+                          onClick={() => {
+                            setOpen(false);
+                            void navigate({ to: a.href });
+                          }}
+                          className="group inline-flex items-center justify-between gap-2 rounded-xl border border-primary/30 bg-background px-3 py-2 text-left text-sm font-medium text-primary transition hover:border-primary hover:bg-primary/5"
+                        >
+                          <span>{a.label}</span>
+                          <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               );
             })}
