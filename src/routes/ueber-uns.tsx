@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/ueber-uns")({
   head: () => ({
     meta: [
-      { title: "Über uns. Unabhängige Energieberatung | EnergieClever" },
+      { title: "Über uns: Unabhängige Energieberatung | EnergieClever" },
       { name: "description", content: "Wir sind ein unabhängiges Beratungsteam für Strom- und Gastarife mit Sitz in Deutschland. Persönlich, transparent, ohne Provisionsdruck." },
       { property: "og:title", content: "Über uns | EnergieClever" },
       { property: "og:description", content: "Unabhängige Energieberatung aus Deutschland. Persönlich, transparent, ohne Provisionsdruck." },

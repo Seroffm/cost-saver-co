@@ -9,7 +9,7 @@ import ctaBg from "@/assets/final-cta-bg.jpg";
 export const Route = createFileRoute("/gewerbestrom")({
   head: () => ({
     meta: [
-      { title: "Gewerbestrom vergleichen. Bis 30 % sparen | EnergieClever" },
+      { title: "Gewerbestrom vergleichen: Bis 30 % sparen | EnergieClever" },
       { name: "description", content: "Gewerbestrom-Tarife persönlich vergleichen: bis zu 30 % Ersparnis für KMU, Handwerk, Gastronomie und Filialbetriebe. Festpreise, Preisgarantie, Wechselgarantie." },
       { property: "og:title", content: "Gewerbestrom vergleichen | EnergieClever" },
       { property: "og:description", content: "Gewerbestrom: Festpreise, Preisgarantie bis 36 Monate, individuelle Beratung für Ihr Unternehmen." },

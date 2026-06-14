@@ -14,7 +14,7 @@ import imgAuto from "@/assets/solution-autostrom.jpg";
 export const Route = createFileRoute("/wissen")({
   head: () => ({
     meta: [
-      { title: "Wissen. Ratgeber rund um Energie | EnergieClever" },
+      { title: "Wissen: Ratgeber rund um Energie | EnergieClever" },
       { name: "description", content: "Ratgeber, Erklärartikel und Marktupdates rund um Strom, Gas, Solar und Wärmepumpe. Verständlich geschrieben, sorgfältig recherchiert." },
       { property: "og:title", content: "Energie-Wissen & Ratgeber | EnergieClever" },
       { property: "og:description", content: "Verständlich erklärt: Strom, Gas, Solar, Wärmepumpe und mehr." },

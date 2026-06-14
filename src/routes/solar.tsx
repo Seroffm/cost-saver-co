@@ -10,7 +10,7 @@ import ctaBg from "@/assets/final-cta-bg.jpg";
 export const Route = createFileRoute("/solar")({
   head: () => ({
     meta: [
-      { title: "Solar & Wärmepumpe. Unabhängig beraten | EnergieClever" },
+      { title: "Solar & Wärmepumpe: Unabhängig beraten | EnergieClever" },
       { name: "description", content: "Solaranlage, Stromspeicher und Wärmepumpe. Wir vermitteln geprüfte Fachbetriebe, kennen die Förderungen und beraten ehrlich." },
       { property: "og:title", content: "Solar & Wärmepumpe | EnergieClever" },
       { property: "og:description", content: "Unabhängige Beratung zu Solaranlage, Stromspeicher und Wärmepumpe." },

@@ -9,7 +9,7 @@ import ctaBg from "@/assets/final-cta-bg.jpg";
 export const Route = createFileRoute("/gewerbegas")({
   head: () => ({
     meta: [
-      { title: "Gewerbegas vergleichen. Festpreise sichern | EnergieClever" },
+      { title: "Gewerbegas vergleichen: Festpreise sichern | EnergieClever" },
       { name: "description", content: "Gewerbegas-Tarife persönlich vergleichen: Festpreise bis 36 Monate, Bio-Erdgas, Lastgangoptimierung. Für Gastronomie, Bäckereien, Produktion und Filialbetriebe." },
       { property: "og:title", content: "Gewerbegas vergleichen | EnergieClever" },
       { property: "og:description", content: "Gewerbegas: Festpreise, Preisgarantie, individuelle Beratung für Ihr Unternehmen." },

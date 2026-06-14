@@ -10,9 +10,9 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/ablauf")({
   head: () => ({
     meta: [
-      { title: "Ablauf. So funktioniert der Tarifwechsel | EnergieClever" },
+      { title: "Ablauf: So funktioniert der Tarifwechsel | EnergieClever" },
       { name: "description", content: "In 4 Schritten zum besseren Strom- oder Gastarif: Anfrage, Prüfung, Angebot, Wechsel. Persönlich, kostenlos, ohne Versorgungslücke." },
-      { property: "og:title", content: "Ablauf. So funktioniert der Tarifwechsel | EnergieClever" },
+      { property: "og:title", content: "Ablauf: So funktioniert der Tarifwechsel | EnergieClever" },
       { property: "og:description", content: "In 4 Schritten zum besseren Strom- oder Gastarif. Persönlich, kostenlos, ohne Versorgungslücke." },
     ],
   }),

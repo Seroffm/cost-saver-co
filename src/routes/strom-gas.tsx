@@ -9,7 +9,7 @@ import ctaBg from "@/assets/final-cta-bg.jpg";
 export const Route = createFileRoute("/strom-gas")({
   head: () => ({
     meta: [
-      { title: "Strom + Gas im Bundle. Doppel-Bonus sichern | EnergieClever" },
+      { title: "Strom + Gas im Bundle: Doppel-Bonus sichern | EnergieClever" },
       { name: "description", content: "Strom und Gas bündeln, einen Vertrag verwalten, doppelten Wechselbonus sichern. Wir prüfen, ob sich ein Bundle für Sie wirklich lohnt." },
       { property: "og:title", content: "Strom + Gas im Bundle | EnergieClever" },
       { property: "og:description", content: "Ein Vertrag, doppelte Ersparnis. Wir prüfen ehrlich, ob sich das Bundle lohnt." },

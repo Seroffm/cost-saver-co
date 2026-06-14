@@ -9,7 +9,7 @@ import ctaBg from "@/assets/final-cta-bg.jpg";
 export const Route = createFileRoute("/strom")({
   head: () => ({
     meta: [
-      { title: "Strom vergleichen. Bis zu 850 € sparen | EnergieClever" },
+      { title: "Strom vergleichen: Bis zu 850 € sparen | EnergieClever" },
       { name: "description", content: "Stromtarife persönlich vergleichen: Haushaltsstrom, Ökostrom, Autostrom und Wärmestrom. Geprüfte Anbieter, kostenloser Wechsel ohne Versorgungslücke." },
       { property: "og:title", content: "Strom vergleichen | EnergieClever" },
       { property: "og:description", content: "Stromtarife persönlich vergleichen und bis zu 850 € pro Jahr sparen." },

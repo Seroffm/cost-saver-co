@@ -9,7 +9,7 @@ import ctaBg from "@/assets/final-cta-bg.jpg";
 export const Route = createFileRoute("/gas")({
   head: () => ({
     meta: [
-      { title: "Gas vergleichen. Heizkosten ehrlich senken | EnergieClever" },
+      { title: "Gas vergleichen: Heizkosten ehrlich senken | EnergieClever" },
       { name: "description", content: "Gastarife persönlich vergleichen: Erdgas, Bio-Erdgas und Gewerbe-Gas. Geprüfte Anbieter, transparente Konditionen, kostenloser Wechsel." },
       { property: "og:title", content: "Gas vergleichen | EnergieClever" },
       { property: "og:description", content: "Gastarife vergleichen und Heizkosten ehrlich senken. Persönlich beraten." },

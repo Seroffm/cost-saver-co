@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
     meta: [
-      { title: "Kontakt. Persönliche Energieberatung | EnergieClever" },
+      { title: "Kontakt: Persönliche Energieberatung | EnergieClever" },
       { name: "description", content: "Sprechen Sie mit echten Menschen. Per Telefon, E-Mail oder Formular. Kostenlose, unverbindliche Beratung zu Strom und Gas." },
       { property: "og:title", content: "Kontakt | EnergieClever" },
       { property: "og:description", content: "Persönliche Energieberatung per Telefon, E-Mail oder Formular." },
