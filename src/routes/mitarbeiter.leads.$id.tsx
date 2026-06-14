@@ -68,7 +68,14 @@ const offerStatusColor = {
 };
 
 function LeadDetail() {
-  const { lead } = Route.useLoaderData() as { lead: Lead };
+  const { lead: loaderLead } = Route.useLoaderData() as { lead: Lead };
+  // Loader-Daten können (z. B. durch Router-Caching/SSR-Hydration) ein Snapshot sein, der nicht
+  // mehr ===-gleich zum Element im live `leads`-Array ist. Wir lösen daher hier nochmal über
+  // getLead() auf, damit Mutationen (lead.status, lead.wiedervorlage, ...) aus anderen
+  // Seitenaufrufen garantiert berücksichtigt werden – konsistent mit mock-tasks.ts, das
+  // ebenfalls direkt auf `leads` arbeitet. TODO Supabase: entfällt, sobald per Server-Function
+  // frisch geladen wird.
+  const lead = getLead(loaderLead.id) ?? loaderLead;
   const { user } = useMockAuth();
   const navigate = useNavigate();
 
@@ -89,6 +96,7 @@ function LeadDetail() {
 
   const [callOpen, setCallOpen] = useState(false);
   const [callNote, setCallNote] = useState("");
+  const [allDoneOpen, setAllDoneOpen] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -204,11 +212,11 @@ function LeadDetail() {
   function handleOpenNextTask() {
     const next = getNextTask();
     if (!next) {
-      toast.success("Keine offenen Aufgaben mehr 🎉");
+      setAllDoneOpen(true);
       return;
     }
     if (next.leadId === lead.id) {
-      toast.success("Diese Aufgabe ist bereits die nächste offene Aufgabe.");
+      toast.success("Das ist bereits die aktuell offene Aufgabe dieses Leads.");
       return;
     }
     navigate({ to: "/mitarbeiter/leads/$id", params: { id: next.leadId } });
@@ -631,6 +639,21 @@ function LeadDetail() {
           <DialogFooter>
             <Button variant="outline" onClick={() => setCallOpen(false)}>Abbrechen</Button>
             <Button onClick={handleSaveCallNote} disabled={!callNote.trim()}>Gesprächsnotiz speichern</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={allDoneOpen} onOpenChange={setAllDoneOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>🎉 Alle Aufgaben erledigt</DialogTitle>
+          </DialogHeader>
+          <p className="text-sm text-muted-foreground">
+            Aktuell liegen keine fälligen Wiedervorlagen, Rückfragen oder neuen Leads vor. Starke Leistung!
+          </p>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setAllDoneOpen(false)}>Schließen</Button>
+            <Button onClick={() => navigate({ to: "/mitarbeiter/dashboard" })}>Zurück zum Dashboard</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
