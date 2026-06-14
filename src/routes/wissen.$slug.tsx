@@ -122,7 +122,7 @@ const articles: Article[] = [
 ];
 
 export const Route = createFileRoute("/wissen/$slug")({
-  loader: ({ params }) => {
+  loader: ({ params }): { article: Article } => {
     const article = articles.find((a) => a.slug === params.slug);
     if (!article) throw notFound();
     return { article };

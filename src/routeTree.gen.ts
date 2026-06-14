@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WissenRouteImport } from './routes/wissen'
 import { Route as WiderrufRouteImport } from './routes/widerruf'
 import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
+import { Route as TarifeRouteImport } from './routes/tarife'
 import { Route as StromGasRouteImport } from './routes/strom-gas'
 import { Route as StromRouteImport } from './routes/strom'
 import { Route as SolarRouteImport } from './routes/solar'
@@ -29,6 +30,8 @@ import { Route as AngebotRouteImport } from './routes/angebot'
 import { Route as AblaufRouteImport } from './routes/ablauf'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MitarbeiterIndexRouteImport } from './routes/mitarbeiter.index'
+import { Route as WissenSlugRouteImport } from './routes/wissen.$slug'
+import { Route as MitarbeiterWiedervorlageRouteImport } from './routes/mitarbeiter.wiedervorlage'
 import { Route as MitarbeiterVorlagenRouteImport } from './routes/mitarbeiter.vorlagen'
 import { Route as MitarbeiterTeamRouteImport } from './routes/mitarbeiter.team'
 import { Route as MitarbeiterTarifeRouteImport } from './routes/mitarbeiter.tarife'
@@ -54,6 +57,11 @@ const WiderrufRoute = WiderrufRouteImport.update({
 const UeberUnsRoute = UeberUnsRouteImport.update({
   id: '/ueber-uns',
   path: '/ueber-uns',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TarifeRoute = TarifeRouteImport.update({
+  id: '/tarife',
+  path: '/tarife',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StromGasRoute = StromGasRouteImport.update({
@@ -141,6 +149,17 @@ const MitarbeiterIndexRoute = MitarbeiterIndexRouteImport.update({
   path: '/',
   getParentRoute: () => MitarbeiterRoute,
 } as any)
+const WissenSlugRoute = WissenSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => WissenRoute,
+} as any)
+const MitarbeiterWiedervorlageRoute =
+  MitarbeiterWiedervorlageRouteImport.update({
+    id: '/wiedervorlage',
+    path: '/wiedervorlage',
+    getParentRoute: () => MitarbeiterRoute,
+  } as any)
 const MitarbeiterVorlagenRoute = MitarbeiterVorlagenRouteImport.update({
   id: '/vorlagen',
   path: '/vorlagen',
@@ -215,9 +234,10 @@ export interface FileRoutesByFullPath {
   '/solar': typeof SolarRoute
   '/strom': typeof StromRoute
   '/strom-gas': typeof StromGasRoute
+  '/tarife': typeof TarifeRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/widerruf': typeof WiderrufRoute
-  '/wissen': typeof WissenRoute
+  '/wissen': typeof WissenRouteWithChildren
   '/mitarbeiter/anbieter': typeof MitarbeiterAnbieterRoute
   '/mitarbeiter/dashboard': typeof MitarbeiterDashboardRoute
   '/mitarbeiter/einstellungen': typeof MitarbeiterEinstellungenRoute
@@ -228,6 +248,8 @@ export interface FileRoutesByFullPath {
   '/mitarbeiter/tarife': typeof MitarbeiterTarifeRoute
   '/mitarbeiter/team': typeof MitarbeiterTeamRoute
   '/mitarbeiter/vorlagen': typeof MitarbeiterVorlagenRoute
+  '/mitarbeiter/wiedervorlage': typeof MitarbeiterWiedervorlageRoute
+  '/wissen/$slug': typeof WissenSlugRoute
   '/mitarbeiter/': typeof MitarbeiterIndexRoute
   '/mitarbeiter/leads/$id': typeof MitarbeiterLeadsIdRoute
 }
@@ -247,9 +269,10 @@ export interface FileRoutesByTo {
   '/solar': typeof SolarRoute
   '/strom': typeof StromRoute
   '/strom-gas': typeof StromGasRoute
+  '/tarife': typeof TarifeRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/widerruf': typeof WiderrufRoute
-  '/wissen': typeof WissenRoute
+  '/wissen': typeof WissenRouteWithChildren
   '/mitarbeiter/anbieter': typeof MitarbeiterAnbieterRoute
   '/mitarbeiter/dashboard': typeof MitarbeiterDashboardRoute
   '/mitarbeiter/einstellungen': typeof MitarbeiterEinstellungenRoute
@@ -260,6 +283,8 @@ export interface FileRoutesByTo {
   '/mitarbeiter/tarife': typeof MitarbeiterTarifeRoute
   '/mitarbeiter/team': typeof MitarbeiterTeamRoute
   '/mitarbeiter/vorlagen': typeof MitarbeiterVorlagenRoute
+  '/mitarbeiter/wiedervorlage': typeof MitarbeiterWiedervorlageRoute
+  '/wissen/$slug': typeof WissenSlugRoute
   '/mitarbeiter': typeof MitarbeiterIndexRoute
   '/mitarbeiter/leads/$id': typeof MitarbeiterLeadsIdRoute
 }
@@ -281,9 +306,10 @@ export interface FileRoutesById {
   '/solar': typeof SolarRoute
   '/strom': typeof StromRoute
   '/strom-gas': typeof StromGasRoute
+  '/tarife': typeof TarifeRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/widerruf': typeof WiderrufRoute
-  '/wissen': typeof WissenRoute
+  '/wissen': typeof WissenRouteWithChildren
   '/mitarbeiter/anbieter': typeof MitarbeiterAnbieterRoute
   '/mitarbeiter/dashboard': typeof MitarbeiterDashboardRoute
   '/mitarbeiter/einstellungen': typeof MitarbeiterEinstellungenRoute
@@ -294,6 +320,8 @@ export interface FileRoutesById {
   '/mitarbeiter/tarife': typeof MitarbeiterTarifeRoute
   '/mitarbeiter/team': typeof MitarbeiterTeamRoute
   '/mitarbeiter/vorlagen': typeof MitarbeiterVorlagenRoute
+  '/mitarbeiter/wiedervorlage': typeof MitarbeiterWiedervorlageRoute
+  '/wissen/$slug': typeof WissenSlugRoute
   '/mitarbeiter/': typeof MitarbeiterIndexRoute
   '/mitarbeiter/leads/$id': typeof MitarbeiterLeadsIdRoute
 }
@@ -316,6 +344,7 @@ export interface FileRouteTypes {
     | '/solar'
     | '/strom'
     | '/strom-gas'
+    | '/tarife'
     | '/ueber-uns'
     | '/widerruf'
     | '/wissen'
@@ -329,6 +358,8 @@ export interface FileRouteTypes {
     | '/mitarbeiter/tarife'
     | '/mitarbeiter/team'
     | '/mitarbeiter/vorlagen'
+    | '/mitarbeiter/wiedervorlage'
+    | '/wissen/$slug'
     | '/mitarbeiter/'
     | '/mitarbeiter/leads/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -348,6 +379,7 @@ export interface FileRouteTypes {
     | '/solar'
     | '/strom'
     | '/strom-gas'
+    | '/tarife'
     | '/ueber-uns'
     | '/widerruf'
     | '/wissen'
@@ -361,6 +393,8 @@ export interface FileRouteTypes {
     | '/mitarbeiter/tarife'
     | '/mitarbeiter/team'
     | '/mitarbeiter/vorlagen'
+    | '/mitarbeiter/wiedervorlage'
+    | '/wissen/$slug'
     | '/mitarbeiter'
     | '/mitarbeiter/leads/$id'
   id:
@@ -381,6 +415,7 @@ export interface FileRouteTypes {
     | '/solar'
     | '/strom'
     | '/strom-gas'
+    | '/tarife'
     | '/ueber-uns'
     | '/widerruf'
     | '/wissen'
@@ -394,6 +429,8 @@ export interface FileRouteTypes {
     | '/mitarbeiter/tarife'
     | '/mitarbeiter/team'
     | '/mitarbeiter/vorlagen'
+    | '/mitarbeiter/wiedervorlage'
+    | '/wissen/$slug'
     | '/mitarbeiter/'
     | '/mitarbeiter/leads/$id'
   fileRoutesById: FileRoutesById
@@ -415,9 +452,10 @@ export interface RootRouteChildren {
   SolarRoute: typeof SolarRoute
   StromRoute: typeof StromRoute
   StromGasRoute: typeof StromGasRoute
+  TarifeRoute: typeof TarifeRoute
   UeberUnsRoute: typeof UeberUnsRoute
   WiderrufRoute: typeof WiderrufRoute
-  WissenRoute: typeof WissenRoute
+  WissenRoute: typeof WissenRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -441,6 +479,13 @@ declare module '@tanstack/react-router' {
       path: '/ueber-uns'
       fullPath: '/ueber-uns'
       preLoaderRoute: typeof UeberUnsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tarife': {
+      id: '/tarife'
+      path: '/tarife'
+      fullPath: '/tarife'
+      preLoaderRoute: typeof TarifeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/strom-gas': {
@@ -562,6 +607,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MitarbeiterIndexRouteImport
       parentRoute: typeof MitarbeiterRoute
     }
+    '/wissen/$slug': {
+      id: '/wissen/$slug'
+      path: '/$slug'
+      fullPath: '/wissen/$slug'
+      preLoaderRoute: typeof WissenSlugRouteImport
+      parentRoute: typeof WissenRoute
+    }
+    '/mitarbeiter/wiedervorlage': {
+      id: '/mitarbeiter/wiedervorlage'
+      path: '/wiedervorlage'
+      fullPath: '/mitarbeiter/wiedervorlage'
+      preLoaderRoute: typeof MitarbeiterWiedervorlageRouteImport
+      parentRoute: typeof MitarbeiterRoute
+    }
     '/mitarbeiter/vorlagen': {
       id: '/mitarbeiter/vorlagen'
       path: '/vorlagen'
@@ -664,6 +723,7 @@ interface MitarbeiterRouteChildren {
   MitarbeiterTarifeRoute: typeof MitarbeiterTarifeRoute
   MitarbeiterTeamRoute: typeof MitarbeiterTeamRoute
   MitarbeiterVorlagenRoute: typeof MitarbeiterVorlagenRoute
+  MitarbeiterWiedervorlageRoute: typeof MitarbeiterWiedervorlageRoute
   MitarbeiterIndexRoute: typeof MitarbeiterIndexRoute
 }
 
@@ -678,12 +738,24 @@ const MitarbeiterRouteChildren: MitarbeiterRouteChildren = {
   MitarbeiterTarifeRoute: MitarbeiterTarifeRoute,
   MitarbeiterTeamRoute: MitarbeiterTeamRoute,
   MitarbeiterVorlagenRoute: MitarbeiterVorlagenRoute,
+  MitarbeiterWiedervorlageRoute: MitarbeiterWiedervorlageRoute,
   MitarbeiterIndexRoute: MitarbeiterIndexRoute,
 }
 
 const MitarbeiterRouteWithChildren = MitarbeiterRoute._addFileChildren(
   MitarbeiterRouteChildren,
 )
+
+interface WissenRouteChildren {
+  WissenSlugRoute: typeof WissenSlugRoute
+}
+
+const WissenRouteChildren: WissenRouteChildren = {
+  WissenSlugRoute: WissenSlugRoute,
+}
+
+const WissenRouteWithChildren =
+  WissenRoute._addFileChildren(WissenRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -702,9 +774,10 @@ const rootRouteChildren: RootRouteChildren = {
   SolarRoute: SolarRoute,
   StromRoute: StromRoute,
   StromGasRoute: StromGasRoute,
+  TarifeRoute: TarifeRoute,
   UeberUnsRoute: UeberUnsRoute,
   WiderrufRoute: WiderrufRoute,
-  WissenRoute: WissenRoute,
+  WissenRoute: WissenRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
