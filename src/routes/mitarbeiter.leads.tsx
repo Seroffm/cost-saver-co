@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
-import { Filter, Plus, Phone, Mail, ChevronRight, Flame } from "lucide-react";
+import { Filter, Plus, Phone, Mail, ChevronRight, Flame, Download } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -28,11 +28,23 @@ function LeadsPage() {
     return true;
   }), [q, filter]);
 
+  function exportCsv() {
+    const headers = ["ID", "Name", "Email", "Telefon", "PLZ", "Stadt", "Typ", "Verbrauch_kWh", "Aktueller_Anbieter", "Status", "Score", "Berater", "Erstellt"];
+    const rows = filtered.map((l) => [l.id, l.name, l.email, l.phone, l.plz, l.city, typeLabel[l.type], l.consumption, l.currentProvider, statusLabel[l.status], l.score, l.assignee, l.createdAt]);
+    const csv = [headers, ...rows].map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(";")).join("\n");
+    const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = `leads_${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click(); URL.revokeObjectURL(url);
+  }
+
   return (
     <AdminShell
       title="Leads"
       subtitle={`${filtered.length} von ${leads.length} Leads`}
       actions={<>
+        <Button variant="outline" size="sm" onClick={exportCsv}><Download className="mr-2 h-4 w-4" />CSV-Export</Button>
         <Button variant="outline" size="sm"><Filter className="mr-2 h-4 w-4" />Filter</Button>
         <Button size="sm"><Plus className="mr-2 h-4 w-4" />Neuer Lead</Button>
       </>}

@@ -40,7 +40,7 @@ const categories = [
   { icon: Leaf, label: "Nachhaltig", to: "/ueber-uns", color: "from-emerald-400/20 to-emerald-400/5" },
 ];
 
-type Article = { title: string; teaser: string; image: string; tag: string; read: string; to: string };
+type Article = { title: string; teaser: string; image: string; tag: string; read: string; slug: string };
 
 const featured: Article = {
   title: "Strompreis 2026: Was Haushalte jetzt wissen müssen",
@@ -48,16 +48,16 @@ const featured: Article = {
   image: imgStrom,
   tag: "Strom · Marktanalyse",
   read: "8 min",
-  to: "/strom",
+  slug: "strompreis-2026",
 };
 
 const articles: Article[] = [
-  { title: "Ökostrom erkennen: Echte Labels im Vergleich", teaser: "OK-Power, Grüner Strom-Label, TÜV Süd EE01 – welches Siegel garantiert wirklich neuen Ökostrom?", image: imgStrom, tag: "Strom · Ökostrom", read: "6 min", to: "/strom" },
-  { title: "Gaspreise 2026: Prognose & Spar-Tipps", teaser: "Wie sich der Gaspreis im kommenden Heizjahr entwickeln dürfte – und wann sich ein Festpreis lohnt.", image: imgGas, tag: "Gas · Prognose", read: "7 min", to: "/gas" },
-  { title: "Solaranlage-Kosten 2026: Alles auf einen Blick", teaser: "Was Sie heute für eine 10-kWp-Anlage zahlen, wie schnell sie sich rechnet und welche Förderung greift.", image: imgSolar, tag: "Solar · Investition", read: "9 min", to: "/solar" },
-  { title: "Strom & Gas bündeln: Wann sich der Doppel-Bonus lohnt", teaser: "Bundles können doppelt sparen – oder nichts bringen. Diese drei Fragen entscheiden.", image: imgBundle, tag: "Bundle · Ratgeber", read: "5 min", to: "/strom-gas" },
-  { title: "Wärmestrom: Wann sich ein Sondertarif rechnet", teaser: "Wärmepumpe oder Nachtspeicher? Wir zeigen, ab wann ein separater Wärmestromzähler Sinn ergibt.", image: imgWaerme, tag: "Strom · Wärmepumpe", read: "6 min", to: "/solar" },
-  { title: "E-Auto laden zuhause: Der günstigste Weg", teaser: "Autostromtarif, dynamischer Tarif oder einfach Haushaltsstrom? Eine Entscheidungshilfe.", image: imgAuto, tag: "Strom · E-Mobilität", read: "7 min", to: "/strom" },
+  { title: "Ökostrom erkennen: Echte Labels im Vergleich", teaser: "OK-Power, Grüner Strom-Label, TÜV Süd EE01 – welches Siegel garantiert wirklich neuen Ökostrom?", image: imgStrom, tag: "Strom · Ökostrom", read: "6 min", slug: "oekostrom-labels" },
+  { title: "Gaspreise 2026: Prognose & Spar-Tipps", teaser: "Wie sich der Gaspreis im kommenden Heizjahr entwickeln dürfte – und wann sich ein Festpreis lohnt.", image: imgGas, tag: "Gas · Prognose", read: "7 min", slug: "gaspreise-2026" },
+  { title: "Solaranlage-Kosten 2026: Alles auf einen Blick", teaser: "Was Sie heute für eine 10-kWp-Anlage zahlen, wie schnell sie sich rechnet und welche Förderung greift.", image: imgSolar, tag: "Solar · Investition", read: "9 min", slug: "solaranlage-kosten-2026" },
+  { title: "Strom & Gas bündeln: Wann sich der Doppel-Bonus lohnt", teaser: "Bundles können doppelt sparen – oder nichts bringen. Diese drei Fragen entscheiden.", image: imgBundle, tag: "Bundle · Ratgeber", read: "5 min", slug: "bundle-doppelbonus" },
+  { title: "Wärmestrom: Wann sich ein Sondertarif rechnet", teaser: "Wärmepumpe oder Nachtspeicher? Wir zeigen, ab wann ein separater Wärmestromzähler Sinn ergibt.", image: imgWaerme, tag: "Strom · Wärmepumpe", read: "6 min", slug: "waermestrom-tarif" },
+  { title: "E-Auto laden zuhause: Der günstigste Weg", teaser: "Autostromtarif, dynamischer Tarif oder einfach Haushaltsstrom? Eine Entscheidungshilfe.", image: imgAuto, tag: "Strom · E-Mobilität", read: "7 min", slug: "e-auto-laden" },
 ];
 
 function WissenPage() {
@@ -109,7 +109,7 @@ function WissenPage() {
             </div>
             <h3 className="mt-5 text-2xl font-bold text-primary md:text-3xl">{featured.title}</h3>
             <p className="mt-4 text-muted-foreground">{featured.teaser}</p>
-            <Link to={featured.to} className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-success hover:underline">
+            <Link to="/wissen/$slug" params={{ slug: featured.slug }} className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-success hover:underline">
               Artikel lesen <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -127,7 +127,7 @@ function WissenPage() {
               transition={{ ...fadeUp.transition, delay: i * 0.04 }}
               className="group overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition-all hover:-translate-y-1 hover:border-success/40 hover:shadow-card"
             >
-              <Link to={a.to} className="block">
+              <Link to="/wissen/$slug" params={{ slug: a.slug }} className="block">
                 <div className="aspect-[16/10] overflow-hidden">
                   <img src={a.image} alt="" loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
                 </div>
