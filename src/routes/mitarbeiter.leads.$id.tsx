@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AdminShell } from "@/components/mitarbeiter/AdminShell";
-import { getLead, statusColor, statusLabel, typeLabel, type LeadStatus } from "@/lib/mock-leads";
+import { getLead, statusColor, statusLabel, typeLabel, type Lead, type LeadStatus } from "@/lib/mock-leads";
+
+
 
 export const Route = createFileRoute("/mitarbeiter/leads/$id")({
   head: () => ({ meta: [{ title: "Lead Detail – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }] }),
