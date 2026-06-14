@@ -8,9 +8,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { title: "FAQ – Antworten zum Tarifwechsel | EnergieClever" },
-      { name: "description", content: "Häufige Fragen zu Strom- und Gasvergleich, Beratung, Datenschutz und Wechselablauf – klar und ehrlich beantwortet." },
-      { property: "og:title", content: "FAQ – EnergieClever" },
+      { title: "FAQ. Antworten zum Tarifwechsel | EnergieClever" },
+      { name: "description", content: "Häufige Fragen zu Strom- und Gasvergleich, Beratung, Datenschutz und Wechselablauf. Klar und ehrlich beantwortet." },
+      { property: "og:title", content: "FAQ. EnergieClever" },
       { property: "og:description", content: "Antworten auf die häufigsten Fragen rund um Tarifwechsel, Beratung und Datenschutz." },
     ],
   }),
@@ -29,9 +29,9 @@ const categories: { icon: typeof Zap; title: string; faqs: { q: string; a: strin
     icon: Euro,
     title: "Kosten & Beratung",
     faqs: [
-      { q: "Ist die Beratung wirklich kostenlos?", a: "Ja, zu 100 %. Wir werden vom neu gewählten Anbieter vergütet – nicht von Ihnen. Es entstehen Ihnen weder bei der Beratung noch beim Wechsel Kosten." },
+      { q: "Ist die Beratung wirklich kostenlos?", a: "Ja, zu 100 %. Wir werden vom neu gewählten Anbieter vergütet. Nicht von Ihnen. Es entstehen Ihnen weder bei der Beratung noch beim Wechsel Kosten." },
       { q: "Gibt es versteckte Gebühren?", a: "Nein. Weder eine Wechselgebühr noch eine Servicepauschale. Was Sie zahlen, ist ausschließlich der Tarifpreis des neuen Anbieters." },
-      { q: "Verdient ihr mehr, wenn ich einen teureren Tarif wählt?", a: "Nein. Unsere Provisionen sind über alle empfohlenen Anbieter ähnlich strukturiert – wir haben keinen Anreiz, Ihnen einen teureren Tarif zu empfehlen." },
+      { q: "Verdient ihr mehr, wenn ich einen teureren Tarif wählt?", a: "Nein. Unsere Provisionen sind über alle empfohlenen Anbieter ähnlich strukturiert. Wir haben keinen Anreiz, Ihnen einen teureren Tarif zu empfehlen." },
     ],
   },
   {
@@ -40,17 +40,17 @@ const categories: { icon: typeof Zap; title: string; faqs: { q: string; a: strin
     faqs: [
       { q: "Wie lange dauert ein Wechsel?", a: "In der Regel 4–8 Wochen ab Unterschrift. Die Kündigungsfrist Ihres alten Vertrags bestimmt das Wechseldatum. Wir halten alle Fristen für Sie ein." },
       { q: "Kann es zu einer Versorgungslücke kommen?", a: "Nein. Strom- und Gasversorgung sind gesetzlich abgesichert. Selbst wenn etwas schiefgehen sollte, springt der lokale Grundversorger automatisch ein." },
-      { q: "Muss ich selbst beim alten Anbieter kündigen?", a: "Nein, das übernehmen wir komplett für Sie – inklusive fristgerechter Kündigung und schriftlicher Bestätigung." },
-      { q: "Kann ich auch wechseln, wenn ich noch in der Vertragslaufzeit bin?", a: "Wir prüfen das individuell. Bei laufenden Verträgen merken wir den Wechsel zum nächstmöglichen Kündigungstermin vor – komplett automatisch." },
+      { q: "Muss ich selbst beim alten Anbieter kündigen?", a: "Nein, das übernehmen wir komplett für Sie. Inklusive fristgerechter Kündigung und schriftlicher Bestätigung." },
+      { q: "Kann ich auch wechseln, wenn ich noch in der Vertragslaufzeit bin?", a: "Wir prüfen das individuell. Bei laufenden Verträgen merken wir den Wechsel zum nächstmöglichen Kündigungstermin vor. Komplett automatisch." },
     ],
   },
   {
     icon: FileText,
     title: "Daten & Unterlagen",
     faqs: [
-      { q: "Welche Daten brauchen Sie von mir?", a: "PLZ, ungefährer Jahresverbrauch und Kontaktdaten reichen für die erste Prüfung. Eine alte Jahresrechnung beschleunigt das Angebot – ist aber kein Muss." },
+      { q: "Welche Daten brauchen Sie von mir?", a: "PLZ, ungefährer Jahresverbrauch und Kontaktdaten reichen für die erste Prüfung. Eine alte Jahresrechnung beschleunigt das Angebot. Ist aber kein Muss." },
       { q: "Was, wenn ich meinen Verbrauch nicht kenne?", a: "Kein Problem. Wir schätzen Ihren Verbrauch anhand Wohnfläche und Personenzahl realistisch ein. Sie können den Wert später jederzeit anpassen." },
-      { q: "Brauche ich meine Zählernummer?", a: "Erst beim tatsächlichen Wechsel – nicht für die Beratung. Wir fragen sie ab, sobald ein Tarif für Sie passt." },
+      { q: "Brauche ich meine Zählernummer?", a: "Erst beim tatsächlichen Wechsel. Nicht für die Beratung. Wir fragen sie ab, sobald ein Tarif für Sie passt." },
     ],
   },
   {
@@ -59,16 +59,16 @@ const categories: { icon: typeof Zap; title: string; faqs: { q: string; a: strin
     faqs: [
       { q: "Was passiert mit meinen Daten?", a: "Ihre Daten werden DSGVO-konform in Deutschland verarbeitet und ausschließlich zur Tarifprüfung verwendet. Keine Weitergabe an Dritte ohne Ihre Einwilligung." },
       { q: "Werde ich nach der Anfrage mit Werbung zugeschüttet?", a: "Nein. Wir rufen Sie genau einmal zur Beratung an. Keine Newsletter, keine Werbung, keine Weitergabe an Callcenter." },
-      { q: "Kann ich meine Daten löschen lassen?", a: "Jederzeit. Eine kurze E-Mail an datenschutz@energieclever.de genügt – wir löschen Ihre Daten umgehend." },
+      { q: "Kann ich meine Daten löschen lassen?", a: "Jederzeit. Eine kurze E-Mail an datenschutz@energieclever.de genügt. Wir löschen Ihre Daten umgehend." },
     ],
   },
   {
     icon: Zap,
     title: "Tarife & Anbieter",
     faqs: [
-      { q: "Welche Anbieter prüft ihr?", a: "Über 800 geprüfte Strom- und Gasanbieter in Deutschland – große Versorger genauso wie regionale Spezialisten und Ökostrom-Anbieter." },
-      { q: "Gibt es auch Ökotarife?", a: "Ja, auf Wunsch finden wir ausschließlich zertifizierte Ökostrom- oder Biogas-Tarife – ohne dass Sie deshalb mehr zahlen müssen." },
-      { q: "Bin ich verpflichtet zu wechseln?", a: "Nein. Die Beratung ist absolut unverbindlich. Selbst nach Angebot entscheiden Sie frei – wir respektieren jedes Nein." },
+      { q: "Welche Anbieter prüft ihr?", a: "Über 800 geprüfte Strom- und Gasanbieter in Deutschland. Große Versorger genauso wie regionale Spezialisten und Ökostrom-Anbieter." },
+      { q: "Gibt es auch Ökotarife?", a: "Ja, auf Wunsch finden wir ausschließlich zertifizierte Ökostrom- oder Biogas-Tarife. Ohne dass Sie deshalb mehr zahlen müssen." },
+      { q: "Bin ich verpflichtet zu wechseln?", a: "Nein. Die Beratung ist absolut unverbindlich. Selbst nach Angebot entscheiden Sie frei. Wir respektieren jedes Nein." },
     ],
   },
 ];
@@ -87,7 +87,7 @@ function FaqPage() {
             Häufige Fragen
           </motion.h1>
           <motion.p {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground md:text-xl">
-            Alles Wichtige rund um Beratung, Wechsel, Datenschutz und Tarife – ehrlich beantwortet.
+            Alles Wichtige rund um Beratung, Wechsel, Datenschutz und Tarife. Ehrlich beantwortet.
           </motion.p>
         </div>
       </section>
@@ -131,7 +131,7 @@ function FaqPage() {
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
             <div className="max-w-xl">
               <h2 className="text-2xl font-bold md:text-3xl">Ihre Frage war nicht dabei?</h2>
-              <p className="mt-3 text-primary-foreground/80">Schreiben Sie uns oder rufen Sie an – wir antworten in der Regel innerhalb von 24 Stunden.</p>
+              <p className="mt-3 text-primary-foreground/80">Schreiben Sie uns oder rufen Sie an. Wir antworten in der Regel innerhalb von 24 Stunden.</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg" className="bg-success text-success-foreground hover:bg-success/90">

@@ -32,8 +32,8 @@ const mainNav: NavItem[] = [
         { label: "Gewerbestrom", to: "/gewerbestrom" },
       ],
       secondaryLinks: [
-        { label: "Anbieter wechseln – so geht's", to: "/ablauf" },
-        { label: "Alles über Strom – Ratgeber", to: "/wissen" },
+        { label: "Anbieter wechseln. So geht's", to: "/ablauf" },
+        { label: "Alles über Strom. Ratgeber", to: "/wissen" },
       ],
       articles: [
         { to: "/wissen", title: "Strompreis 2026: Was Haushalte jetzt wissen müssen", image: imgAutostrom },
@@ -55,7 +55,7 @@ const mainNav: NavItem[] = [
       ],
       secondaryLinks: [
         { label: "Gasanbieter wechseln", to: "/ablauf" },
-        { label: "Alles über Gas – Ratgeber", to: "/wissen" },
+        { label: "Alles über Gas. Ratgeber", to: "/wissen" },
       ],
       articles: [
         { to: "/wissen", title: "Gaspreise 2026: Prognose & Tipps zum Sparen", image: imgWaerme },
@@ -95,11 +95,11 @@ const mainNav: NavItem[] = [
       ],
       secondaryLinks: [
         { label: "Gewerbe Photovoltaik", to: "/kontakt" },
-        { label: "Alles über Solar – Ratgeber", to: "/wissen" },
+        { label: "Alles über Solar. Ratgeber", to: "/wissen" },
       ],
       articles: [
         { to: "/wissen", title: "Solaranlage-Kosten 2026: Alle Infos auf einen Blick", image: imgSolar },
-        { to: "/wissen", title: "Solaranlagen Installation – so geht's", image: imgWaerme },
+        { to: "/wissen", title: "Solaranlagen Installation. So geht's", image: imgWaerme },
         { to: "/wissen", title: "Förderungen & Zuschüsse für Solaranlagen 2026", image: imgAutostrom },
       ],
     },
@@ -138,7 +138,7 @@ const mainNav: NavItem[] = [
       secondaryLinks: [{ label: "Presse & Medien", to: "/ueber-uns" }],
       articles: [
         { to: "/ueber-uns", title: "Unsere Mission: Energie einfach & ehrlich machen", image: imgSolar },
-        { to: "/ueber-uns", title: "Ausgezeichnet vom TÜV – das steckt dahinter", image: imgAutostrom },
+        { to: "/ueber-uns", title: "Ausgezeichnet vom TÜV. Das steckt dahinter", image: imgAutostrom },
       ],
     },
   },
@@ -262,7 +262,7 @@ export function Header() {
             );
           })}
 
-          {/* Floating dropdown card — persistent shell so switching slides instead of fading */}
+          {/* Floating dropdown card. Persistent shell so switching slides instead of fading */}
           <AnimatePresence>
             {activeItem?.dropdown && (
               <motion.div
@@ -274,7 +274,7 @@ export function Header() {
                 onMouseLeave={scheduleClose}
                 className="absolute right-0 top-full z-50 mt-2 w-[820px] max-w-[calc(100vw-2rem)] origin-top"
               >
-                {/* Caret — slides smoothly between triggers */}
+                {/* Caret. Slides smoothly between triggers */}
                 <motion.div
                   className="absolute -top-1.5 h-3 w-3 rotate-45 bg-background border-l border-t border-border"
                   animate={{ left: Math.max(16, Math.min(caretLeft - 6, 820 - 24)) }}
@@ -327,7 +327,7 @@ export function Header() {
                         )}
                       </div>
 
-                      {/* Right column — articles */}
+                      {/* Right column. Articles */}
                       <div className="bg-muted/60 p-7">
                         <div className="grid grid-cols-2 gap-5">
                           {activeItem.dropdown.articles?.map((a) => (

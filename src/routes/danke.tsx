@@ -10,7 +10,7 @@ export const Route = createFileRoute("/danke")({
   validateSearch: (s) => search.parse(s) ?? {},
   head: () => ({
     meta: [
-      { title: "Anfrage eingegangen – EnergieClever" },
+      { title: "Anfrage eingegangen. EnergieClever" },
       { name: "description", content: "Vielen Dank für Ihre Anfrage." },
       { name: "robots", content: "noindex" },
     ],
@@ -26,7 +26,7 @@ function ThanksPage() {
         <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-success/15 text-success">
           <CheckCircle2 className="h-8 w-8" />
         </div>
-        <h1 className="mt-6 text-3xl font-bold text-primary md:text-4xl">Vielen Dank – Ihre Anfrage ist eingegangen.</h1>
+        <h1 className="mt-6 text-3xl font-bold text-primary md:text-4xl">Vielen Dank. Ihre Anfrage ist eingegangen.</h1>
         <p className="mt-4 text-muted-foreground">
           Wir prüfen jetzt passende Strom- und Gasangebote für Sie. Ein Berater meldet sich innerhalb der nächsten <strong className="text-foreground">24 Stunden</strong>.
         </p>

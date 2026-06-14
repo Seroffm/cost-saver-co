@@ -33,9 +33,9 @@ export const Route = createFileRoute("/")({
   validateSearch: (s) => homeSearchSchema.parse(s) ?? {},
   head: () => ({
     meta: [
-      { title: "EnergieClever – Strom & Gas vergleichen, bis zu 850 € sparen" },
+      { title: "EnergieClever. Strom & Gas vergleichen, bis zu 850 € sparen" },
       { name: "description", content: "Kostenloser Strom- und Gasvergleich mit persönlicher Beratung. Geprüfte Anbieter, einfacher Wechsel, keine Versorgungslücke." },
-      { property: "og:title", content: "EnergieClever – Strom & Gas vergleichen, bis zu 850 € sparen" },
+      { property: "og:title", content: "EnergieClever. Strom & Gas vergleichen, bis zu 850 € sparen" },
       { property: "og:description", content: "Kostenloser Strom- und Gasvergleich mit persönlicher Beratung. Geprüfte Anbieter, einfacher Wechsel, keine Versorgungslücke." },
     ],
   }),
@@ -145,21 +145,21 @@ function Hero() {
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3 py-1 text-xs font-semibold text-success">
-              <BadgeCheck className="h-3.5 w-3.5" /> TÜV-geprüfte Anbieter · 100 % kostenlos
+              <BadgeCheck className="h-3.5 w-3.5" /> TÜV-geprüfte Anbieter · Kostenlos
             </span>
             <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] text-primary md:text-6xl">
               Strom & Gas in 2 Minuten <span className="text-success">vergleichen.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">
-              Bis zu <strong className="text-primary">850 € pro Jahr</strong> sparen — mit persönlicher
-              Beratung statt Tarif-Roulette. Unabhängig, transparent, ohne versteckte Kosten.
+              Bis zu <strong className="text-primary">850 € pro Jahr</strong> sparen. Mit persönlicher
+              Beratung statt Tariflotterie. Unabhängig, transparent und ohne versteckte Kosten.
             </p>
 
             <ul className="mt-6 grid max-w-md gap-2.5 text-sm">
               {[
-                "Persönlicher Berater statt anonymem Portal",
+                "Persönlicher Berater statt anonymes Vergleichsportal",
                 "Komplette Wechselabwicklung inkl. Kündigung",
-                "Keine Versorgungslücke — garantiert",
+                "Keine Versorgungslücke. Garantiert",
               ].map((b) => (
                 <li key={b} className="flex items-start gap-2 text-foreground">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-success" />
@@ -345,7 +345,7 @@ function QuickCalculator() {
 
 function TrustStrip() {
   const items = [
-    { icon: BadgeCheck, label: "100 % kostenlos" },
+    { icon: BadgeCheck, label: "Kostenlos" },
     { icon: ShieldCheck, label: "TÜV-zertifizierter Vergleich" },
     { icon: Award, label: "Über 1.200 geprüfte Tarife" },
     { icon: CheckCircle2, label: "Keine Versorgungsunterbrechung" },
@@ -371,17 +371,17 @@ function HowItWorks() {
   const steps = [
     {
       n: "01", icon: FileSearch, t: "Daten eingeben", k: "~ 90 Sek.",
-      d: "PLZ, Jahresverbrauch und Wunsch — fertig. Keine Registrierung, keine Zwangsfelder.",
+      d: "PLZ, Jahresverbrauch und Wunsch. Fertig. Keine Registrierung, keine Zwangsfelder.",
       bullets: ["Online oder telefonisch", "Auch ohne alte Rechnung", "Verschlüsselte Übertragung"],
     },
     {
       n: "02", icon: PhoneCall, t: "Persönliches Angebot", k: "≤ 24 Std.",
       d: "Ein echter Berater prüft 1.200+ Tarife manuell und ruft mit dem besten Vorschlag zurück.",
-      bullets: ["Vergleich inkl. Kleingedrucktem", "Bonus-Fallen ausgeschlossen", "Festpreisgarantie möglich"],
+      bullets: ["Vergleich inkl. Kleingedrucktem", "Lockboni ausgeschlossen", "Festpreisgarantie möglich"],
     },
     {
       n: "03", icon: FileSignature, t: "Wechseln & sparen", k: "Ø 380 €/Jahr",
-      d: "Wir übernehmen Kündigung beim Altanbieter und Anmeldung beim Neuen — Sie machen nichts.",
+      d: "Wir übernehmen Kündigung beim Altanbieter und Anmeldung beim Neuen. Sie machen nichts.",
       bullets: ["Lückenlose Versorgung", "Schriftliche Bestätigung", "Erinnerung vor Vertragsende"],
     },
   ];
@@ -389,13 +389,13 @@ function HowItWorks() {
     <section className="mx-auto max-w-6xl px-4 py-20 md:py-28">
       <div className="mx-auto max-w-2xl text-center">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 px-3 py-1 text-xs font-semibold text-success">
-          <Sparkles className="h-3.5 w-3.5" /> So einfach geht's
+          <Sparkles className="h-3.5 w-3.5" /> So funktioniert es
         </span>
         <h2 className="mt-3 font-display text-3xl font-bold text-primary md:text-5xl">
           Drei Schritte. <span className="text-success">Null</span> Papierkram.
         </h2>
         <p className="mt-3 text-muted-foreground">
-          Links siehst du, was wir kombinieren — rechts, wie es im Detail abläuft.
+          Links siehst du, was wir kombinieren. Rechts, wie es im Detail abläuft.
         </p>
       </div>
 
@@ -434,11 +434,11 @@ function HowItWorks() {
             })}
           </div>
           <p className="mx-auto mt-8 max-w-sm text-center text-sm text-muted-foreground">
-            Dein Wunsch + unser Marktcheck + persönliche Betreuung — alles in einem Paket.
+            Dein Wunsch + unser Marktcheck + persönliche Betreuung. Alles in einem Paket.
           </p>
         </motion.div>
 
-        {/* RIGHT — Accordion card */}
+        {/* RIGHT. Accordion card */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -521,7 +521,7 @@ function BenefitsSection() {
           <h2 className="mt-3 font-display text-3xl font-bold text-primary md:text-5xl">
             Wie viel <span className="text-success">sparst du</span>?
           </h2>
-          <p className="mt-3 text-muted-foreground">Schieb die Regler — wir rechnen live.</p>
+          <p className="mt-3 text-muted-foreground">Verschieben Sie die Regler. Wir rechnen live.</p>
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_1fr]">
@@ -671,9 +671,9 @@ function SavingsCalculator() {
 
 function ComparisonCard() {
   const us = [
-    "Ein fester Berater begleitet dich – per Telefon, kein Chatbot.",
+    "Ein fester Berater begleitet dich. Per Telefon, kein Chatbot.",
     "Wir kündigen deinen Altvertrag und übernehmen den Wechsel komplett.",
-    "Tarife werden manuell auf Preisgarantie, Boni-Fallen und Laufzeit geprüft.",
+    "Tarife werden manuell auf Preisgarantie, Lockboni und Laufzeit geprüft.",
   ];
 
   return (
@@ -728,7 +728,7 @@ function ComparisonCard() {
 
 function AudienceSection() {
   const items = [
-    { icon: Home, t: "Privathaushalte", d: "Singles, Familien, WGs — den passenden Tarif für jeden Verbrauch.", img: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=70" },
+    { icon: Home, t: "Privathaushalte", d: "Singles, Familien, WGs. Den passenden Tarif für jeden Verbrauch.", img: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=70" },
     { icon: Briefcase, t: "Gewerbe", d: "Sondertarife für Selbstständige, Praxen und kleine Betriebe.", img: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=70" },
     { icon: Building2, t: "Hausverwaltungen", d: "Effizienz für Mehrobjektportfolios mit Bündelung mehrerer Standorte.", img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=800&q=70" },
   ];
@@ -791,7 +791,7 @@ function StatsBand() {
             Tausende Haushalte sparen <span className="text-success">bereits jetzt</span>
           </h2>
           <p className="mt-3 text-sm text-primary-foreground/70 md:text-base">
-            Echte Ergebnisse von echten Kund:innen – transparent und nachprüfbar.
+            Echte Ergebnisse von echten Kund:innen. Transparent und nachprüfbar.
           </p>
         </motion.div>
 
@@ -862,7 +862,7 @@ function PriceBreakdown() {
       short: "Netz & Messung",
       value: 26,
       color: "#0b3b2e",
-      desc: "Regulierte Gebühren für die Nutzung der Strom- und Gasnetze sowie Messstellenbetrieb. Fix pro Region — unabhängig vom Anbieter.",
+      desc: "Regulierte Gebühren für die Nutzung der Strom- und Gasnetze sowie Messstellenbetrieb. Fix pro Region. Unabhängig vom Anbieter.",
     },
     {
       key: "steuern",
@@ -908,7 +908,7 @@ function PriceBreakdown() {
             Wie setzt sich dein Strompreis zusammen?
           </h2>
           <p className="mt-4 text-base text-muted-foreground md:text-lg">
-            Nur ein Bruchteil deiner Stromrechnung geht an den Anbieter selbst — der Rest sind Netze und Steuern. Genau hier setzen wir an.
+            Nur ein Bruchteil deiner Stromrechnung geht an den Anbieter selbst. Der Rest sind Netze und Steuern. Genau hier setzen wir an.
           </p>
         </motion.div>
 
@@ -1013,7 +1013,7 @@ function PriceBreakdown() {
 
 function Testimonials() {
   const items = [
-    { n: "Sandra K.", c: "Familie, München", t: "Innerhalb eines Tages hatte ich ein passendes Angebot. Spare jetzt 520 € im Jahr — ohne Stress." },
+    { n: "Sandra K.", c: "Familie, München", t: "Innerhalb eines Tages hatte ich ein passendes Angebot. Spare jetzt 520 € im Jahr. Ohne Stress." },
     { n: "Markus B.", c: "Inhaber Café, Köln", t: "Endlich Klartext statt Klick-Strecke. Die Gewerbeberatung war Gold wert." },
     { n: "Familie Weiß", c: "Hannover", t: "Komplett ohne Aufwand. Kündigung beim alten Anbieter haben sie für uns übernommen." },
   ];
@@ -1132,9 +1132,9 @@ function MoreSolutions() {
 
 function RatgeberSection() {
   const items = [
-    { t: "Anbieterwechsel: Schritt für Schritt", d: "So läuft Ihr Wechsel reibungslos — von der Kündigung bis zur ersten Abrechnung.", img: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=70", to: "/ablauf" },
+    { t: "Anbieterwechsel: Schritt für Schritt", d: "So läuft Ihr Wechsel reibungslos. Von der Kündigung bis zur ersten Abrechnung.", img: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=70", to: "/ablauf" },
     { t: "Strompreise verstehen", d: "Grundpreis, Arbeitspreis, Boni: Was wirklich in Ihrem Tarif steckt.", img: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=70", to: "/faq" },
-    { t: "Über EnergieClever", d: "Warum wir unabhängig sind und wie wir Geld verdienen — transparent erklärt.", img: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=70", to: "/ueber-uns" },
+    { t: "Über EnergieClever", d: "Warum wir unabhängig sind und wie wir Geld verdienen. Transparent erklärt.", img: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=70", to: "/ueber-uns" },
   ];
   return (
     <section className="mx-auto max-w-6xl px-4 py-20 md:py-24">
@@ -1353,7 +1353,7 @@ function FinalCta() {
           <div>
             <h2 className="font-display text-3xl font-extrabold md:text-4xl">Bereit, weniger zu zahlen?</h2>
             <p className="mt-3 max-w-xl opacity-95">
-              Starten Sie jetzt Ihre kostenlose Tarifprüfung. 2 Minuten — mehr brauchen wir nicht.
+              Starten Sie jetzt Ihre kostenlose Tarifprüfung. 2 Minuten. Mehr brauchen wir nicht.
             </p>
             <div className="mt-4 flex items-center gap-2 text-sm opacity-95">
               <Phone className="h-4 w-4" /> Lieber persönlich? <a className="font-semibold underline" href="tel:08001234567">0800 123 4567</a>
@@ -1412,7 +1412,7 @@ function WechselCta() {
                 Hol' dir jetzt dein persönliches Angebot
               </h3>
               <p className="mt-2 text-sm text-primary-foreground/75">
-                Gib deine Postleitzahl ein – wir zeigen dir in Sekunden die besten Tarife in deiner Region.
+                Gib deine Postleitzahl ein. Wir zeigen dir in Sekunden die besten Tarife in deiner Region.
               </p>
 
               <form
@@ -1461,7 +1461,7 @@ const faqs = [
 
   { q: "Ist die Beratung wirklich kostenlos?", a: "Ja. Wir werden vom neuen Anbieter vergütet, nicht von Ihnen. Für Sie entstehen keinerlei Kosten." },
   { q: "Wie lange dauert ein Wechsel?", a: "Der Wechselprozess dauert in der Regel 4–8 Wochen. Die Versorgung läuft währenddessen lückenlos weiter." },
-  { q: "Gibt es eine Versorgungsunterbrechung?", a: "Nein. Strom und Gas fließen ohne Unterbrechung — nur der Vertragspartner wechselt." },
+  { q: "Gibt es eine Versorgungsunterbrechung?", a: "Nein. Strom und Gas fließen ohne Unterbrechung. Nur der Vertragspartner wechselt." },
   { q: "Welche Daten brauchen Sie von mir?", a: "Postleitzahl, ungefährer Jahresverbrauch und Kontaktdaten reichen aus. Eine alte Jahresabrechnung beschleunigt die Prüfung." },
   { q: "Was passiert mit meinen Daten?", a: "Alle Daten werden DSGVO-konform in Deutschland verarbeitet und nur zur Tarifprüfung verwendet." },
   { q: "Bin ich verpflichtet, das Angebot anzunehmen?", a: "Nein. Die Beratung ist komplett unverbindlich. Sie entscheiden, ob Sie wechseln möchten." },

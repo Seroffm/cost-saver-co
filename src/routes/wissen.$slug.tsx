@@ -29,7 +29,7 @@ const articles: Article[] = [
     image: imgStrom, tag: "Strom · Marktanalyse", read: "8 min", date: "12. Juni 2026", author: "Sarah Becker",
     body: [
       { heading: "Die wichtigsten Trends 2026", paragraphs: [
-        "Im Jahr 2026 stehen Haushalte vor einer paradoxen Situation: Während die Beschaffungskosten an der Strombörse leicht sinken, steigen die regulatorischen Kosten – allen voran Netzentgelte und CO₂-Preis. Für den durchschnittlichen Haushalt mit 3.500 kWh Jahresverbrauch bedeutet das eine Mehrbelastung von rund 70 €.",
+        "Im Jahr 2026 stehen Haushalte vor einer paradoxen Situation: Während die Beschaffungskosten an der Strombörse leicht sinken, steigen die regulatorischen Kosten. Allen voran Netzentgelte und CO₂-Preis. Für den durchschnittlichen Haushalt mit 3.500 kWh Jahresverbrauch bedeutet das eine Mehrbelastung von rund 70 €.",
         "Wer bisher in der Grundversorgung ist, zahlt im Schnitt 14–22 % mehr als Wechselkunden bei einem Sondertarif. Ein Anbieterwechsel bleibt damit der wirksamste Einzelhebel für die Stromrechnung.",
       ]},
       { heading: "Worauf jetzt achten", paragraphs: [
@@ -37,7 +37,7 @@ const articles: Article[] = [
         "Bonuszahlungen sind verlockend, aber rechnen Sie immer die Kosten ohne Bonus durch. Ein Tarif mit 250 € Sofortbonus, der nach 12 Monaten in einen teuren Folgetarif übergeht, ist oft teurer als ein Tarif ohne Bonus mit fairer Folgekonditionierung.",
       ]},
       { heading: "Unsere Empfehlung", paragraphs: [
-        "Lassen Sie alle 12 Monate prüfen, ob Ihr Tarif noch passt. Das geht in unter 2 Minuten und kann mehrere hundert Euro sparen – ohne Aufwand, ohne Versorgungslücke.",
+        "Lassen Sie alle 12 Monate prüfen, ob Ihr Tarif noch passt. Das geht in unter 2 Minuten und kann mehrere hundert Euro sparen. Ohne Aufwand, ohne Versorgungslücke.",
       ]},
     ],
   },
@@ -48,7 +48,7 @@ const articles: Article[] = [
     image: imgSolar, tag: "Strom · Ökostrom", read: "6 min", date: "8. Juni 2026", author: "Daniel Kraus",
     body: [
       { heading: "Was ist überhaupt Ökostrom?", paragraphs: [
-        "Ökostrom ist nicht gleich Ökostrom. Der Begriff selbst ist nicht geschützt. Anbieter können auch dann Ökostrom verkaufen, wenn sie selbst keinen einzigen Cent in neue Anlagen investieren – sie kaufen einfach Herkunftsnachweise aus Norwegen.",
+        "Ökostrom ist nicht gleich Ökostrom. Der Begriff selbst ist nicht geschützt. Anbieter können auch dann Ökostrom verkaufen, wenn sie selbst keinen einzigen Cent in neue Anlagen investieren. Sie kaufen einfach Herkunftsnachweise aus Norwegen.",
         "Echte Wirkung entsteht nur, wenn der Tarif den Ausbau erneuerbarer Energien fördert. Genau das prüfen die unabhängigen Labels.",
       ]},
       { heading: "Die wichtigsten Siegel", paragraphs: [
@@ -61,7 +61,7 @@ const articles: Article[] = [
   {
     slug: "gaspreise-2026",
     title: "Gaspreise 2026: Prognose & Spar-Tipps",
-    teaser: "Wie sich der Gaspreis im kommenden Heizjahr entwickeln dürfte – und wann sich ein Festpreis lohnt.",
+    teaser: "Wie sich der Gaspreis im kommenden Heizjahr entwickeln dürfte. Und wann sich ein Festpreis lohnt.",
     image: imgGas, tag: "Gas · Prognose", read: "7 min", date: "5. Juni 2026", author: "Mira Aydin",
     body: [
       { heading: "Wo stehen wir 2026?", paragraphs: [
@@ -89,7 +89,7 @@ const articles: Article[] = [
   {
     slug: "bundle-doppelbonus",
     title: "Strom & Gas bündeln: Wann sich der Doppel-Bonus lohnt",
-    teaser: "Bundles können doppelt sparen – oder nichts bringen. Diese drei Fragen entscheiden.",
+    teaser: "Bundles können doppelt sparen. Oder nichts bringen. Diese drei Fragen entscheiden.",
     image: imgBundle, tag: "Bundle · Ratgeber", read: "5 min", date: "28. Mai 2026", author: "Daniel Kraus",
     body: [
       { heading: "Wann sich Bundles lohnen", paragraphs: [
@@ -185,7 +185,7 @@ function ArticlePage() {
 
         <div className="mt-16 rounded-3xl bg-gradient-to-br from-primary to-primary/90 p-8 text-primary-foreground md:p-12">
           <h2 className="font-display text-2xl font-bold md:text-3xl">Lieber direkt sparen?</h2>
-          <p className="mt-3 text-primary-foreground/80">2 Minuten Tarifprüfung – bis zu 850 € Ersparnis pro Jahr.</p>
+          <p className="mt-3 text-primary-foreground/80">2 Minuten Tarifprüfung. Bis zu 850 € Ersparnis pro Jahr.</p>
           <Button asChild className="mt-6 bg-success text-success-foreground hover:bg-success/90">
             <Link to="/angebot">Jetzt Tarif prüfen <ArrowRight className="ml-1 h-4 w-4" /></Link>
           </Button>

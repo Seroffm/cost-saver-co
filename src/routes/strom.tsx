@@ -9,7 +9,7 @@ import ctaBg from "@/assets/final-cta-bg.jpg";
 export const Route = createFileRoute("/strom")({
   head: () => ({
     meta: [
-      { title: "Strom vergleichen – bis zu 850 € sparen | EnergieClever" },
+      { title: "Strom vergleichen. Bis zu 850 € sparen | EnergieClever" },
       { name: "description", content: "Stromtarife persönlich vergleichen: Haushaltsstrom, Ökostrom, Autostrom und Wärmestrom. Geprüfte Anbieter, kostenloser Wechsel ohne Versorgungslücke." },
       { property: "og:title", content: "Strom vergleichen | EnergieClever" },
       { property: "og:description", content: "Stromtarife persönlich vergleichen und bis zu 850 € pro Jahr sparen." },
@@ -21,11 +21,11 @@ export const Route = createFileRoute("/strom")({
 
 const features = [
   { icon: TrendingDown, title: "Bis zu 850 € sparen", desc: "Ein Tarifwechsel rechnet sich fast immer. Wir zeigen Ihnen schwarz auf weiß, wie viel." },
-  { icon: ShieldCheck, title: "Geprüfte Anbieter", desc: "Über 800 Stromanbieter im Vergleich – nur Versorger mit guter Service- und Preisstabilität." },
+  { icon: ShieldCheck, title: "Geprüfte Anbieter", desc: "Über 800 Stromanbieter im Vergleich. Nur Versorger mit guter Service- und Preisstabilität." },
   { icon: Sparkles, title: "Persönliche Beratung", desc: "Echte Menschen am Telefon. Keine Bots, keine Verkaufsmasche, keine versteckten Gebühren." },
   { icon: BadgeCheck, title: "Wechselgarantie", desc: "Wir übernehmen den kompletten Wechsel inklusive Kündigung beim alten Anbieter." },
-  { icon: Leaf, title: "Ökostrom-Tarife", desc: "Auf Wunsch ausschließlich zertifizierte Ökostrom-Anbieter – ohne Aufpreis-Falle." },
-  { icon: Car, title: "Autostrom & Wärmestrom", desc: "Spezial-Tarife für E-Autos und Wärmepumpen – getrennte Zähler, getrennt günstig." },
+  { icon: Leaf, title: "Ökostrom-Tarife", desc: "Auf Wunsch ausschließlich zertifizierte Ökostrom-Anbieter. Ohne versteckte Aufpreise." },
+  { icon: Car, title: "Autostrom & Wärmestrom", desc: "Spezial-Tarife für E-Autos und Wärmepumpen. Getrennte Zähler, getrennt günstig." },
 ];
 
 function StromPage() {
@@ -34,7 +34,7 @@ function StromPage() {
       <TopicHero
         kicker="Strom vergleichen"
         title={<>Strom, der zu Ihrem Leben passt.</>}
-        lead="Egal ob Haushaltsstrom, Ökostrom, Autostrom oder Wärmestrom – wir finden den Tarif, der wirklich zu Ihrem Verbrauch passt."
+        lead="Egal ob Haushaltsstrom, Ökostrom, Autostrom oder Wärmestrom. Wir finden den Tarif, der wirklich zu Ihrem Verbrauch passt."
         image={heroImg}
         imageAlt="Modernes Wohnzimmer mit smartem Stromzähler"
         Icon={Zap}
@@ -43,21 +43,21 @@ function StromPage() {
 
       <FeatureGrid
         title="Warum mit EnergieClever wechseln?"
-        intro="Sechs Gründe, warum sich der Anruf lohnt – auch wenn Sie schon mal verglichen haben."
+        intro="Sechs Gründe, warum sich der Anruf lohnt. Auch wenn Sie schon mal verglichen haben."
         items={features}
       />
 
       <ImageSplit
         eyebrow="Tarifarten"
         title="Vier Strom-Welten, ein Berater"
-        body="Wir unterscheiden nicht nach Provision, sondern nach Bedarf. Haushalt, Familie, E-Auto, Wärmepumpe – jede Situation hat ihren passenden Tarif. Wir filtern sie für Sie heraus."
+        body="Wir unterscheiden nicht nach Provision, sondern nach Bedarf. Haushalt, Familie, E-Auto, Wärmepumpe. Jede Situation hat ihren passenden Tarif. Wir filtern sie für Sie heraus."
         image={splitImg}
         imageAlt="E-Auto wird zuhause an Wallbox geladen"
         bullets={[
-          "Haushaltsstrom – stabil, einfach, transparent",
+          "Haushaltsstrom. Stabil, einfach, transparent",
           "Ökostrom 100 % – zertifiziert nach OK-Power oder Grüner Strom-Label",
-          "Autostrom – Sondertarif für Wallbox & E-Auto",
-          "Wärmestrom – für Nachtspeicher- und Wärmepumpenheizungen",
+          "Autostrom. Sondertarif für Wallbox & E-Auto",
+          "Wärmestrom. Für Nachtspeicher- und Wärmepumpenheizungen",
         ]}
       />
 
@@ -65,7 +65,7 @@ function StromPage() {
         reverse
         eyebrow="So sparen Sie wirklich"
         title="Wir prüfen genauer als jeder Online-Rechner"
-        body="Online-Vergleichsportale zeigen oft Lockangebote mit Bonus im ersten Jahr. Wir rechnen ehrlich auf 24 Monate – inklusive Preisgleitklauseln, Kündigungsfristen und realer Nettokosten."
+        body="Online-Vergleichsportale zeigen oft Lockangebote mit Bonus im ersten Jahr. Wir rechnen ehrlich auf 24 Monate. Inklusive Preisgleitklauseln, Kündigungsfristen und realer Nettokosten."
         image={ctaBg}
         imageAlt="Hand vergleicht Stromrechnung mit Taschenrechner"
         bullets={[
@@ -77,7 +77,7 @@ function StromPage() {
 
       <FinalCta
         title="Wie viel könnten Sie sparen?"
-        body="Zwei Minuten Aufwand, ein klares Sparergebnis – komplett kostenlos und unverbindlich."
+        body="Zwei Minuten Aufwand, ein klares Sparergebnis. Komplett kostenlos und unverbindlich."
         image={ctaBg}
       />
     </SiteLayout>

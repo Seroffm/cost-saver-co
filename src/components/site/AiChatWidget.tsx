@@ -144,7 +144,7 @@ export function AiChatWidget() {
             </button>
           </form>
           <div className="px-3 pb-2 text-[10px] text-muted-foreground">
-            KI-generierte Antworten – keine verbindliche Beratung.
+            KI-generierte Antworten. Keine verbindliche Beratung.
           </div>
         </div>
       )}

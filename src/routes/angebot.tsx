@@ -14,7 +14,7 @@ export const Route = createFileRoute("/angebot")({
   validateSearch: (s) => search.parse(s) ?? {},
   head: () => ({
     meta: [
-      { title: "Kostenlose Tarifprüfung – EnergieClever" },
+      { title: "Kostenlose Tarifprüfung. EnergieClever" },
       { name: "description", content: "In 2 Minuten zum persönlichen Strom- oder Gasangebot. Unverbindlich und kostenlos." },
       { name: "robots", content: "noindex" },
     ],
@@ -57,13 +57,13 @@ function AngebotPage() {
         {/* Hero links */}
         <div className="order-2 md:order-1">
           <span className="inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3 py-1 text-xs font-semibold text-success">
-            100 % kostenlos & unverbindlich
+            Kostenlos & unverbindlich
           </span>
           <h1 className="mt-4 font-display text-3xl font-extrabold leading-tight text-primary md:text-5xl">
             Ihr persönliches Strom- & Gasangebot in 2 Minuten.
           </h1>
           <p className="mt-4 text-muted-foreground">
-            Wir vergleichen für Sie. Sie entscheiden. Kein Account, kein Tarif-Roulette, keine Versorgungslücke.
+            Wir vergleichen für Sie. Sie entscheiden. Kein Account, kein Tariflotterie, keine Versorgungslücke.
           </p>
           <ul className="mt-6 space-y-2.5 text-sm">
             {[

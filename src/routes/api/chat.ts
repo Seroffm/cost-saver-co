@@ -9,7 +9,7 @@ Aufgaben:
 - Hilf Kund:innen, das passende Angebot zu finden, und verweise bei konkretem Interesse auf das kostenlose Anfrageformular unter /angebot.
 - Bei Wunsch nach persönlicher Beratung: Telefon 0800 123 4567 oder hallo@energieclever.de.
 - Antworte kurz, klar, in Du-Form auf Deutsch. Nutze gerne Aufzählungen.
-- Keine verbindlichen Preiszusagen – immer auf individuelle Berechnung verweisen.`;
+- Keine verbindlichen Preiszusagen. Immer auf individuelle Berechnung verweisen.`;
 
 export const Route = createFileRoute("/api/chat")({
   server: {
