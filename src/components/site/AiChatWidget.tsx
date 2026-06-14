@@ -1,8 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
-import { MessageCircle, X, Send, Sparkles } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import { MessageCircle, X, Send, Sparkles, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+const ACTION_RE = /\[\[ACTION:([^|\]]+)\|([^\]]+)\]\]/g;
+
+function parseMessage(text: string): { body: string; actions: { label: string; href: string }[] } {
+  const actions: { label: string; href: string }[] = [];
+  const body = text.replace(ACTION_RE, (_m, label: string, href: string) => {
+    actions.push({ label: label.trim(), href: href.trim() });
+    return "";
+  }).trim();
+  return { body, actions };
+}
 
 const WELCOME_TEXT =
   "Hallo, ich bin der Prime Energieberater.\n\nIch unterstütze Sie bei Fragen zu Strom-, Gas- und Energietarifen. Gerne helfe ich Ihnen dabei, passende Tarife zu finden, Ihre Angaben zu verstehen oder Fragen zum Anbieterwechsel zu beantworten.\n\nWie kann ich Ihnen helfen?";
