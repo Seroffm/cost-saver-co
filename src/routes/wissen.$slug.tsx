@@ -44,7 +44,7 @@ const articles: Article[] = [
   {
     slug: "oekostrom-labels",
     title: "Ökostrom erkennen: Echte Labels im Vergleich",
-    teaser: "OK-Power, Grüner Strom-Label, TÜV Süd EE01 – welches Siegel garantiert wirklich neuen Ökostrom?",
+    teaser: "OK-Power, Grüner Strom-Label, TÜV Süd EE01. Welches Siegel garantiert wirklich neuen Ökostrom?",
     image: imgSolar, tag: "Strom · Ökostrom", read: "6 min", date: "8. Juni 2026", author: "Daniel Kraus",
     body: [
       { heading: "Was ist überhaupt Ökostrom?", paragraphs: [
