@@ -1,12 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { TrendingUp, Inbox, FileSignature, CheckCircle2, ArrowUpRight, ArrowDownRight, Plus, Download } from "lucide-react";
+import { TrendingUp, Inbox, FileSignature, CheckCircle2, ArrowUpRight, ArrowDownRight, ArrowRight, Plus, Download, CalendarClock, AlertCircle, ClipboardList } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { AdminShell } from "@/components/mitarbeiter/AdminShell";
 import { leads, statusColor, statusLabel, typeLabel, employees } from "@/lib/mock-leads";
+import { getDueTasks, getNextTask } from "@/lib/mock-tasks";
 
 export const Route = createFileRoute("/mitarbeiter/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }] }),
@@ -21,7 +22,22 @@ const stats = [
 ];
 
 function Dashboard() {
+  const navigate = useNavigate();
   const recent = leads.slice(0, 5);
+
+  // Anforderung 4/8: Kennzahlen für "Offene Aufgaben heute" – live aus den Mock-Leads berechnet.
+  const dueTasks = getDueTasks();
+  const dueWiedervorlagen = dueTasks.filter((t) => t.type === "wiedervorlage").length;
+  const neueLeads = leads.filter((l) => l.status === "neu").length;
+  const inPruefung = leads.filter((l) => l.status === "in_pruefung").length;
+  const rueckfragenOffen = leads.filter((l) => l.status === "rueckfrage").length;
+  const nextTask = getNextTask();
+
+  function handleOpenNextTask() {
+    if (!nextTask) return;
+    navigate({ to: "/mitarbeiter/leads/$id", params: { id: nextTask.leadId } });
+  }
+
   return (
     <AdminShell
       title="Dashboard"
@@ -52,6 +68,34 @@ function Dashboard() {
           </motion.div>
         ))}
       </div>
+
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mt-6">
+        <Card className="border-primary/30 bg-primary/5">
+          <CardContent className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-4">
+              <div className="grid h-16 w-16 flex-none place-items-center rounded-2xl bg-primary text-2xl font-bold text-primary-foreground">
+                {dueTasks.length}
+              </div>
+              <div>
+                <div className="flex items-center gap-2 text-lg font-semibold">
+                  <ClipboardList className="h-5 w-5 text-primary" />Offene Aufgaben heute
+                </div>
+                <p className="text-sm text-muted-foreground">Fällige Wiedervorlagen, Rückfragen und neue Leads, die auf dich warten.</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge variant="outline" className="gap-1.5 py-1.5"><CalendarClock className="h-3.5 w-3.5" />{dueWiedervorlagen} fällige Wiedervorlagen</Badge>
+              <Badge variant="outline" className="gap-1.5 py-1.5"><Inbox className="h-3.5 w-3.5" />{neueLeads} neue Leads</Badge>
+              <Badge variant="outline" className="gap-1.5 py-1.5"><AlertCircle className="h-3.5 w-3.5" />{rueckfragenOffen} Rückfragen offen</Badge>
+              <Badge variant="outline" className="gap-1.5 py-1.5">{inPruefung} in Prüfung</Badge>
+              <Button size="sm" onClick={handleOpenNextTask} disabled={!nextTask}>
+                {nextTask ? "Nächste Aufgabe öffnen" : "Alles erledigt 🎉"}
+                {nextTask && <ArrowRight className="ml-2 h-4 w-4" />}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">

@@ -12,20 +12,40 @@ export const Route = createFileRoute("/mitarbeiter/wiedervorlage")({
   component: WiedervorlagePage,
 });
 
-// Mock follow-up entries — synthesize from leads
-const followups = leads
-  .filter((l) => ["wiedervorlage", "rueckfrage", "interessiert", "angebot_gesendet"].includes(l.status))
-  .map((l, i) => ({
-    leadId: l.id,
-    when: new Date(Date.now() + (i - 1) * 86400000 + 3600000 * 9).toISOString(),
-    reason: l.status === "wiedervorlage" ? "Wiedervorlage" : l.status === "rueckfrage" ? "Rückfrage offen" : "Nachfassen Angebot",
-    name: l.name,
-    phone: l.phone,
-    email: l.email,
-    assignee: l.assignee,
-    status: l.status,
-  }))
-  .sort((a, b) => a.when.localeCompare(b.when));
+// Wiedervorlage-Termine aus den Leads ableiten – pro Render neu berechnet, damit ein frisch
+// in der Lead-Detailseite gesetzter Termin sofort hier erscheint (inkl. "Heute"-Gruppe).
+function buildFollowups() {
+  // Primärquelle: Leads mit explizitem Wiedervorlage-Termin (lead.wiedervorlage).
+  const explicit = leads
+    .filter((l) => l.wiedervorlage)
+    .map((l) => ({
+      leadId: l.id,
+      when: l.wiedervorlage!.date,
+      reason: l.wiedervorlage!.comment || "Wiedervorlage",
+      name: l.name,
+      phone: l.phone,
+      email: l.email,
+      assignee: l.assignee,
+      status: l.status,
+    }));
+
+  // Fallback für ältere Demo-Leads ohne explizite Wiedervorlage, anhand des Status synthetisiert.
+  // TODO Supabase: entfällt, sobald jeder Lead `wiedervorlage_at` direkt aus der DB hat.
+  const fallback = leads
+    .filter((l) => !l.wiedervorlage && ["wiedervorlage", "rueckfrage", "interessiert", "angebot_gesendet"].includes(l.status))
+    .map((l, i) => ({
+      leadId: l.id,
+      when: new Date(Date.now() + (i - 1) * 86400000 + 3600000 * 9).toISOString(),
+      reason: l.status === "wiedervorlage" ? "Wiedervorlage" : l.status === "rueckfrage" ? "Rückfrage offen" : "Nachfassen Angebot",
+      name: l.name,
+      phone: l.phone,
+      email: l.email,
+      assignee: l.assignee,
+      status: l.status,
+    }));
+
+  return [...explicit, ...fallback].sort((a, b) => a.when.localeCompare(b.when));
+}
 
 function groupKey(d: Date) {
   const today = new Date(); today.setHours(0, 0, 0, 0);
@@ -39,6 +59,7 @@ function groupKey(d: Date) {
 
 function WiedervorlagePage() {
   const { user, hasRole } = useMockAuth();
+  const followups = buildFollowups();
   // Mitarbeiter see only their own follow-ups; Admin/Manager see all
   const visible = hasRole("admin", "manager") ? followups : followups.filter((f) => f.assignee === user.name);
 

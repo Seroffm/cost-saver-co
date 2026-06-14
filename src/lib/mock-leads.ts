@@ -55,8 +55,30 @@ export const typeLabel: Record<LeadType, string> = {
 export interface LeadNote {
   id: string;
   author: string;
+  /** Rolle des Verfassers zum Zeitpunkt der Notiz – optional, da ältere Notizen sie ggf. nicht haben. */
+  authorRole?: Role;
   date: string;
   text: string;
+  /** Markiert die Notiz als wichtig (roter Rahmen + Label). Kein Löschen vorgesehen – CRM-Verlauf. */
+  isImportant?: boolean;
+}
+
+/** Ein Eintrag im Aktivitäts-/Verlauf-Tab eines Leads (Status-Änderung, Wiedervorlage, etc.). */
+export interface LeadHistoryEntry {
+  id: string;
+  date: string;
+  author: string;
+  type: "status_change" | "wiedervorlage" | "note" | "system";
+  text: string;
+}
+
+/** Wiedervorlage-Termin eines Leads. Wird auf der Wiedervorlage-Übersichtsseite angezeigt. */
+export interface LeadWiedervorlage {
+  /** ISO-Datum (optional mit Uhrzeit), Fälligkeitszeitpunkt der Wiedervorlage. */
+  date: string;
+  comment?: string;
+  createdBy?: string;
+  createdAt?: string;
 }
 
 export interface LeadDocument {
@@ -65,6 +87,10 @@ export interface LeadDocument {
   kind: "rechnung" | "angebot" | "vertrag" | "sonstiges";
   size: string;
   uploadedAt: string;
+  /** Name des Mitarbeiters, der das Dokument hochgeladen hat (bei Session-Uploads). */
+  uploadedBy?: string;
+  /** Lokale Object-URL für den Download innerhalb der aktuellen Session (kein echtes Storage). */
+  objectUrl?: string;
 }
 
 export interface LeadEmail {
@@ -110,6 +136,10 @@ export interface Lead {
   documents: LeadDocument[];
   emails: LeadEmail[];
   offers: LeadOffer[];
+  /** Aktivitäts-Verlauf (Status-Änderungen, Wiedervorlagen, ...) – Basis für den "Verlauf"-Tab. */
+  history: LeadHistoryEntry[];
+  /** Aktuell offene Wiedervorlage, falls eine gesetzt ist. */
+  wiedervorlage?: LeadWiedervorlage;
 }
 
 export const leads: Lead[] = [
@@ -126,25 +156,27 @@ export const leads: Lead[] = [
       { id: "e1", subject: "Ihre Anfrage für Strom & Gas ist eingegangen", from: "noreply@energieclever.de", to: "m.hoffmann@example.de", date: "2026-06-14T09:21:30", direction: "out", preview: "Vielen Dank für Ihre Anfrage. Wir prüfen passende Tarife…" },
     ],
     offers: [],
+    history: [],
   },
   {
     id: "L-2026-0411", name: "Anna Weber", email: "anna.weber@example.de", phone: "+49 160 9988776",
     city: "Düsseldorf", plz: "40213", type: "strom", consumption: 3400, currentProvider: "E.ON",
     monthlyPayment: 98, status: "in_pruefung", score: 72, assignee: "Sarah Becker",
     createdAt: "2026-06-14T08:05:00", expectedSavings: 312, source: "Direkt", hasInvoice: false,
-    notes: [{ id: "n1", author: "Sarah Becker", date: "2026-06-14T10:00:00", text: "Erstkontakt erfolgreich, Rückruf für morgen 14:00 vereinbart." }],
+    notes: [{ id: "n1", author: "Sarah Becker", authorRole: "admin", date: "2026-06-14T10:00:00", text: "Erstkontakt erfolgreich, Rückruf für morgen 14:00 vereinbart." }],
     documents: [],
     emails: [
       { id: "e1", subject: "Ihre Anfrage ist eingegangen", from: "noreply@energieclever.de", to: "anna.weber@example.de", date: "2026-06-14T08:06:00", direction: "out", preview: "Vielen Dank, wir prüfen Ihre Daten…" },
     ],
     offers: [],
+    history: [],
   },
   {
     id: "L-2026-0410", name: "Bäckerei Krüger GmbH", email: "info@baeckerei-krueger.de", phone: "+49 221 5544332",
     city: "Köln", plz: "50823", type: "gewerbe", consumption: 42000, currentProvider: "Vattenfall",
     monthlyPayment: 1240, status: "angebot_gesendet", score: 95, assignee: "Daniel Kraus",
     createdAt: "2026-06-13T15:42:00", expectedSavings: 4820, source: "Empfehlung", hasInvoice: true,
-    notes: [{ id: "n1", author: "Daniel Kraus", date: "2026-06-13T16:30:00", text: "Hoher Verbrauch, sehr gute Ersparnis möglich. Angebot mit 24-Monate-Preisgarantie verschickt." }],
+    notes: [{ id: "n1", author: "Daniel Kraus", authorRole: "manager", date: "2026-06-13T16:30:00", text: "Hoher Verbrauch, sehr gute Ersparnis möglich. Angebot mit 24-Monate-Preisgarantie verschickt." }],
     documents: [
       { id: "d1", name: "Jahresrechnung_2025_Vattenfall.pdf", kind: "rechnung", size: "412 KB", uploadedAt: "2026-06-13T15:50:00" },
       { id: "d2", name: "Angebot_EnBW_Gewerbe.pdf", kind: "angebot", size: "198 KB", uploadedAt: "2026-06-13T18:12:00" },
@@ -157,6 +189,7 @@ export const leads: Lead[] = [
     offers: [
       { id: "o1", providerName: "EnBW", tariffName: "Gewerbestrom 24 Fix", monthlyPrice: 818, yearlyPrice: 9816, savings: 4824, sentAt: "2026-06-13T18:15:00", status: "gesendet" },
     ],
+    history: [],
   },
   {
     id: "L-2026-0409", name: "Sophia Lang", email: "sophia.l@example.de", phone: "+49 152 3344556",
@@ -172,36 +205,43 @@ export const leads: Lead[] = [
     offers: [
       { id: "o1", providerName: "eprimo", tariffName: "Gas Direkt 12", monthlyPrice: 130, yearlyPrice: 1560, savings: 540, sentAt: "2026-06-13T10:00:00", status: "angenommen" },
     ],
+    history: [],
   },
   {
     id: "L-2026-0408", name: "Thomas Richter", email: "t.richter@example.de", phone: "+49 171 2233445",
     city: "Leverkusen", plz: "51373", type: "strom", consumption: 2200, currentProvider: "EnBW",
     monthlyPayment: 71, status: "abgeschlossen", score: 64, assignee: "Sarah Becker",
     createdAt: "2026-06-10T14:02:00", expectedSavings: 198, source: "SEO", hasInvoice: false,
-    notes: [{ id: "n1", author: "Sarah Becker", date: "2026-06-11T09:15:00", text: "Vertrag unterschrieben, Wechseltermin 01.08.2026." }],
+    notes: [{ id: "n1", author: "Sarah Becker", authorRole: "admin", date: "2026-06-11T09:15:00", text: "Vertrag unterschrieben, Wechseltermin 01.08.2026." }],
     documents: [],
     emails: [],
     offers: [{ id: "o1", providerName: "Yello", tariffName: "Klassik Strom 12", monthlyPrice: 55, yearlyPrice: 660, savings: 192, status: "angenommen" }],
+    history: [],
   },
   {
     id: "L-2026-0407", name: "Julia Maier", email: "j.maier@example.de", phone: "",
     city: "Aachen", plz: "52062", type: "strom", consumption: 1800, currentProvider: "Unbekannt",
     monthlyPayment: 0, status: "nicht_erreichbar", score: 22, assignee: "—",
     createdAt: "2026-06-09T17:31:00", expectedSavings: 0, source: "Google Ads", hasInvoice: false,
-    notes: [{ id: "n1", author: "Daniel Kraus", date: "2026-06-10T08:00:00", text: "Keine Telefonnummer, E-Mail bounced." }],
+    notes: [{ id: "n1", author: "Daniel Kraus", authorRole: "manager", date: "2026-06-10T08:00:00", text: "Keine Telefonnummer, E-Mail bounced." }],
     documents: [],
     emails: [],
     offers: [],
+    history: [],
   },
   {
     id: "L-2026-0406", name: "Familie Schuster", email: "schuster@example.de", phone: "+49 178 2244668",
     city: "Essen", plz: "45127", type: "strom_gas", consumption: 7200, currentProvider: "innogy",
     monthlyPayment: 234, status: "wiedervorlage", score: 68, assignee: "Mira Aydin",
     createdAt: "2026-06-08T13:14:00", expectedSavings: 412, source: "Empfehlung", hasInvoice: true,
-    notes: [{ id: "n1", author: "Mira Aydin", date: "2026-06-09T10:00:00", text: "Möchte nach Urlaub am 28.06. erneut kontaktiert werden." }],
+    notes: [{ id: "n1", author: "Mira Aydin", authorRole: "mitarbeiter", date: "2026-06-09T10:00:00", text: "Möchte nach Urlaub am 28.06. erneut kontaktiert werden." }],
     documents: [{ id: "d1", name: "Strom_Gas_Rechnung.pdf", kind: "rechnung", size: "302 KB", uploadedAt: "2026-06-08T13:20:00" }],
     emails: [],
     offers: [],
+    history: [
+      { id: "h1", date: "2026-06-09T10:01:00", author: "Mira Aydin", type: "wiedervorlage", text: "Mira Aydin hat eine Wiedervorlage für den 28.06.2026 erstellt." },
+    ],
+    wiedervorlage: { date: "2026-06-28T09:00:00", comment: "Nach Urlaub erneut kontaktieren", createdBy: "Mira Aydin", createdAt: "2026-06-09T10:01:00" },
   },
   {
     id: "L-2026-0405", name: "Lukas Vogel", email: "lukas.vogel@example.de", phone: "+49 162 7788990",
@@ -212,6 +252,7 @@ export const leads: Lead[] = [
     documents: [{ id: "d1", name: "Rechnung_DEW21.pdf", kind: "rechnung", size: "228 KB", uploadedAt: "2026-06-13T11:09:00" }],
     emails: [],
     offers: [{ id: "o1", providerName: "Vattenfall", tariffName: "EasyGas 24", monthlyPrice: 119, yearlyPrice: 1428, savings: 276, sentAt: "2026-06-14T08:00:00", status: "gesendet" }],
+    history: [],
   },
 ];
 
