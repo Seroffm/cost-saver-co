@@ -684,25 +684,37 @@ function ComparisonCard() {
   return (
     <div className="grid gap-4">
       {/* Wir */}
-      <article className="relative overflow-hidden rounded-3xl border border-success/30 bg-card p-7 shadow-card md:p-8">
-        <header className="flex items-baseline justify-between gap-4">
-          <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-success">Mit uns</div>
-            <h3 className="mt-1 font-display text-2xl font-bold text-primary">EnergieClever</h3>
-          </div>
-          <div className="text-right">
-            <div className="font-display text-2xl font-extrabold tabular-nums text-primary">100 %</div>
-            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">kostenlos</div>
-          </div>
-        </header>
-        <ul className="mt-5 space-y-3">
-          {us.map((t) => (
-            <li key={t} className="flex gap-3 text-[15px] leading-relaxed text-foreground">
-              <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-success" aria-hidden />
-              <span>{t}</span>
-            </li>
-          ))}
-        </ul>
+      <article className="relative overflow-hidden rounded-3xl border border-success/30 bg-card shadow-card">
+        <div className="relative aspect-[16/9] overflow-hidden">
+          <img
+            src={comparisonHero}
+            alt="Zufriedene Kunden mit persönlicher Energieberatung"
+            className="h-full w-full object-cover"
+            loading="lazy"
+            width={800}
+            height={512}
+          />
+        </div>
+        <div className="p-7 md:p-8">
+          <header className="flex items-baseline justify-between gap-4">
+            <div>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-success">Mit uns</div>
+              <h3 className="mt-1 font-display text-2xl font-bold text-primary">EnergieClever</h3>
+            </div>
+            <div className="text-right">
+              <div className="font-display text-2xl font-extrabold tabular-nums text-primary">100 %</div>
+              <div className="text-[11px] uppercase tracking-wider text-muted-foreground">kostenlos</div>
+            </div>
+          </header>
+          <ul className="mt-5 space-y-3">
+            {us.map((t) => (
+              <li key={t} className="flex gap-3 text-[15px] leading-relaxed text-foreground">
+                <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-success" aria-hidden />
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </article>
 
       {/* Portal */}
