@@ -55,12 +55,8 @@ export const leadSchema = z.object({
   rechnungDateiname: z.string().optional(),
   rechnungGroesseKb: z.number().optional(),
 
-  datenschutzAkzeptiert: z.literal(true, {
-    errorMap: () => ({ message: "Bitte Datenschutz akzeptieren" }),
-  }),
-  kontaktAkzeptiert: z.literal(true, {
-    errorMap: () => ({ message: "Bitte Kontaktaufnahme zustimmen" }),
-  }),
+  datenschutzAkzeptiert: z.literal(true, { message: "Bitte Datenschutz akzeptieren" }),
+  kontaktAkzeptiert: z.literal(true, { message: "Bitte Kontaktaufnahme zustimmen" }),
 });
 
 export type LeadInput = z.infer<typeof leadSchema>;
