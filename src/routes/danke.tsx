@@ -10,7 +10,7 @@ export const Route = createFileRoute("/danke")({
   validateSearch: (s) => search.parse(s) ?? {},
   head: () => ({
     meta: [
-      { title: "Anfrage eingegangen. EnergieClever" },
+      { title: "Anfrage eingegangen | EnergieClever" },
       { name: "description", content: "Vielen Dank für Ihre Anfrage." },
       { name: "robots", content: "noindex" },
     ],

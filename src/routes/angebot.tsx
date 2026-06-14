@@ -14,7 +14,7 @@ export const Route = createFileRoute("/angebot")({
   validateSearch: (s) => search.parse(s) ?? {},
   head: () => ({
     meta: [
-      { title: "Kostenlose Tarifprüfung. EnergieClever" },
+      { title: "Kostenlose Tarifprüfung | EnergieClever" },
       { name: "description", content: "In 2 Minuten zum persönlichen Strom- oder Gasangebot. Unverbindlich und kostenlos." },
       { name: "robots", content: "noindex" },
     ],

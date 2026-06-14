@@ -99,7 +99,7 @@ const mainNav: NavItem[] = [
       ],
       articles: [
         { to: "/wissen", title: "Solaranlage-Kosten 2026: Alle Infos auf einen Blick", image: imgSolar },
-        { to: "/wissen", title: "Solaranlagen Installation. So geht's", image: imgWaerme },
+        { to: "/wissen", title: "Solaranlagen Installation | So geht's", image: imgWaerme },
         { to: "/wissen", title: "Förderungen & Zuschüsse für Solaranlagen 2026", image: imgAutostrom },
       ],
     },
@@ -138,7 +138,7 @@ const mainNav: NavItem[] = [
       secondaryLinks: [{ label: "Presse & Medien", to: "/ueber-uns" }],
       articles: [
         { to: "/ueber-uns", title: "Unsere Mission: Energie einfach & ehrlich machen", image: imgSolar },
-        { to: "/ueber-uns", title: "Ausgezeichnet vom TÜV. Das steckt dahinter", image: imgAutostrom },
+        { to: "/ueber-uns", title: "Ausgezeichnet vom TÜV | Das steckt dahinter", image: imgAutostrom },
       ],
     },
   },

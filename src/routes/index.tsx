@@ -33,9 +33,9 @@ export const Route = createFileRoute("/")({
   validateSearch: (s) => homeSearchSchema.parse(s) ?? {},
   head: () => ({
     meta: [
-      { title: "EnergieClever. Strom & Gas vergleichen, bis zu 850 € sparen" },
+      { title: "EnergieClever | Strom & Gas vergleichen, bis zu 850 € sparen" },
       { name: "description", content: "Kostenloser Strom- und Gasvergleich mit persönlicher Beratung. Geprüfte Anbieter, einfacher Wechsel, keine Versorgungslücke." },
-      { property: "og:title", content: "EnergieClever. Strom & Gas vergleichen, bis zu 850 € sparen" },
+      { property: "og:title", content: "EnergieClever | Strom & Gas vergleichen, bis zu 850 € sparen" },
       { property: "og:description", content: "Kostenloser Strom- und Gasvergleich mit persönlicher Beratung. Geprüfte Anbieter, einfacher Wechsel, keine Versorgungslücke." },
     ],
   }),
