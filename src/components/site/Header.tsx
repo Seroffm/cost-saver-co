@@ -104,7 +104,7 @@ const mainNav: NavItem[] = [
       ],
     },
   },
-  { to: "/tarife", label: "Tarife" },
+  
   { to: "/wissen", label: "Wissen" },
   {
     to: "/service",
