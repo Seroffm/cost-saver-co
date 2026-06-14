@@ -675,11 +675,6 @@ function ComparisonCard() {
     "Wir kündigen deinen Altvertrag und übernehmen den Wechsel komplett.",
     "Tarife werden manuell auf Preisgarantie, Boni-Fallen und Laufzeit geprüft.",
   ];
-  const them = [
-    "Anonyme Maske, kein persönlicher Ansprechpartner bei Problemen.",
-    "Kündigung und Anbieterwechsel musst du selbst koordinieren.",
-    "Ranking folgt der Provision – nicht zwingend dem besten Tarif für dich.",
-  ];
 
   return (
     <div className="grid gap-4">
