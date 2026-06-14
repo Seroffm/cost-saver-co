@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { useNavigate } from "@tanstack/react-router";
-import { MessageCircle, X, Send, Sparkles, ArrowRight } from "lucide-react";
+import { MessageCircle, X, Send, Sparkles, ArrowRight, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ACTION_RE = /\[\[ACTION:([^|\]]+)\|([^\]]+)\]\]/g;
