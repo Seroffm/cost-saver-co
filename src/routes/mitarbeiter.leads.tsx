@@ -40,13 +40,17 @@ function LeadsPage() {
       <div className="mb-4 flex flex-wrap items-center gap-3">
         <Input placeholder="Lead suchen…" value={q} onChange={(e) => setQ(e.target.value)} className="max-w-xs" />
         <Tabs value={filter} onValueChange={(v) => setFilter(v as LeadStatus | "alle")}>
-          <TabsList>
+          <TabsList className="flex-wrap h-auto">
             <TabsTrigger value="alle">Alle</TabsTrigger>
             <TabsTrigger value="neu">Neu</TabsTrigger>
-            <TabsTrigger value="in_bearbeitung">In Bearbeitung</TabsTrigger>
+            <TabsTrigger value="in_pruefung">In Prüfung</TabsTrigger>
+            <TabsTrigger value="rueckfrage">Rückfrage</TabsTrigger>
             <TabsTrigger value="angebot_gesendet">Angebot</TabsTrigger>
+            <TabsTrigger value="interessiert">Interessiert</TabsTrigger>
             <TabsTrigger value="vertrag_gesendet">Vertrag</TabsTrigger>
             <TabsTrigger value="abgeschlossen">Abgeschlossen</TabsTrigger>
+            <TabsTrigger value="wiedervorlage">Wiedervorlage</TabsTrigger>
+            <TabsTrigger value="nicht_erreichbar">Nicht erreichbar</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>

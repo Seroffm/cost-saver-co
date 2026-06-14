@@ -29,6 +29,7 @@ const mainNav: NavItem[] = [
         { label: "Ökostrom 100 %", to: "/strom" },
         { label: "Autostrom für E-Autos", to: "/strom" },
         { label: "Wärmestrom", to: "/strom" },
+        { label: "Gewerbestrom", to: "/gewerbestrom" },
       ],
       secondaryLinks: [
         { label: "Anbieter wechseln – so geht's", to: "/ablauf" },
@@ -50,7 +51,7 @@ const mainNav: NavItem[] = [
         { label: "Unsere Gastarife", to: "/gas" },
         { label: "Erdgas Privat", to: "/gas" },
         { label: "Bio-Erdgas", to: "/gas" },
-        { label: "Gas für Gewerbe", to: "/gas" },
+        { label: "Gewerbegas", to: "/gewerbegas" },
       ],
       secondaryLinks: [
         { label: "Gasanbieter wechseln", to: "/ablauf" },
