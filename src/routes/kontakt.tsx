@@ -52,8 +52,8 @@ const channels = [
 ];
 
 const hours = [
-  { day: "Montag. Freitag", time: "08:00 – 20:00 Uhr" },
-  { day: "Samstag", time: "10:00 – 16:00 Uhr" },
+  { day: "Montag bis Freitag", time: "08:00 bis 20:00 Uhr" },
+  { day: "Samstag", time: "10:00 bis 16:00 Uhr" },
   { day: "Sonntag & Feiertage", time: "geschlossen" },
 ];
 
