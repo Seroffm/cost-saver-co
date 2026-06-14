@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { MockAuthProvider } from "../lib/mock-auth";
 import { AiChatWidget } from "../components/site/AiChatWidget";
+import { CookieConsent } from "../components/site/CookieConsent";
 import { useRouterState } from "@tanstack/react-router";
 
 function NotFoundComponent() {
@@ -122,6 +123,7 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const hideChat = pathname.startsWith("/danke") || pathname.startsWith("/mitarbeiter");
+  const hideConsent = pathname === "/datenschutz";
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -129,6 +131,7 @@ function RootComponent() {
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
         {!hideChat && <AiChatWidget />}
+        {!hideConsent && <CookieConsent />}
       </MockAuthProvider>
     </QueryClientProvider>
   );
