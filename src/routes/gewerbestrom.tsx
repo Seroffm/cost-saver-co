@@ -32,7 +32,7 @@ function GewerbestromPage() {
     <SiteLayout>
       <TopicHero
         kicker="Gewerbestrom"
-        title={<>Strom für Ihr Unternehmen – <span className="text-success">verhandelt, nicht abgestempelt.</span></>}
+        title={<>Strom für Ihr Unternehmen. <span className="text-success">Verhandelt statt abgestempelt.</span></>}
         lead="Vom Handwerksbetrieb bis zum Filialnetz: Wir vergleichen 200+ Gewerbestrom-Tarife und holen für Sie echte Festpreis-Angebote ein."
         image={heroImg}
         imageAlt="Modernes Bürogebäude mit beleuchteten Fenstern"
