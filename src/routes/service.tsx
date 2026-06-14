@@ -14,10 +14,10 @@ import ctaBg from "@/assets/final-cta-bg.jpg";
 export const Route = createFileRoute("/service")({
   head: () => ({
     meta: [
-      { title: "Service – persönliche Hilfe rund um Energie | EnergieClever" },
-      { name: "description", content: "Kontakt, Wechselservice, Dokumente, FAQ und Empfehlungsprogramm – alles, was Sie nach dem Abschluss von uns brauchen." },
+      { title: "Service: Persönliche Hilfe rund um Energie | EnergieClever" },
+      { name: "description", content: "Kontakt, Wechselservice, Dokumente, FAQ und Empfehlungsprogramm. Alles, was Sie nach dem Abschluss von uns brauchen." },
       { property: "og:title", content: "Service | EnergieClever" },
-      { property: "og:description", content: "Persönliche Hilfe rund um Ihren Energievertrag – schnell, freundlich, kostenlos." },
+      { property: "og:description", content: "Persönliche Hilfe rund um Ihren Energievertrag. Schnell, freundlich, kostenlos." },
       { property: "og:image", content: "/__l5e/assets-v1/page-service" },
     ],
   }),
@@ -37,7 +37,7 @@ const services = [
   { icon: Wrench, title: "Wechsel-Service", desc: "Wir übernehmen Kündigung, Anmeldung und alle Termine. Sie unterschreiben einmal.", to: "/ablauf", cta: "So läuft's ab" },
   { icon: FileText, title: "Dokumente & Verträge", desc: "Vertragskopien, Widerrufsformulare und Datenschutzunterlagen auf einen Klick.", to: "/datenschutz", cta: "Dokumente" },
   { icon: Gift, title: "Freunde werben", desc: "Empfehlen Sie uns weiter und sichern Sie sich bis zu 50 € Prämie pro Wechsel.", to: "/kontakt", cta: "Mehr erfahren" },
-  { icon: MessageCircle, title: "Rückruf-Service", desc: "Sagen Sie uns, wann es Ihnen am besten passt – wir melden uns pünktlich.", to: "/kontakt", cta: "Rückruf anfragen" },
+  { icon: MessageCircle, title: "Rückruf-Service", desc: "Sagen Sie uns, wann es Ihnen am besten passt. Wir melden uns pünktlich.", to: "/kontakt", cta: "Rückruf anfragen" },
 ];
 
 const promises = [
@@ -52,7 +52,7 @@ function ServicePage() {
       <TopicHero
         kicker="Wir sind für Sie da"
         title={<>Service, der den Namen verdient.</>}
-        lead="Vom ersten Anruf bis zum Wechsel und darüber hinaus – wir kümmern uns. Persönlich, geduldig und kostenlos."
+        lead="Vom ersten Anruf bis zum Wechsel und darüber hinaus. Wir kümmern uns. Persönlich, geduldig und kostenlos."
         image={heroImg}
         imageAlt="Freundlicher Kundenberater mit Headset im hellen Büro"
         Icon={Headphones}
@@ -64,7 +64,7 @@ function ServicePage() {
       <section className="mx-auto max-w-6xl px-4 py-20 md:py-24">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold text-primary md:text-4xl">Alle Services auf einen Blick</h2>
-          <p className="mt-4 text-muted-foreground">Sechs Wege, wie wir Ihnen weiterhelfen können – wählen Sie den passenden.</p>
+          <p className="mt-4 text-muted-foreground">Sechs Wege, wie wir Ihnen weiterhelfen können. Wählen Sie den passenden.</p>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
@@ -95,14 +95,14 @@ function ServicePage() {
               <div className="text-xs font-bold uppercase tracking-wider text-success">Wechsel-Service</div>
               <h2 className="mt-3 text-3xl font-bold text-primary md:text-4xl">Wir übernehmen die Arbeit. Sie genießen die Ersparnis.</h2>
               <p className="mt-5 text-muted-foreground">
-                Kündigung beim alten Anbieter, Anmeldung beim neuen, fristgerechte Übergabe, lückenlose Versorgung – das alles erledigen wir für Sie. Sie unterschreiben genau ein Dokument.
+                Kündigung beim alten Anbieter, Anmeldung beim neuen, fristgerechte Übergabe, lückenlose Versorgung. Das alles erledigen wir für Sie. Sie unterschreiben genau ein Dokument.
               </p>
               <ul className="mt-6 space-y-3">
                 {[
                   "Kündigung fristgerecht zum nächsten Termin",
                   "Anmeldung beim neuen Anbieter inkl. Datenübermittlung",
                   "Schriftliche Wechselbestätigung per E-Mail",
-                  "Keine Versorgungslücke – gesetzlich garantiert",
+                  "Keine Versorgungslücke. Gesetzlich garantiert",
                 ].map((b) => (
                   <li key={b} className="flex items-start gap-3 text-foreground/80">
                     <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-success" /> {b}
@@ -127,7 +127,7 @@ function ServicePage() {
             <div className="text-xs font-bold uppercase tracking-wider text-success">Dokumente & Verträge</div>
             <h2 className="mt-3 text-3xl font-bold text-primary md:text-4xl">Alles griffbereit, wenn Sie es brauchen.</h2>
             <p className="mt-5 text-muted-foreground">
-              Wir bewahren Vertragskopien und Bestätigungen sicher für Sie auf. Eine kurze E-Mail genügt – Sie bekommen das gewünschte Dokument innerhalb eines Werktags.
+              Wir bewahren Vertragskopien und Bestätigungen sicher für Sie auf. Eine kurze E-Mail genügt. Sie bekommen das gewünschte Dokument innerhalb eines Werktags.
             </p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {[
@@ -184,7 +184,7 @@ function ServicePage() {
         <div className="mx-auto max-w-5xl px-4 py-20 text-center text-primary-foreground md:py-28">
           <h2 className="text-3xl font-bold md:text-5xl">Eine Frage. Eine Antwort.</h2>
           <p className="mx-auto mt-4 max-w-2xl text-primary-foreground/90">
-            Rufen Sie an, schreiben Sie uns oder lassen Sie sich zurückrufen – wir sind für Sie da.
+            Rufen Sie an, schreiben Sie uns oder lassen Sie sich zurückrufen. Wir sind für Sie da.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a href="tel:08001234567" className="inline-flex items-center gap-2 rounded-full bg-success px-6 py-3 text-sm font-bold text-success-foreground transition hover:bg-success/90">

@@ -9,10 +9,10 @@ import ctaBg from "@/assets/final-cta-bg.jpg";
 export const Route = createFileRoute("/strom-gas")({
   head: () => ({
     meta: [
-      { title: "Strom + Gas im Bundle – Doppel-Bonus sichern | EnergieClever" },
+      { title: "Strom + Gas im Bundle: Doppel-Bonus sichern | EnergieClever" },
       { name: "description", content: "Strom und Gas bündeln, einen Vertrag verwalten, doppelten Wechselbonus sichern. Wir prüfen, ob sich ein Bundle für Sie wirklich lohnt." },
       { property: "og:title", content: "Strom + Gas im Bundle | EnergieClever" },
-      { property: "og:description", content: "Ein Vertrag, doppelte Ersparnis – wir prüfen ehrlich, ob sich das Bundle lohnt." },
+      { property: "og:description", content: "Ein Vertrag, doppelte Ersparnis. Wir prüfen ehrlich, ob sich das Bundle lohnt." },
       { property: "og:image", content: "/__l5e/assets-v1/page-strom-gas" },
     ],
   }),
@@ -20,11 +20,11 @@ export const Route = createFileRoute("/strom-gas")({
 });
 
 const features = [
-  { icon: Gift, title: "Doppelter Wechselbonus", desc: "Bei vielen Anbietern bekommen Sie Bonus für Strom UND Gas – kombiniert oft über 300 €." },
+  { icon: Gift, title: "Doppelter Wechselbonus", desc: "Bei vielen Anbietern bekommen Sie Bonus für Strom UND Gas. Kombiniert oft über 300 €." },
   { icon: FileSignature, title: "Ein Vertrag, eine Rechnung", desc: "Statt zwei Versorgern, zwei Portalen, zwei Mahnungen: alles aus einer Hand." },
   { icon: Clock, title: "Ein Wechseltermin", desc: "Wir synchronisieren die Kündigungen, sodass Sie keinen Tag doppelt zahlen." },
-  { icon: TrendingDown, title: "Ehrlich gerechnet", desc: "Wir prüfen, ob ein Bundle wirklich günstiger ist – oder zwei Einzeltarife." },
-  { icon: ShieldCheck, title: "Geprüfte Komplett-Anbieter", desc: "Nur Versorger, die in beiden Kategorien überzeugen – nicht nur im Marketing." },
+  { icon: TrendingDown, title: "Ehrlich gerechnet", desc: "Wir prüfen, ob ein Bundle wirklich günstiger ist. Oder zwei Einzeltarife." },
+  { icon: ShieldCheck, title: "Geprüfte Komplett-Anbieter", desc: "Nur Versorger, die in beiden Kategorien überzeugen. Nicht nur im Marketing." },
   { icon: Users, title: "Familien-Tarife", desc: "Spezielle Bundles für Haushalte ab 3 Personen mit erhöhtem Verbrauch." },
 ];
 
@@ -34,7 +34,7 @@ function StromGasPage() {
       <TopicHero
         kicker="Doppel-Bonus möglich"
         title={<>Strom & Gas. Ein Vertrag. Doppelt sparen.</>}
-        lead="Ein Bundle ist nicht automatisch günstiger – aber wenn es passt, sparen Sie doppelt. Wir rechnen es für Sie ehrlich durch."
+        lead="Ein Bundle ist nicht automatisch günstiger. Aber wenn es passt, sparen Sie doppelt. Wir rechnen es für Sie ehrlich durch."
         image={heroImg}
         imageAlt="Glückliche Familie im hellen Wohnzimmer mit smartem Thermostat"
         Icon={Layers}
@@ -49,8 +49,8 @@ function StromGasPage() {
 
       <ImageSplit
         eyebrow="Bundle vs. Einzeltarife"
-        title="Wir vergleichen beide Varianten – immer"
-        body="Standardmäßig prüfen wir nicht nur Bundles, sondern auch jeweils den besten Einzeltarif für Strom und den besten für Gas. Sie bekommen das günstigere Ergebnis – nicht das mit der höheren Provision."
+        title="Wir vergleichen beide Varianten. Immer"
+        body="Standardmäßig prüfen wir nicht nur Bundles, sondern auch jeweils den besten Einzeltarif für Strom und den besten für Gas. Sie bekommen das günstigere Ergebnis. Nicht das mit der höheren Provision."
         image={splitImg}
         imageAlt="Vergleichsdiagramm Strom und Gas Tarife"
         bullets={[
@@ -62,7 +62,7 @@ function StromGasPage() {
 
       <FinalCta
         title="Lohnt sich ein Bundle für Sie?"
-        body="In 2 Minuten zur ehrlichen Antwort – mit individuellem Sparbetrag in Euro."
+        body="In 2 Minuten zur ehrlichen Antwort. Mit individuellem Sparbetrag in Euro."
         image={ctaBg}
       />
     </SiteLayout>

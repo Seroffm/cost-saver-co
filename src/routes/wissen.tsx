@@ -14,8 +14,8 @@ import imgAuto from "@/assets/solution-autostrom.jpg";
 export const Route = createFileRoute("/wissen")({
   head: () => ({
     meta: [
-      { title: "Wissen – Ratgeber rund um Energie | EnergieClever" },
-      { name: "description", content: "Ratgeber, Erklärartikel und Marktupdates rund um Strom, Gas, Solar und Wärmepumpe – verständlich geschrieben, ehrlich recherchiert." },
+      { title: "Wissen: Ratgeber rund um Energie | EnergieClever" },
+      { name: "description", content: "Ratgeber, Erklärartikel und Marktupdates rund um Strom, Gas, Solar und Wärmepumpe. Verständlich geschrieben, sorgfältig recherchiert." },
       { property: "og:title", content: "Energie-Wissen & Ratgeber | EnergieClever" },
       { property: "og:description", content: "Verständlich erklärt: Strom, Gas, Solar, Wärmepumpe und mehr." },
       { property: "og:image", content: "/__l5e/assets-v1/page-wissen" },
@@ -52,10 +52,10 @@ const featured: Article = {
 };
 
 const articles: Article[] = [
-  { title: "Ökostrom erkennen: Echte Labels im Vergleich", teaser: "OK-Power, Grüner Strom-Label, TÜV Süd EE01 – welches Siegel garantiert wirklich neuen Ökostrom?", image: imgStrom, tag: "Strom · Ökostrom", read: "6 min", slug: "oekostrom-labels" },
-  { title: "Gaspreise 2026: Prognose & Spar-Tipps", teaser: "Wie sich der Gaspreis im kommenden Heizjahr entwickeln dürfte – und wann sich ein Festpreis lohnt.", image: imgGas, tag: "Gas · Prognose", read: "7 min", slug: "gaspreise-2026" },
+  { title: "Ökostrom erkennen: Echte Labels im Vergleich", teaser: "OK-Power, Grüner Strom-Label, TÜV Süd EE01. Welches Siegel garantiert wirklich neuen Ökostrom?", image: imgStrom, tag: "Strom · Ökostrom", read: "6 min", slug: "oekostrom-labels" },
+  { title: "Gaspreise 2026: Prognose & Spar-Tipps", teaser: "Wie sich der Gaspreis im kommenden Heizjahr entwickeln dürfte. Und wann sich ein Festpreis lohnt.", image: imgGas, tag: "Gas · Prognose", read: "7 min", slug: "gaspreise-2026" },
   { title: "Solaranlage-Kosten 2026: Alles auf einen Blick", teaser: "Was Sie heute für eine 10-kWp-Anlage zahlen, wie schnell sie sich rechnet und welche Förderung greift.", image: imgSolar, tag: "Solar · Investition", read: "9 min", slug: "solaranlage-kosten-2026" },
-  { title: "Strom & Gas bündeln: Wann sich der Doppel-Bonus lohnt", teaser: "Bundles können doppelt sparen – oder nichts bringen. Diese drei Fragen entscheiden.", image: imgBundle, tag: "Bundle · Ratgeber", read: "5 min", slug: "bundle-doppelbonus" },
+  { title: "Strom & Gas bündeln: Wann sich der Doppel-Bonus lohnt", teaser: "Bundles können doppelt sparen. Oder nichts bringen. Diese drei Fragen entscheiden.", image: imgBundle, tag: "Bundle · Ratgeber", read: "5 min", slug: "bundle-doppelbonus" },
   { title: "Wärmestrom: Wann sich ein Sondertarif rechnet", teaser: "Wärmepumpe oder Nachtspeicher? Wir zeigen, ab wann ein separater Wärmestromzähler Sinn ergibt.", image: imgWaerme, tag: "Strom · Wärmepumpe", read: "6 min", slug: "waermestrom-tarif" },
   { title: "E-Auto laden zuhause: Der günstigste Weg", teaser: "Autostromtarif, dynamischer Tarif oder einfach Haushaltsstrom? Eine Entscheidungshilfe.", image: imgAuto, tag: "Strom · E-Mobilität", read: "7 min", slug: "e-auto-laden" },
 ];
@@ -66,7 +66,7 @@ function WissenPage() {
       <TopicHero
         kicker="Energie verstehen"
         title={<>Wissen, das wirklich Strom spart.</>}
-        lead="Ratgeber, Marktanalysen und Erklärartikel – verständlich geschrieben, ehrlich recherchiert. Damit Sie wissen, was Sie unterschreiben."
+        lead="Ratgeber, Marktanalysen und Erklärartikel. Verständlich geschrieben, sorgfältig recherchiert. Damit Sie wissen, was Sie unterschreiben."
         image={heroImg}
         imageAlt="Aufgeschlagenes Buch und Lesebrille auf Holztisch"
         Icon={BookOpen}
@@ -149,7 +149,7 @@ function WissenPage() {
             <div className="max-w-xl">
               <BookOpen className="h-10 w-10 text-success" />
               <h2 className="mt-4 text-3xl font-bold md:text-4xl">Lieber direkt sparen?</h2>
-              <p className="mt-3 text-primary-foreground/80">Statt zu lesen, einfach prüfen lassen – 2 Minuten Ihrer Zeit, bis zu 850 € Ersparnis pro Jahr.</p>
+              <p className="mt-3 text-primary-foreground/80">Lassen Sie Ihren Tarif in nur 2 Minuten prüfen. Möglich sind bis zu 850 € Ersparnis pro Jahr.</p>
             </div>
             <Link to="/" className="inline-flex items-center gap-2 rounded-full bg-success px-6 py-3 text-sm font-bold text-success-foreground transition hover:bg-success/90">
               Jetzt Tarif prüfen <ArrowRight className="h-4 w-4" />

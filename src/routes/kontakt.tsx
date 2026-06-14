@@ -10,9 +10,9 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
     meta: [
-      { title: "Kontakt – Persönliche Energieberatung | EnergieClever" },
-      { name: "description", content: "Sprechen Sie mit echten Menschen. Per Telefon, E-Mail oder Formular – kostenlose, unverbindliche Beratung zu Strom und Gas." },
-      { property: "og:title", content: "Kontakt – EnergieClever" },
+      { title: "Kontakt: Persönliche Energieberatung | EnergieClever" },
+      { name: "description", content: "Sprechen Sie mit echten Menschen. Per Telefon, E-Mail oder Formular. Kostenlose, unverbindliche Beratung zu Strom und Gas." },
+      { property: "og:title", content: "Kontakt | EnergieClever" },
       { property: "og:description", content: "Persönliche Energieberatung per Telefon, E-Mail oder Formular." },
     ],
   }),
@@ -52,8 +52,8 @@ const channels = [
 ];
 
 const hours = [
-  { day: "Montag – Freitag", time: "08:00 – 20:00 Uhr" },
-  { day: "Samstag", time: "10:00 – 16:00 Uhr" },
+  { day: "Montag bis Freitag", time: "08:00 bis 20:00 Uhr" },
+  { day: "Samstag", time: "10:00 bis 16:00 Uhr" },
   { day: "Sonntag & Feiertage", time: "geschlossen" },
 ];
 
@@ -169,7 +169,7 @@ function KontaktPage() {
                 <Send className="h-3.5 w-3.5" /> Schneller geht's online
               </div>
               <h2 className="mt-4 text-3xl font-bold text-primary md:text-4xl">Direkt zur Tarifprüfung</h2>
-              <p className="mt-3 text-muted-foreground">2 Minuten Aufwand, bis zu 850 € Ersparnis pro Jahr – ganz ohne Anruf.</p>
+              <p className="mt-3 text-muted-foreground">2 Minuten Aufwand, bis zu 850 € Ersparnis pro Jahr. Ganz ohne Anruf.</p>
             </div>
             <Button asChild size="lg" className="bg-success text-success-foreground hover:bg-success/90">
               <Link to="/">Jetzt starten <ArrowRight className="ml-2 h-4 w-4" /></Link>

@@ -9,7 +9,7 @@ import ctaBg from "@/assets/final-cta-bg.jpg";
 export const Route = createFileRoute("/gewerbegas")({
   head: () => ({
     meta: [
-      { title: "Gewerbegas vergleichen – Festpreise sichern | EnergieClever" },
+      { title: "Gewerbegas vergleichen: Festpreise sichern | EnergieClever" },
       { name: "description", content: "Gewerbegas-Tarife persönlich vergleichen: Festpreise bis 36 Monate, Bio-Erdgas, Lastgangoptimierung. Für Gastronomie, Bäckereien, Produktion und Filialbetriebe." },
       { property: "og:title", content: "Gewerbegas vergleichen | EnergieClever" },
       { property: "og:description", content: "Gewerbegas: Festpreise, Preisgarantie, individuelle Beratung für Ihr Unternehmen." },
@@ -19,12 +19,12 @@ export const Route = createFileRoute("/gewerbegas")({
 });
 
 const features = [
-  { icon: TrendingDown, title: "Spürbare Ersparnis", desc: "Bei Gas sind 15–25 % Ersparnis gegenüber Standardtarifen normal – besonders bei Verbräuchen ab 50.000 kWh." },
-  { icon: ShieldCheck, title: "Festpreisgarantie", desc: "Wir verhandeln Festpreise für 12, 24 oder 36 Monate – planbare Energiekosten ohne Überraschungen." },
-  { icon: Flame, title: "Auch Bio-Erdgas", desc: "Auf Wunsch zertifiziertes Bio-Erdgas – wirksam für Ihre Nachhaltigkeitsbilanz, ohne CO₂-Aufschlag." },
-  { icon: FileText, title: "Mehrere Standorte", desc: "Wir bündeln Verträge für mehrere Standorte oder Filialen – ein Ansprechpartner, eine saubere Rechnung." },
-  { icon: Users, title: "Persönliche Beratung", desc: "Sie erreichen Ihren Account-Manager direkt – ohne Warteschleife, ohne Tarif-Roulette." },
-  { icon: BadgeCheck, title: "Wechselgarantie", desc: "Wir übernehmen die Kündigung und den lückenlosen Wechsel – Ihr Gas läuft ohne Unterbrechung weiter." },
+  { icon: TrendingDown, title: "Spürbare Ersparnis", desc: "Bei Gas sind 15–25 % Ersparnis gegenüber Standardtarifen normal. Besonders bei Verbräuchen ab 50.000 kWh." },
+  { icon: ShieldCheck, title: "Festpreisgarantie", desc: "Wir verhandeln Festpreise für 12, 24 oder 36 Monate. Planbare Energiekosten ohne Überraschungen." },
+  { icon: Flame, title: "Auch Bio-Erdgas", desc: "Auf Wunsch zertifiziertes Bio-Erdgas. Wirksam für Ihre Nachhaltigkeitsbilanz, ohne CO₂-Aufschlag." },
+  { icon: FileText, title: "Mehrere Standorte", desc: "Wir bündeln Verträge für mehrere Standorte oder Filialen. Ein Ansprechpartner, eine saubere Rechnung." },
+  { icon: Users, title: "Persönliche Beratung", desc: "Sie erreichen Ihren Account-Manager direkt. Ohne Warteschleife, ohne Tariflotterie." },
+  { icon: BadgeCheck, title: "Wechselgarantie", desc: "Wir übernehmen die Kündigung und den lückenlosen Wechsel. Ihr Gas läuft ohne Unterbrechung weiter." },
 ];
 
 function GewerbegasPage() {
@@ -32,8 +32,8 @@ function GewerbegasPage() {
     <SiteLayout>
       <TopicHero
         kicker="Gewerbegas"
-        title={<>Gas für Ihr Unternehmen – <span className="text-success">festgepreist statt schwankend.</span></>}
-        lead="Vom Restaurant bis zur Produktion: Wir verhandeln planbare Gewerbegas-Tarife mit echter Preisgarantie – kostenlos und unverbindlich."
+        title={<>Gas für Ihr Unternehmen. <span className="text-success">Festgepreist statt schwankend.</span></>}
+        lead="Vom Restaurant bis zur Produktion: Wir verhandeln planbare Gewerbegas-Tarife mit echter Preisgarantie. Kostenlos und unverbindlich."
         image={heroImg}
         imageAlt="Industrielle Anlage mit Gas-Heizsystem"
         Icon={Building2}
@@ -49,7 +49,7 @@ function GewerbegasPage() {
       <ImageSplit
         eyebrow="Für wen das passt"
         title="Vom Gastronom bis zur Bäckerei"
-        body="Wir betreuen Gewerbekunden mit Gasverbräuchen ab 10.000 kWh – branchenübergreifend. Besonders interessant für energieintensive Betriebe mit hohem Heiz- oder Prozesswärmebedarf."
+        body="Wir betreuen Gewerbekunden mit Gasverbräuchen ab 10.000 kWh. Branchenübergreifend. Besonders interessant für energieintensive Betriebe mit hohem Heiz- oder Prozesswärmebedarf."
         image={splitImg}
         imageAlt="Bäckerei mit großem Backofen"
         bullets={[
@@ -63,12 +63,12 @@ function GewerbegasPage() {
       <ImageSplit
         reverse
         eyebrow="Sicherheit zuerst"
-        title="Bei Gas zählt jeder Cent – und jede Stunde"
+        title="Bei Gas zählt jeder Cent. Und jede Stunde"
         body="Anders als bei Strom ist die Versorgungssicherheit bei Gas besonders kritisch. Wir achten penibel auf saubere Vertragsübergänge, Preisgleitklauseln und realistische Beschaffungsprognosen."
         image={ctaBg}
         imageAlt="Unternehmer prüft Gasrechnung am Schreibtisch"
         bullets={[
-          "Lückenlose Versorgung – garantiert",
+          "Lückenlose Versorgung. Garantiert",
           "Echte Preisgarantien statt Bonus-Marketing",
           "Beschaffung in Tranchen möglich (ab 1 Mio. kWh)",
           "Jährliche Marktprüfung & Anpassungsempfehlung",
@@ -77,7 +77,7 @@ function GewerbegasPage() {
 
       <FinalCta
         title="Wie viel könnte Ihr Betrieb sparen?"
-        body="Senden Sie uns Ihre letzte Jahresrechnung – wir rechnen Ihnen kostenlos drei Festpreis-Angebote durch."
+        body="Senden Sie uns Ihre letzte Jahresrechnung. Wir rechnen Ihnen kostenlos drei Festpreis-Angebote durch."
         image={ctaBg}
       />
     </SiteLayout>

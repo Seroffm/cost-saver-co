@@ -10,10 +10,10 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/ablauf")({
   head: () => ({
     meta: [
-      { title: "Ablauf – So funktioniert der Tarifwechsel | EnergieClever" },
+      { title: "Ablauf: So funktioniert der Tarifwechsel | EnergieClever" },
       { name: "description", content: "In 4 Schritten zum besseren Strom- oder Gastarif: Anfrage, Prüfung, Angebot, Wechsel. Persönlich, kostenlos, ohne Versorgungslücke." },
-      { property: "og:title", content: "Ablauf – So funktioniert der Tarifwechsel | EnergieClever" },
-      { property: "og:description", content: "In 4 Schritten zum besseren Strom- oder Gastarif – persönlich, kostenlos, ohne Versorgungslücke." },
+      { property: "og:title", content: "Ablauf: So funktioniert der Tarifwechsel | EnergieClever" },
+      { property: "og:description", content: "In 4 Schritten zum besseren Strom- oder Gastarif. Persönlich, kostenlos, ohne Versorgungslücke." },
     ],
   }),
   component: AblaufPage,
@@ -32,7 +32,7 @@ const steps = [
     kicker: "Schritt 1",
     title: "Anfrage senden",
     duration: "ca. 2 Minuten",
-    desc: "Sie füllen unser kurzes Online-Formular aus – PLZ, ungefährer Verbrauch, Kontaktdaten. Mehr brauchen wir nicht, um loszulegen.",
+    desc: "Sie füllen unser kurzes Online-Formular aus. PLZ, ungefährer Verbrauch, Kontaktdaten. Mehr brauchen wir nicht, um loszulegen.",
     bullets: ["100 % unverbindlich", "Keine Registrierung", "Auf Wunsch mit alter Rechnung"],
   },
   {
@@ -48,7 +48,7 @@ const steps = [
     kicker: "Schritt 3",
     title: "Angebot erhalten",
     duration: "schriftlich & klar",
-    desc: "Sie erhalten ein konkretes Angebot per E-Mail oder Telefon – mit Sparpotenzial, Vertragsdetails und allen wichtigen Konditionen auf einen Blick.",
+    desc: "Sie erhalten ein konkretes Angebot per E-Mail oder Telefon. Mit Sparpotenzial, Vertragsdetails und allen wichtigen Konditionen auf einen Blick.",
     bullets: ["Transparente Konditionen", "Inkl. Sparberechnung", "Bedenkzeit so lange Sie möchten"],
   },
   {
@@ -56,7 +56,7 @@ const steps = [
     kicker: "Schritt 4",
     title: "Wechsel auf Wunsch",
     duration: "4–8 Wochen",
-    desc: "Sagen Sie ja, übernehmen wir den kompletten Wechsel – inklusive Kündigung beim alten Anbieter. Sie merken davon nichts außer der Ersparnis.",
+    desc: "Sagen Sie ja, übernehmen wir den kompletten Wechsel. Inklusive Kündigung beim alten Anbieter. Sie merken davon nichts außer der Ersparnis.",
     bullets: ["Keine Versorgungslücke", "Komplette Abwicklung durch uns", "Bestätigung per E-Mail"],
   },
 ];
@@ -81,7 +81,7 @@ function AblaufPage() {
             In 4 Schritten zum besseren Tarif
           </motion.h1>
           <motion.p {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground md:text-xl">
-            Transparent, persönlich und ohne versteckte Schritte. Wir nehmen Ihnen die ganze Arbeit ab – Sie genießen die Ersparnis.
+            Transparent, persönlich und ohne versteckte Schritte. Wir nehmen Ihnen die ganze Arbeit ab. Sie genießen die Ersparnis.
           </motion.p>
           <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.15 }} className="mt-8 flex flex-wrap justify-center gap-3">
             <Button asChild size="lg" className="bg-success text-success-foreground hover:bg-success/90">
@@ -98,7 +98,7 @@ function AblaufPage() {
       <section className="mx-auto max-w-6xl px-4 py-20 md:py-28">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold text-primary md:text-4xl">Ihr Weg zur Ersparnis</h2>
-          <p className="mt-4 text-muted-foreground">Vier klare Etappen. Sie investieren wenige Minuten – den Rest erledigen wir.</p>
+          <p className="mt-4 text-muted-foreground">Vier klare Etappen. Sie investieren wenige Minuten. Den Rest erledigen wir.</p>
         </div>
 
         <div className="relative mt-14 grid gap-6 md:grid-cols-2">
@@ -167,8 +167,8 @@ function AblaufPage() {
               <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-medium">
                 <Clock className="h-3.5 w-3.5" /> Ihr Zeiteinsatz
               </div>
-              <h2 className="mt-4 text-3xl font-bold md:text-4xl">2 Minuten Ihrer Zeit – bis zu 850 € Ersparnis pro Jahr</h2>
-              <p className="mt-3 text-primary-foreground/80">Mehr ist es nicht. Alles Weitere übernehmen wir – von der Prüfung bis zur Kündigung beim alten Anbieter.</p>
+              <h2 className="mt-4 text-3xl font-bold md:text-4xl">2 Minuten Ihrer Zeit. Bis zu 850 € Ersparnis pro Jahr</h2>
+              <p className="mt-3 text-primary-foreground/80">Mehr ist es nicht. Alles Weitere übernehmen wir. Von der Prüfung bis zur Kündigung beim alten Anbieter.</p>
             </div>
             <div className="flex flex-col gap-3">
               <Button asChild size="lg" className="bg-success text-success-foreground hover:bg-success/90">

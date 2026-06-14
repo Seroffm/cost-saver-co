@@ -10,8 +10,8 @@ import ctaBg from "@/assets/final-cta-bg.jpg";
 export const Route = createFileRoute("/solar")({
   head: () => ({
     meta: [
-      { title: "Solar & Wärmepumpe – unabhängig beraten | EnergieClever" },
-      { name: "description", content: "Solaranlage, Stromspeicher und Wärmepumpe – wir vermitteln geprüfte Fachbetriebe, kennen die Förderungen und beraten ehrlich." },
+      { title: "Solar & Wärmepumpe: Unabhängig beraten | EnergieClever" },
+      { name: "description", content: "Solaranlage, Stromspeicher und Wärmepumpe. Wir vermitteln geprüfte Fachbetriebe, kennen die Förderungen und beraten ehrlich." },
       { property: "og:title", content: "Solar & Wärmepumpe | EnergieClever" },
       { property: "og:description", content: "Unabhängige Beratung zu Solaranlage, Stromspeicher und Wärmepumpe." },
       { property: "og:image", content: "/__l5e/assets-v1/page-solar" },
@@ -25,7 +25,7 @@ const features = [
   { icon: Battery, title: "Stromspeicher", desc: "Damit Ihr Strom auch abends fließt. Größenwahl ohne Übertreibung." },
   { icon: Thermometer, title: "Wärmepumpe", desc: "Wirtschaftlichkeitsprüfung & passender Wärmestromtarif aus einer Hand." },
   { icon: BadgeCheck, title: "Geprüfte Fachbetriebe", desc: "Wir vermitteln nur regionale Installateure mit lückenloser Referenzliste." },
-  { icon: Wrench, title: "Förderung gesichert", desc: "BAFA, KfW, regionale Töpfe – wir wissen, was wann beantragt werden muss." },
+  { icon: Wrench, title: "Förderung gesichert", desc: "BAFA, KfW, regionale Töpfe. Wir wissen, was wann beantragt werden muss." },
   { icon: Leaf, title: "CO₂ runter, Wert rauf", desc: "Eigenversorgung senkt nicht nur Kosten, sondern hebt Ihren Immobilienwert." },
 ];
 
@@ -35,7 +35,7 @@ function SolarPage() {
       <TopicHero
         kicker="Eigene Energie produzieren"
         title={<>Ihr Dach kann mehr als nur Dach sein.</>}
-        lead="Photovoltaik, Stromspeicher und Wärmepumpe – wir planen Ihre Energiezukunft ehrlich und ohne Vertriebsdruck. Mit geprüften Fachbetrieben aus Ihrer Region."
+        lead="Photovoltaik, Stromspeicher und Wärmepumpe. Wir planen Ihre Energiezukunft ehrlich und ohne Verkaufsdruck. Mit geprüften Fachbetrieben aus Ihrer Region."
         image={heroImg}
         imageAlt="Einfamilienhaus mit Solaranlage auf dem Dach"
         Icon={Sun}
@@ -51,7 +51,7 @@ function SolarPage() {
 
       <ImageSplit
         eyebrow="Photovoltaik"
-        title="Solaranlage – ehrlich kalkuliert"
+        title="Solaranlage. Transparent kalkuliert"
         body="Die meisten Angebote rechnen mit Idealbedingungen. Wir kalkulieren mit Ihren tatsächlichen Dachflächen, Ihrem Verbrauchsprofil und realen Strompreis-Szenarien. Das Ergebnis: belastbare Zahlen, mit denen Sie planen können."
         image={splitImg}
         imageAlt="Photovoltaik-Module aus der Nähe"
@@ -66,7 +66,7 @@ function SolarPage() {
         reverse
         eyebrow="Wärmepumpe"
         title="Heizen mit der Wärme der Umgebung"
-        body="Eine Wärmepumpe braucht das richtige Haus, den richtigen Tarif und den richtigen Fachbetrieb. Wir prüfen alle drei – und sagen Ihnen ehrlich, wenn es noch nicht passt."
+        body="Eine Wärmepumpe braucht das richtige Haus, den richtigen Tarif und den richtigen Fachbetrieb. Wir prüfen alle drei. Und sagen Ihnen ehrlich, wenn es noch nicht passt."
         image={splitImg2}
         imageAlt="Moderne Wärmepumpe im Außenbereich"
         bullets={[
@@ -78,7 +78,7 @@ function SolarPage() {
 
       <FinalCta
         title="Energie aus dem eigenen Haus."
-        body="Wir hören erst zu – und beraten dann. Ohne Vertriebsdruck, ohne Vorkasse."
+        body="Wir hören erst zu. Und beraten dann. Ohne Vertriebsdruck, ohne Vorkasse."
         image={ctaBg}
       />
     </SiteLayout>

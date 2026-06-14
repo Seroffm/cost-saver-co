@@ -10,10 +10,10 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/ueber-uns")({
   head: () => ({
     meta: [
-      { title: "Über uns – Unabhängige Energieberatung | EnergieClever" },
+      { title: "Über uns: Unabhängige Energieberatung | EnergieClever" },
       { name: "description", content: "Wir sind ein unabhängiges Beratungsteam für Strom- und Gastarife mit Sitz in Deutschland. Persönlich, transparent, ohne Provisionsdruck." },
-      { property: "og:title", content: "Über uns – EnergieClever" },
-      { property: "og:description", content: "Unabhängige Energieberatung aus Deutschland – persönlich, transparent, ohne Provisionsdruck." },
+      { property: "og:title", content: "Über uns | EnergieClever" },
+      { property: "og:description", content: "Unabhängige Energieberatung aus Deutschland. Persönlich, transparent, ohne Provisionsdruck." },
     ],
   }),
   component: UeberUnsPage,
@@ -27,10 +27,10 @@ const fadeUp = {
 };
 
 const values = [
-  { icon: ShieldCheck, title: "Unabhängig", desc: "Kein Versorger besitzt uns Anteile. Wir empfehlen, was wirklich passt – nicht, was am meisten Provision bringt." },
+  { icon: ShieldCheck, title: "Unabhängig", desc: "Kein Versorger besitzt uns Anteile. Wir empfehlen, was wirklich passt. Nicht, was am meisten Provision bringt." },
   { icon: Heart, title: "Persönlich", desc: "Echte Menschen am Telefon, die zuhören. Keine Warteschleifen, keine Bots, keine Verkaufsmasche." },
   { icon: Sparkles, title: "Verständlich", desc: "Wir übersetzen Tarif-Kleingedrucktes in klare Empfehlungen. Sie verstehen, was Sie unterschreiben." },
-  { icon: Leaf, title: "Nachhaltig", desc: "Auf Wunsch finden wir geprüfte Ökotarife – ohne Aufpreis-Falle." },
+  { icon: Leaf, title: "Nachhaltig", desc: "Auf Wunsch finden wir geprüfte Ökotarife. Ohne versteckte Aufpreise." },
 ];
 
 const stats = [
@@ -41,14 +41,14 @@ const stats = [
 ];
 
 const team = [
-  { name: "Markus Hoffmann", role: "Geschäftsführung & Beratung", bio: "12 Jahre Energievertrieb, davon 6 bei einem großen Versorger. Wechselte 2019 die Seite – heute steht er auf Kundenseite." },
+  { name: "Markus Hoffmann", role: "Geschäftsführung & Beratung", bio: "12 Jahre Energievertrieb, davon 6 bei einem großen Versorger. Wechselte 2019 die Seite. Heute steht er auf Kundenseite." },
   { name: "Sandra Lehmann", role: "Leitung Kundenberatung", bio: "Zertifizierte Energieberaterin (HWK). Spezialistin für komplexe Verbrauchsprofile und Gewerbetarife." },
   { name: "Jonas Vogel", role: "Tarifanalyse & Datenschutz", bio: "Sorgt dafür, dass Tarifdaten täglich aktuell sind und Ihre Daten DSGVO-konform verarbeitet werden." },
 ];
 
 const milestones = [
   { year: "2018", title: "Gründung in Berlin", desc: "Drei Branchenprofis starten EnergieClever mit einer Idee: Beratung ohne Provisionsdruck." },
-  { year: "2020", title: "10.000 Kunden", desc: "Erster großer Meilenstein – inklusive TÜV-zertifiziertem Beratungsprozess." },
+  { year: "2020", title: "10.000 Kunden", desc: "Erster großer Meilenstein. Inklusive TÜV-zertifiziertem Beratungsprozess." },
   { year: "2022", title: "Krisen-Hotline", desc: "Während der Energiekrise: kostenlose Soforthilfe für überforderte Haushalte." },
   { year: "2025", title: "50.000 Beratungen", desc: "Heute beraten wir täglich Haushalte und Gewerbe in ganz Deutschland." },
 ];
@@ -67,7 +67,7 @@ function UeberUnsPage() {
             Energieberatung,<br />wie sie sein sollte.
           </motion.h1>
           <motion.p {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground md:text-xl">
-            Wir sind ein unabhängiges Team aus Energieprofis – ohne Versorger im Rücken, ohne Provisionsdruck, mit einer einzigen Aufgabe: dass Sie weniger zahlen.
+            Wir sind ein unabhängiges Team aus Energieprofis. Ohne Versorger im Rücken, ohne Provisionsdruck, mit einer einzigen Aufgabe: dass Sie weniger zahlen.
           </motion.p>
         </div>
       </section>
@@ -98,10 +98,10 @@ function UeberUnsPage() {
             </div>
             <h2 className="mt-4 text-3xl font-bold text-primary md:text-4xl">Energieverträge sollen verständlich sein.</h2>
             <p className="mt-5 text-muted-foreground">
-              Tarife mit drei Sternchentexten, Boni, die im zweiten Jahr verfallen, Preisgarantien, die keine sind – das System ist gemacht, um zu verwirren. Wir machen es einfach.
+              Tarife mit drei Sternchentexten, Boni, die im zweiten Jahr verfallen, Preisgarantien, die keine sind. Das System ist gemacht, um zu verwirren. Wir machen es einfach.
             </p>
             <p className="mt-4 text-muted-foreground">
-              Unser Anspruch: Sie verstehen am Ende des Telefonats, warum dieser eine Tarif für Sie der richtige ist. Und warum sich der Wechsel rechnet – schwarz auf weiß.
+              Unser Anspruch: Sie verstehen am Ende des Telefonats, warum dieser eine Tarif für Sie der richtige ist. Und warum sich der Wechsel rechnet. Schwarz auf weiß.
             </p>
           </motion.div>
           <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="rounded-3xl border border-border bg-gradient-to-br from-primary to-primary/90 p-8 text-primary-foreground shadow-card md:p-10">
@@ -109,7 +109,7 @@ function UeberUnsPage() {
             <h3 className="mt-6 text-2xl font-semibold">Unser Versprechen</h3>
             <ul className="mt-6 space-y-3">
               {[
-                "Die Beratung kostet Sie keinen Cent – wir werden vom neuen Anbieter vergütet.",
+                "Die Beratung kostet Sie keinen Cent. Wir werden vom neuen Anbieter vergütet.",
                 "Wir empfehlen ausschließlich Anbieter, die wir geprüft haben.",
                 "Sie entscheiden. Immer. Wir machen niemals Druck.",
                 "Keine Daten ohne Ihre Einwilligung an Dritte.",
@@ -156,7 +156,7 @@ function UeberUnsPage() {
             <Users className="h-3.5 w-3.5" /> Das Team
           </div>
           <h2 className="mt-4 text-3xl font-bold text-primary md:text-4xl">Menschen, die Energie verstehen</h2>
-          <p className="mt-4 text-muted-foreground">Zertifizierte Energieberater, ehemalige Vertriebsprofis großer Versorger und Service-Spezialisten – zusammen über 15 Jahre Branchenerfahrung.</p>
+          <p className="mt-4 text-muted-foreground">Zertifizierte Energieberater, ehemalige Vertriebsprofis großer Versorger und Service-Spezialisten. Zusammen über 15 Jahre Branchenerfahrung.</p>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {team.map((m, i) => (
@@ -213,7 +213,7 @@ function UeberUnsPage() {
             <div className="max-w-xl">
               <Handshake className="h-10 w-10 text-success" />
               <h2 className="mt-4 text-3xl font-bold md:text-4xl">Lernen Sie uns kennen.</h2>
-              <p className="mt-3 text-primary-foreground/80">Ein Anruf, eine ehrliche Einschätzung – keine Verpflichtung.</p>
+              <p className="mt-3 text-primary-foreground/80">Ein Anruf, eine ehrliche Einschätzung. Keine Verpflichtung.</p>
             </div>
             <div className="flex flex-col gap-3">
               <Button asChild size="lg" className="bg-success text-success-foreground hover:bg-success/90">
