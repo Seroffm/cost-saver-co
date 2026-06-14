@@ -61,7 +61,7 @@ export function CookieConsent() {
 
               {settings && (
                 <div className="mt-4 space-y-3 rounded-lg border bg-muted/30 p-4">
-                  <Row title="Notwendig" desc="Für Grundfunktionen erforderlich – nicht abwählbar." checked disabled />
+                  <Row title="Notwendig" desc="Für Grundfunktionen erforderlich. Nicht abwählbar." checked disabled />
                   <Row title="Statistik" desc="Anonyme Nutzungsanalyse (z. B. GA4) zur Verbesserung der Seite." checked={analytics} onCheck={setAnalytics} />
                   <Row title="Marketing" desc="Personalisierte Werbung (z. B. Meta Pixel, Google Ads)." checked={marketing} onCheck={setMarketing} />
                 </div>
