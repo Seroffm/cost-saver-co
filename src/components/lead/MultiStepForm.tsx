@@ -346,7 +346,7 @@ function Step5({ data, set }: StepProps) {
           <Label>Preisgarantie</Label>
           <RadioGroup className="mt-2 flex gap-4" value={data.preisgarantie ?? ""} onValueChange={(v) => set("preisgarantie", v as LeadInput["preisgarantie"])}>
             {[
-              { v: "ja", l: "Ja" }, { v: "nein", l: "Nein" }, { v: "weiss_nicht", l: "Weiß nicht" },
+              { v: "ja", l: "Ja" }, { v: "nein", l: "Nein" }, { v: "weiss_nicht", l: "weiß ich nicht" },
             ].map((o) => (
               <label key={o.v} className="flex items-center gap-2 text-sm">
                 <RadioGroupItem value={o.v} /> {o.l}
