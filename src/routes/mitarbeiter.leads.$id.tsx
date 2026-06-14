@@ -13,11 +13,12 @@ import { getLead, statusColor, statusLabel, typeLabel, type Lead, type LeadStatu
 
 export const Route = createFileRoute("/mitarbeiter/leads/$id")({
   head: () => ({ meta: [{ title: "Lead Detail – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }] }),
-  loader: ({ params }) => {
+  loader: ({ params }): { lead: Lead } => {
     const lead = getLead(params.id);
     if (!lead) throw notFound();
     return { lead };
   },
+
   notFoundComponent: () => (
     <AdminShell title="Lead nicht gefunden">
       <Button asChild variant="outline"><Link to="/mitarbeiter/leads"><ArrowLeft className="mr-2 h-4 w-4" />Zurück</Link></Button>
