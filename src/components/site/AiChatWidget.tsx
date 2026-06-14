@@ -79,7 +79,7 @@ export function AiChatWidget() {
         {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
         {!open && (
           <span className="absolute -top-1 -right-1 grid h-5 w-5 place-items-center rounded-full bg-success text-white ring-2 ring-background">
-            <Sparkles className="h-3 w-3" />
+            <Star className="h-3 w-3" />
           </span>
         )}
       </button>
