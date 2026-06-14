@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WissenRouteImport } from './routes/wissen'
 import { Route as WiderrufRouteImport } from './routes/widerruf'
 import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
-import { Route as TarifeRouteImport } from './routes/tarife'
 import { Route as StromGasRouteImport } from './routes/strom-gas'
 import { Route as StromRouteImport } from './routes/strom'
 import { Route as SolarRouteImport } from './routes/solar'
@@ -57,11 +56,6 @@ const WiderrufRoute = WiderrufRouteImport.update({
 const UeberUnsRoute = UeberUnsRouteImport.update({
   id: '/ueber-uns',
   path: '/ueber-uns',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TarifeRoute = TarifeRouteImport.update({
-  id: '/tarife',
-  path: '/tarife',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StromGasRoute = StromGasRouteImport.update({
@@ -234,7 +228,6 @@ export interface FileRoutesByFullPath {
   '/solar': typeof SolarRoute
   '/strom': typeof StromRoute
   '/strom-gas': typeof StromGasRoute
-  '/tarife': typeof TarifeRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/widerruf': typeof WiderrufRoute
   '/wissen': typeof WissenRouteWithChildren
@@ -269,7 +262,6 @@ export interface FileRoutesByTo {
   '/solar': typeof SolarRoute
   '/strom': typeof StromRoute
   '/strom-gas': typeof StromGasRoute
-  '/tarife': typeof TarifeRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/widerruf': typeof WiderrufRoute
   '/wissen': typeof WissenRouteWithChildren
@@ -306,7 +298,6 @@ export interface FileRoutesById {
   '/solar': typeof SolarRoute
   '/strom': typeof StromRoute
   '/strom-gas': typeof StromGasRoute
-  '/tarife': typeof TarifeRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/widerruf': typeof WiderrufRoute
   '/wissen': typeof WissenRouteWithChildren
@@ -344,7 +335,6 @@ export interface FileRouteTypes {
     | '/solar'
     | '/strom'
     | '/strom-gas'
-    | '/tarife'
     | '/ueber-uns'
     | '/widerruf'
     | '/wissen'
@@ -379,7 +369,6 @@ export interface FileRouteTypes {
     | '/solar'
     | '/strom'
     | '/strom-gas'
-    | '/tarife'
     | '/ueber-uns'
     | '/widerruf'
     | '/wissen'
@@ -415,7 +404,6 @@ export interface FileRouteTypes {
     | '/solar'
     | '/strom'
     | '/strom-gas'
-    | '/tarife'
     | '/ueber-uns'
     | '/widerruf'
     | '/wissen'
@@ -452,7 +440,6 @@ export interface RootRouteChildren {
   SolarRoute: typeof SolarRoute
   StromRoute: typeof StromRoute
   StromGasRoute: typeof StromGasRoute
-  TarifeRoute: typeof TarifeRoute
   UeberUnsRoute: typeof UeberUnsRoute
   WiderrufRoute: typeof WiderrufRoute
   WissenRoute: typeof WissenRouteWithChildren
@@ -479,13 +466,6 @@ declare module '@tanstack/react-router' {
       path: '/ueber-uns'
       fullPath: '/ueber-uns'
       preLoaderRoute: typeof UeberUnsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/tarife': {
-      id: '/tarife'
-      path: '/tarife'
-      fullPath: '/tarife'
-      preLoaderRoute: typeof TarifeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/strom-gas': {
@@ -774,7 +754,6 @@ const rootRouteChildren: RootRouteChildren = {
   SolarRoute: SolarRoute,
   StromRoute: StromRoute,
   StromGasRoute: StromGasRoute,
-  TarifeRoute: TarifeRoute,
   UeberUnsRoute: UeberUnsRoute,
   WiderrufRoute: WiderrufRoute,
   WissenRoute: WissenRouteWithChildren,
@@ -782,3 +761,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
