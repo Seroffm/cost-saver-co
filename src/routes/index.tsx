@@ -19,6 +19,7 @@ import solutionWaermestrom from "@/assets/solution-waermestrom.jpg";
 import solutionSolar from "@/assets/solution-solar.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
 import finalCtaBg from "@/assets/final-cta-bg.jpg";
+import comparisonHero from "@/assets/comparison-hero.jpg";
 
 import { z } from "zod";
 
