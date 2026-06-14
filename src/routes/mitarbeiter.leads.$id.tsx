@@ -29,7 +29,7 @@ export const Route = createFileRoute("/mitarbeiter/leads/$id")({
 });
 
 function LeadDetail() {
-  const { lead } = Route.useLoaderData();
+  const { lead } = Route.useLoaderData() as { lead: Lead };
   const [status, setStatus] = useState<LeadStatus>(lead.status);
   const [note, setNote] = useState("");
 
