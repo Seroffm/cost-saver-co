@@ -144,7 +144,7 @@ export interface Lead {
 
 export const leads: Lead[] = [
   {
-    id: "L-2026-0412", name: "Markus Hoffmann", email: "m.hoffmann@example.de", phone: "+49 175 1234567",
+    id: "K7MP4XA", name: "Markus Hoffmann", email: "m.hoffmann@example.de", phone: "+49 175 1234567",
     city: "Köln", plz: "50667", type: "strom_gas", consumption: 5800, currentProvider: "RheinEnergie",
     monthlyPayment: 189, status: "neu", score: 87, assignee: "Sarah Becker",
     createdAt: "2026-06-14T09:21:00", expectedSavings: 624, source: "Google Ads", hasInvoice: true,
@@ -159,7 +159,7 @@ export const leads: Lead[] = [
     history: [],
   },
   {
-    id: "L-2026-0411", name: "Anna Weber", email: "anna.weber@example.de", phone: "+49 160 9988776",
+    id: "B9R2TQK", name: "Anna Weber", email: "anna.weber@example.de", phone: "+49 160 9988776",
     city: "Düsseldorf", plz: "40213", type: "strom", consumption: 3400, currentProvider: "E.ON",
     monthlyPayment: 98, status: "in_pruefung", score: 72, assignee: "Sarah Becker",
     createdAt: "2026-06-14T08:05:00", expectedSavings: 312, source: "Direkt", hasInvoice: false,
@@ -172,7 +172,7 @@ export const leads: Lead[] = [
     history: [],
   },
   {
-    id: "L-2026-0410", name: "Bäckerei Krüger GmbH", email: "info@baeckerei-krueger.de", phone: "+49 221 5544332",
+    id: "X4H7MPC", name: "Bäckerei Krüger GmbH", email: "info@baeckerei-krueger.de", phone: "+49 221 5544332",
     city: "Köln", plz: "50823", type: "gewerbe", consumption: 42000, currentProvider: "Vattenfall",
     monthlyPayment: 1240, status: "angebot_gesendet", score: 95, assignee: "Daniel Kraus",
     createdAt: "2026-06-13T15:42:00", expectedSavings: 4820, source: "Empfehlung", hasInvoice: true,
@@ -192,7 +192,7 @@ export const leads: Lead[] = [
     history: [],
   },
   {
-    id: "L-2026-0409", name: "Sophia Lang", email: "sophia.l@example.de", phone: "+49 152 3344556",
+    id: "T8GZ3WR", name: "Sophia Lang", email: "sophia.l@example.de", phone: "+49 152 3344556",
     city: "Bonn", plz: "53111", type: "gas", consumption: 18000, currentProvider: "Stadtwerke Bonn",
     monthlyPayment: 175, status: "vertrag_gesendet", score: 81, assignee: "Mira Aydin",
     createdAt: "2026-06-12T11:18:00", expectedSavings: 540, source: "Meta Ads", hasInvoice: true,
@@ -208,7 +208,7 @@ export const leads: Lead[] = [
     history: [],
   },
   {
-    id: "L-2026-0408", name: "Thomas Richter", email: "t.richter@example.de", phone: "+49 171 2233445",
+    id: "M2VK7BH", name: "Thomas Richter", email: "t.richter@example.de", phone: "+49 171 2233445",
     city: "Leverkusen", plz: "51373", type: "strom", consumption: 2200, currentProvider: "EnBW",
     monthlyPayment: 71, status: "abgeschlossen", score: 64, assignee: "Sarah Becker",
     createdAt: "2026-06-10T14:02:00", expectedSavings: 198, source: "SEO", hasInvoice: false,
@@ -219,7 +219,7 @@ export const leads: Lead[] = [
     history: [],
   },
   {
-    id: "L-2026-0407", name: "Julia Maier", email: "j.maier@example.de", phone: "",
+    id: "R5DQ9LT", name: "Julia Maier", email: "j.maier@example.de", phone: "",
     city: "Aachen", plz: "52062", type: "strom", consumption: 1800, currentProvider: "Unbekannt",
     monthlyPayment: 0, status: "nicht_erreichbar", score: 22, assignee: "—",
     createdAt: "2026-06-09T17:31:00", expectedSavings: 0, source: "Google Ads", hasInvoice: false,
@@ -230,7 +230,7 @@ export const leads: Lead[] = [
     history: [],
   },
   {
-    id: "L-2026-0406", name: "Familie Schuster", email: "schuster@example.de", phone: "+49 178 2244668",
+    id: "H3WX8FN", name: "Familie Schuster", email: "schuster@example.de", phone: "+49 178 2244668",
     city: "Essen", plz: "45127", type: "strom_gas", consumption: 7200, currentProvider: "innogy",
     monthlyPayment: 234, status: "wiedervorlage", score: 68, assignee: "Mira Aydin",
     createdAt: "2026-06-08T13:14:00", expectedSavings: 412, source: "Empfehlung", hasInvoice: true,
@@ -244,7 +244,7 @@ export const leads: Lead[] = [
     wiedervorlage: { date: "2026-06-28T09:00:00", comment: "Nach Urlaub erneut kontaktieren", createdBy: "Mira Aydin", createdAt: "2026-06-09T10:01:00" },
   },
   {
-    id: "L-2026-0405", name: "Lukas Vogel", email: "lukas.vogel@example.de", phone: "+49 162 7788990",
+    id: "N6PY5JC", name: "Lukas Vogel", email: "lukas.vogel@example.de", phone: "+49 162 7788990",
     city: "Dortmund", plz: "44135", type: "gas", consumption: 14500, currentProvider: "DEW21",
     monthlyPayment: 142, status: "interessiert", score: 79, assignee: "Daniel Kraus",
     createdAt: "2026-06-13T11:08:00", expectedSavings: 286, source: "Google Ads", hasInvoice: true,
