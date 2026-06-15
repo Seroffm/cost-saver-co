@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { generateLeadNumber } from "../lead-number";
 import { leadSchema, type LeadInput } from "../lead-schema";
 
 function formatLead(lead: LeadInput, leadId: string): string {
@@ -11,7 +12,9 @@ function formatLead(lead: LeadInput, leadId: string): string {
     lead.stromVerbrauchKwh ? `  Strom: ${lead.stromVerbrauchKwh} kWh/Jahr` : "",
     lead.stromPersonen ? `  Strom (geschätzt): ${lead.stromPersonen} Personen` : "",
     lead.gasVerbrauchKwh ? `  Gas: ${lead.gasVerbrauchKwh} kWh/Jahr` : "",
-    lead.gasWohnflaeche ? `  Gas (geschätzt): ${lead.gasWohnflaeche} m², Heizart ${lead.gasHeizart}, ${lead.gasPersonen} Pers., Warmwasser: ${lead.gasWarmwasser ? "ja" : "nein"}` : "",
+    lead.gasWohnflaeche
+      ? `  Gas (geschätzt): ${lead.gasWohnflaeche} m², Heizart ${lead.gasHeizart}, ${lead.gasPersonen} Pers., Warmwasser: ${lead.gasWarmwasser ? "ja" : "nein"}`
+      : "",
     "",
     "AKTUELLE SITUATION:",
     `  Anbieter: ${lead.aktuellerAnbieter ?? "-"}`,
@@ -25,19 +28,22 @@ function formatLead(lead: LeadInput, leadId: string): string {
     `  ${lead.vorname} ${lead.nachname}`,
     `  ${lead.email} | ${lead.telefon}`,
     `  Beste Erreichbarkeit: ${lead.erreichbarkeit}`,
-    lead.rechnungDateiname ? `  Rechnung angekündigt: ${lead.rechnungDateiname} (${lead.rechnungGroesseKb} KB)` : "",
+    lead.rechnungDateiname
+      ? `  Rechnung angekündigt: ${lead.rechnungDateiname} (${lead.rechnungGroesseKb} KB)`
+      : "",
   ];
+
   return lines.filter(Boolean).join("\n");
 }
 
 export const submitLead = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => leadSchema.parse(data))
   .handler(async ({ data }) => {
-    const leadId = `LEAD-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
+    const leadId = generateLeadNumber();
 
     // Phase 1: Lead in Server-Log ausgeben. TODO Phase 2:
     // Hier E-Mail an LEAD_RECIPIENT_EMAIL versenden (Lovable Emails oder Resend),
-    // und Lead in `leads`-Tabelle (Lovable Cloud) speichern.
+    // und Lead in `leads`-Tabelle / Supabase speichern.
     console.log(formatLead(data, leadId));
 
     return { ok: true as const, leadId };
