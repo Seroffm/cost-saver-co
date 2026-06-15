@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { useNavigate } from "@tanstack/react-router";
-import { MessageCircle, X, Send, Sparkles, ArrowRight, Star } from "lucide-react";
+import { MessageCircle, X, Send, Sparkles, ArrowRight, Star, RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ACTION_RE = /\[\[ACTION:([^|\]]+)\|([^\]]+)\]\]/g;
@@ -40,7 +40,7 @@ export function AiChatWidget() {
   const navigate = useNavigate();
   const transport = useRef(new DefaultChatTransport({ api: "/api/chat" })).current;
 
-  const { messages, sendMessage, status, error } = useChat({
+  const { messages, sendMessage, status, error, setMessages, clearError, stop } = useChat({
     id: "site-assistant",
     messages: INITIAL,
     transport,
@@ -48,6 +48,10 @@ export function AiChatWidget() {
 
   const busy = status === "submitted" || status === "streaming";
   const showQuickActions = messages.length <= 1 && !busy;
+
+  // Zählt Reset-Klicks – dient als `key` für das Refresh-Icon, damit die
+  // kurze Dreh-Animation bei jedem Klick neu startet (nicht bei Erstanzeige).
+  const [resetCount, setResetCount] = useState(0);
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -63,6 +67,16 @@ export function AiChatWidget() {
     const text = input;
     setInput("");
     send(text);
+  };
+
+  // Chat zurücksetzen: laufenden Stream abbrechen, Verlauf auf die Begrüßung zurücksetzen,
+  // Eingabefeld leeren, Fehlerstatus löschen. Der Chat selbst bleibt geöffnet.
+  const handleResetChat = () => {
+    stop();
+    setMessages(INITIAL);
+    setInput("");
+    clearError();
+    setResetCount((c) => c + 1);
   };
 
   return (
@@ -98,6 +112,15 @@ export function AiChatWidget() {
               <div className="text-sm font-semibold">Prime Assistent</div>
               <div className="text-xs text-primary-foreground/70">Antwortet meist sofort</div>
             </div>
+            <button
+              type="button"
+              aria-label="Chat neu starten"
+              title="Chat neu starten"
+              onClick={handleResetChat}
+              className="grid h-8 w-8 flex-none place-items-center rounded-full text-primary-foreground/70 transition hover:bg-primary-foreground/10 hover:text-primary-foreground"
+            >
+              <RefreshCw key={resetCount} className={cn("h-4 w-4", resetCount > 0 && "animate-[spin_0.4s_ease-in-out]")} />
+            </button>
           </header>
 
           <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto bg-surface px-4 py-4">
