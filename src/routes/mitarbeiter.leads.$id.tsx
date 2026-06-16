@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Mail, Phone, MapPin, Zap, FileText, Send, Save, MessageSquare, Calendar, FileSignature, CheckCircle2, Upload, Download, Clock, RefreshCw, AlertCircle, Inbox, MoreVertical, CalendarClock } from "lucide-react";
-import { useRef, useState } from "react";
+import { useRef, useState, useMemo } from "react";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -87,7 +87,14 @@ function LeadDetail() {
   const [history, setHistory] = useState<LeadHistoryEntry[]>(lead.history);
   const [wiedervorlage, setWiedervorlage] = useState<LeadWiedervorlage | undefined>(lead.wiedervorlage);
   const [documents, setDocuments] = useState<LeadDocument[]>(lead.documents);
-  const [hasOpenTask, setHasOpenTask] = useState(() => leadHasOpenTask(lead));
+  // Versionszähler: wird nach completeTasksForLead() erhöht, damit useMemo unten
+  // einen Re-Run triggert (completedTaskIds ist kein React-State).
+  const [taskVersion, setTaskVersion] = useState(0);
+  // Abgeleitet aus React-State — nie veraltet, eine einzige Prüflogik.
+  const hasOpenTask = useMemo(
+    () => leadHasOpenTask({ ...lead, status: currentStatus, wiedervorlage }),
+    [lead, currentStatus, wiedervorlage, taskVersion],
+  );
 
   const [wvOpen, setWvOpen] = useState(false);
   const [wvDate, setWvDate] = useState("");
@@ -142,7 +149,6 @@ function LeadDetail() {
     setCurrentStatus(status);
     lead.status = status;
     lead.history = updatedHistory;
-    setHasOpenTask(leadHasOpenTask(lead));
   }
 
   function openWiedervorlage() {
@@ -168,7 +174,6 @@ function LeadDetail() {
     };
     setWiedervorlage(wv);
     lead.wiedervorlage = wv;
-    setHasOpenTask(true);
 
     const entry: LeadHistoryEntry = {
       id: `h${Date.now()}`,
@@ -191,7 +196,7 @@ function LeadDetail() {
     const changed = completeTasksForLead(lead);
     if (!changed) return;
     setWiedervorlage(undefined);
-    setHasOpenTask(false);
+    setTaskVersion((v) => v + 1);
 
     const now = new Date().toISOString();
     const entry: LeadHistoryEntry = {
@@ -211,7 +216,7 @@ function LeadDetail() {
   // Anforderung 5: zur ältesten, höchstpriorisierten offenen Aufgabe springen.
   function handleOpenNextTask() {
     const next = getNextTask();
-    if (!next) {
+    if (!next || (next.leadId === lead.id && !hasOpenTask)) {
       setAllDoneOpen(true);
       return;
     }
