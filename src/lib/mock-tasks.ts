@@ -67,6 +67,10 @@ function statusTask(lead: Lead): Task | null {
   const id = `status-${lead.id}`;
   if (isTaskDone(id)) return null;
 
+  // Abgeschlossene und abgelehnte Leads erzeugen keine Status-Aufgabe.
+  // Wiedervorlage-Ausnahme wird separat über wiedervorlageTask() behandelt.
+  if (lead.status === "abgeschlossen" || lead.status === "abgelehnt") return null;
+
   if (lead.status === "rueckfrage") {
     return { id, leadId: lead.id, leadName: lead.name, type: "rueckfrage", title: `Rückfrage: ${lead.name}`, dueAt: lead.createdAt, priority: 2, assignee: lead.assignee };
   }

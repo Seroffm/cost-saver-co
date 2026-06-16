@@ -485,7 +485,7 @@ function LeadDetail() {
                 <>
                   <p className="text-sm text-muted-foreground">Für diesen Lead liegt eine offene Aufgabe vor.</p>
                   <Button variant="outline" className="w-full" size="sm" onClick={handleCompleteTask}>
-                    <CheckCircle2 className="mr-2 h-4 w-4" />Aufgabe abgeschlossen
+                    <CheckCircle2 className="mr-2 h-4 w-4" />Aufgabe abschließen
                   </Button>
                 </>
               ) : (
