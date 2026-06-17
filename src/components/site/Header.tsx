@@ -219,7 +219,9 @@ export function Header() {
     if (!el) return;
     const navRect = navRef.current.getBoundingClientRect();
     const itemRect = el.getBoundingClientRect();
-    setCaretLeft(itemRect.left - navRect.left + itemRect.width / 2);
+    // Panel is right-0 (820px wide), so caret position is relative to panel's left edge
+    const panelWidth = Math.min(820, window.innerWidth - 32);
+    setCaretLeft(itemRect.left + itemRect.width / 2 - navRect.right + panelWidth);
   }, [activeItem]);
 
   return (
@@ -337,10 +339,10 @@ export function Header() {
           <AnimatePresence>
             {activeItem?.dropdown && (
               <motion.div
-                initial={{ opacity: 0, y: -6, scale: 0.98 }}
+                initial={{ opacity: 0, y: -8, scale: 0.97 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -6, scale: 0.98 }}
-                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                exit={{ opacity: 0, y: -4, scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 340, damping: 30, mass: 0.8 }}
                 onMouseEnter={() => open(activeItem.label)}
                 onMouseLeave={scheduleClose}
                 className="absolute right-0 top-full z-50 mt-2 w-[820px] max-w-[calc(100vw-2rem)] origin-top"
@@ -349,17 +351,17 @@ export function Header() {
                 <motion.div
                   className="absolute -top-1.5 h-3 w-3 rotate-45 bg-background border-l border-t border-border"
                   animate={{ left: Math.max(16, Math.min(caretLeft - 6, 820 - 24)) }}
-                  transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                  transition={{ type: "spring", stiffness: 420, damping: 36 }}
                   aria-hidden
                 />
                 <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-2xl">
                   <AnimatePresence mode="popLayout" initial={false}>
                     <motion.div
                       key={activeItem.label}
-                      initial={{ opacity: 0, x: 24 }}
+                      initial={{ opacity: 0, x: 16 }}
                       animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -24 }}
-                      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      exit={{ opacity: 0, x: -16 }}
+                      transition={{ type: "spring", stiffness: 380, damping: 34, mass: 0.7 }}
                       className="grid grid-cols-[minmax(220px,1fr)_1.6fr]"
                     >
                       {/* Left column */}

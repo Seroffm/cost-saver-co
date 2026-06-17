@@ -296,7 +296,7 @@ function QuickCalculator() {
         </div>
 
         {/* Tabs */}
-        <div className="mt-5 grid grid-cols-3 gap-2 rounded-lg bg-surface p-1">
+        <div className="mt-5 grid grid-cols-3 rounded-lg bg-surface p-1">
           {tabs.map((t) => {
             const active = energy === t.k;
             return (
@@ -304,15 +304,29 @@ function QuickCalculator() {
                 key={t.k}
                 type="button"
                 onClick={() => setEnergy(t.k)}
-                className={cn(
-                  "flex items-center justify-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition",
-                  active
-                    ? "bg-background text-primary shadow-soft"
-                    : "text-muted-foreground hover:text-primary",
-                )}
+                className="relative flex items-center justify-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium"
               >
-                <t.icon className={cn("h-4 w-4", active ? "text-success" : "")} />
-                {t.label}
+                {active && (
+                  <motion.div
+                    layoutId="energy-tab-pill"
+                    className="absolute inset-0 rounded-md bg-background shadow-soft"
+                    transition={{ type: "spring", stiffness: 420, damping: 36 }}
+                  />
+                )}
+                <t.icon
+                  className={cn(
+                    "relative z-10 h-4 w-4 transition-colors duration-200",
+                    active ? "text-success" : "text-muted-foreground",
+                  )}
+                />
+                <span
+                  className={cn(
+                    "relative z-10 transition-colors duration-200",
+                    active ? "text-primary" : "text-muted-foreground",
+                  )}
+                >
+                  {t.label}
+                </span>
               </button>
             );
           })}
