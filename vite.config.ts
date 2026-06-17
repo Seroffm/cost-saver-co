@@ -12,4 +12,9 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  nitro: {
+    // Use Vercel preset so the build outputs to .vercel/output/ — Vercel auto-detects this.
+    // "cloudflare-module" is the Lovable sandbox default; for Vercel deployment we override it.
+    preset: "vercel",
+  },
 });
