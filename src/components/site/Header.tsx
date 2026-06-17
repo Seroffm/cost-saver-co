@@ -212,6 +212,10 @@ export function Header() {
   };
 
   const activeItem = mainNav.find((n) => n.label === openKey && n.dropdown);
+  // Ref always reflects the latest render — used in dropdown onMouseEnter to avoid
+  // the stale-closure bug where AnimatePresence exit elements reopen the menu.
+  const activeItemRef = useRef<typeof activeItem>(undefined);
+  activeItemRef.current = activeItem;
 
   useLayoutEffect(() => {
     if (!activeItem || !navRef.current) return;
@@ -343,7 +347,10 @@ export function Header() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -4, scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 340, damping: 30, mass: 0.8 }}
-                onMouseEnter={() => open(activeItem.label)}
+                onMouseEnter={() => {
+                  const item = activeItemRef.current;
+                  if (item) open(item.label);
+                }}
                 onMouseLeave={scheduleClose}
                 className="absolute right-0 top-full z-50 mt-2 w-[820px] max-w-[calc(100vw-2rem)] origin-top"
               >
