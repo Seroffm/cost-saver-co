@@ -9,7 +9,9 @@ import { AdminShell } from "@/components/mitarbeiter/AdminShell";
 import { providers } from "@/lib/mock-leads";
 
 export const Route = createFileRoute("/mitarbeiter/anbieter")({
-  head: () => ({ meta: [{ title: "Anbieter – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }] }),
+  head: () => ({
+    meta: [{ title: "Anbieter – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }],
+  }),
   component: ProvidersPage,
 });
 
@@ -20,12 +22,22 @@ function ProvidersPage() {
   return (
     <AdminShell
       title="Energie-Anbieter"
-      subtitle={`${providers.length} Anbieter im System · ${providers.filter(p => p.partner).length} Partner`}
-      actions={<Button size="sm"><Plus className="mr-2 h-4 w-4" />Anbieter hinzufügen</Button>}
+      subtitle={`${providers.length} Anbieter im System · ${providers.filter((p) => p.partner).length} Partner`}
+      actions={
+        <Button size="sm">
+          <Plus className="mr-2 h-4 w-4" />
+          Anbieter hinzufügen
+        </Button>
+      }
     >
       <div className="mb-4 relative max-w-xs">
         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input placeholder="Anbieter suchen…" value={q} onChange={(e) => setQ(e.target.value)} className="pl-9" />
+        <Input
+          placeholder="Anbieter suchen…"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          className="pl-9"
+        />
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((p) => (
@@ -38,18 +50,28 @@ function ProvidersPage() {
                   </div>
                   <div>
                     <div className="font-semibold">{p.name}</div>
-                    <div className="text-xs text-muted-foreground capitalize">{p.type === "beide" ? "Strom & Gas" : p.type}</div>
+                    <div className="text-xs text-muted-foreground capitalize">
+                      {p.type === "beide" ? "Strom & Gas" : p.type}
+                    </div>
                   </div>
                 </div>
-                {p.partner && <Badge className="bg-emerald-500/15 text-emerald-700 border-0">Partner</Badge>}
+                {p.partner && (
+                  <Badge className="bg-emerald-500/15 text-emerald-700 border-0">Partner</Badge>
+                )}
               </div>
               <div className="mt-4 flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">{p.tariffsCount} Tarife</span>
-                <span className="flex items-center gap-1 font-medium"><Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" /> {p.rating}</span>
+                <span className="flex items-center gap-1 font-medium">
+                  <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" /> {p.rating}
+                </span>
               </div>
               <div className="mt-4 flex gap-2">
-                <Button variant="outline" size="sm" className="flex-1">Tarife</Button>
-                <Button variant="outline" size="sm" className="flex-1">Bearbeiten</Button>
+                <Button variant="outline" size="sm" className="flex-1">
+                  Tarife
+                </Button>
+                <Button variant="outline" size="sm" className="flex-1">
+                  Bearbeiten
+                </Button>
               </div>
             </CardContent>
           </Card>

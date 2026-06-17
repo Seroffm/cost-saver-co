@@ -72,13 +72,40 @@ function statusTask(lead: Lead): Task | null {
   if (lead.status === "abgeschlossen" || lead.status === "abgelehnt") return null;
 
   if (lead.status === "rueckfrage") {
-    return { id, leadId: lead.id, leadName: lead.name, type: "rueckfrage", title: `Rückfrage: ${lead.name}`, dueAt: lead.createdAt, priority: 2, assignee: lead.assignee };
+    return {
+      id,
+      leadId: lead.id,
+      leadName: lead.name,
+      type: "rueckfrage",
+      title: `Rückfrage: ${lead.name}`,
+      dueAt: lead.createdAt,
+      priority: 2,
+      assignee: lead.assignee,
+    };
   }
   if (lead.status === "neu") {
-    return { id, leadId: lead.id, leadName: lead.name, type: "neu", title: `Neuer Lead: ${lead.name}`, dueAt: lead.createdAt, priority: 3, assignee: lead.assignee };
+    return {
+      id,
+      leadId: lead.id,
+      leadName: lead.name,
+      type: "neu",
+      title: `Neuer Lead: ${lead.name}`,
+      dueAt: lead.createdAt,
+      priority: 3,
+      assignee: lead.assignee,
+    };
   }
   if (OTHER_OPEN_STATUSES.includes(lead.status)) {
-    return { id, leadId: lead.id, leadName: lead.name, type: "sonstiges", title: `${statusLabel[lead.status]}: ${lead.name}`, dueAt: lead.createdAt, priority: 4, assignee: lead.assignee };
+    return {
+      id,
+      leadId: lead.id,
+      leadName: lead.name,
+      type: "sonstiges",
+      title: `${statusLabel[lead.status]}: ${lead.name}`,
+      dueAt: lead.createdAt,
+      priority: 4,
+      assignee: lead.assignee,
+    };
   }
   return null;
 }
@@ -119,7 +146,10 @@ export function getOpenTasks(): Task[] {
 export function getDueTasks(now: Date = new Date()): Task[] {
   return getOpenTasks()
     .filter((t) => new Date(t.dueAt) <= now)
-    .sort((a, b) => a.priority - b.priority || new Date(a.dueAt).getTime() - new Date(b.dueAt).getTime());
+    .sort(
+      (a, b) =>
+        a.priority - b.priority || new Date(a.dueAt).getTime() - new Date(b.dueAt).getTime(),
+    );
 }
 
 /** Höchste Priorität, älteste fällige Aufgabe – für den "Nächste Aufgabe öffnen"-Button. */

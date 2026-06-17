@@ -8,7 +8,9 @@ import { AdminShell } from "@/components/mitarbeiter/AdminShell";
 import { employees, roleLabel } from "@/lib/mock-leads";
 
 export const Route = createFileRoute("/mitarbeiter/team")({
-  head: () => ({ meta: [{ title: "Team – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }] }),
+  head: () => ({
+    meta: [{ title: "Team – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }],
+  }),
   component: TeamPage,
 });
 
@@ -22,8 +24,13 @@ function TeamPage() {
   return (
     <AdminShell
       title="Team"
-      subtitle={`${employees.filter(e => e.active).length} aktive Mitarbeiter · ${employees.length} insgesamt`}
-      actions={<Button size="sm"><Plus className="mr-2 h-4 w-4" />Mitarbeiter einladen</Button>}
+      subtitle={`${employees.filter((e) => e.active).length} aktive Mitarbeiter · ${employees.length} insgesamt`}
+      actions={
+        <Button size="sm">
+          <Plus className="mr-2 h-4 w-4" />
+          Mitarbeiter einladen
+        </Button>
+      }
     >
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {employees.map((e) => (
@@ -32,14 +39,23 @@ function TeamPage() {
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <Avatar className="h-12 w-12">
-                    <AvatarFallback>{e.name.split(" ").map(n => n[0]).join("")}</AvatarFallback>
+                    <AvatarFallback>
+                      {e.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </AvatarFallback>
                   </Avatar>
                   <div>
                     <div className="font-semibold">{e.name}</div>
-                    <Badge className={`${roleColor[e.role]} mt-1 border-0`}>{roleLabel[e.role]}</Badge>
+                    <Badge className={`${roleColor[e.role]} mt-1 border-0`}>
+                      {roleLabel[e.role]}
+                    </Badge>
                   </div>
                 </div>
-                <Button variant="ghost" size="icon"><MoreVertical className="h-4 w-4" /></Button>
+                <Button variant="ghost" size="icon">
+                  <MoreVertical className="h-4 w-4" />
+                </Button>
               </div>
               <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
                 <Mail className="h-3.5 w-3.5" /> {e.email}

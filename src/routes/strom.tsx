@@ -1,5 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Zap, Leaf, Car, Flame, ShieldCheck, TrendingDown, Sparkles, BadgeCheck } from "lucide-react";
+import {
+  Zap,
+  Leaf,
+  Car,
+  Flame,
+  ShieldCheck,
+  TrendingDown,
+  Sparkles,
+  BadgeCheck,
+} from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { TopicHero, FeatureGrid, ImageSplit, FinalCta } from "@/components/site/TopicSections";
 import heroImg from "@/assets/page-strom.jpg";
@@ -10,9 +19,16 @@ export const Route = createFileRoute("/strom")({
   head: () => ({
     meta: [
       { title: "Strom vergleichen: Bis zu 850 € sparen | EnergieClever" },
-      { name: "description", content: "Stromtarife persönlich vergleichen: Haushaltsstrom, Ökostrom, Autostrom und Wärmestrom. Geprüfte Anbieter, kostenloser Wechsel ohne Versorgungslücke." },
+      {
+        name: "description",
+        content:
+          "Stromtarife persönlich vergleichen: Haushaltsstrom, Ökostrom, Autostrom und Wärmestrom. Geprüfte Anbieter, kostenloser Wechsel ohne Versorgungslücke.",
+      },
       { property: "og:title", content: "Strom vergleichen | EnergieClever" },
-      { property: "og:description", content: "Stromtarife persönlich vergleichen und bis zu 850 € pro Jahr sparen." },
+      {
+        property: "og:description",
+        content: "Stromtarife persönlich vergleichen und bis zu 850 € pro Jahr sparen.",
+      },
       { property: "og:image", content: "/__l5e/assets-v1/page-strom" },
     ],
   }),
@@ -20,12 +36,36 @@ export const Route = createFileRoute("/strom")({
 });
 
 const features = [
-  { icon: TrendingDown, title: "Bis zu 850 € sparen", desc: "Ein Tarifwechsel rechnet sich fast immer. Wir zeigen Ihnen schwarz auf weiß, wie viel." },
-  { icon: ShieldCheck, title: "Geprüfte Anbieter", desc: "Über 800 Stromanbieter im Vergleich. Nur Versorger mit guter Service- und Preisstabilität." },
-  { icon: Sparkles, title: "Persönliche Beratung", desc: "Echte Menschen am Telefon. Keine Bots, keine Verkaufsmasche, keine versteckten Gebühren." },
-  { icon: BadgeCheck, title: "Wechselgarantie", desc: "Wir übernehmen den kompletten Wechsel inklusive Kündigung beim alten Anbieter." },
-  { icon: Leaf, title: "Ökostrom-Tarife", desc: "Auf Wunsch ausschließlich zertifizierte Ökostrom-Anbieter. Ohne versteckte Aufpreise." },
-  { icon: Car, title: "Autostrom & Wärmestrom", desc: "Spezial-Tarife für E-Autos und Wärmepumpen. Getrennte Zähler, getrennt günstig." },
+  {
+    icon: TrendingDown,
+    title: "Bis zu 850 € sparen",
+    desc: "Ein Tarifwechsel rechnet sich fast immer. Wir zeigen Ihnen schwarz auf weiß, wie viel.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Geprüfte Anbieter",
+    desc: "Über 800 Stromanbieter im Vergleich. Nur Versorger mit guter Service- und Preisstabilität.",
+  },
+  {
+    icon: Sparkles,
+    title: "Persönliche Beratung",
+    desc: "Echte Menschen am Telefon. Keine Bots, keine Verkaufsmasche, keine versteckten Gebühren.",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Wechselgarantie",
+    desc: "Wir übernehmen den kompletten Wechsel inklusive Kündigung beim alten Anbieter.",
+  },
+  {
+    icon: Leaf,
+    title: "Ökostrom-Tarife",
+    desc: "Auf Wunsch ausschließlich zertifizierte Ökostrom-Anbieter. Ohne versteckte Aufpreise.",
+  },
+  {
+    icon: Car,
+    title: "Autostrom & Wärmestrom",
+    desc: "Spezial-Tarife für E-Autos und Wärmepumpen. Getrennte Zähler, getrennt günstig.",
+  },
 ];
 
 function StromPage() {

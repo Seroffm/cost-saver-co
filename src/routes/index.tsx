@@ -1,16 +1,40 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
-  ArrowRight, CheckCircle2, Zap, Flame, Layers, Briefcase,
-  Home, Building2, TrendingDown, AlertTriangle, FileSearch,
-  Star, ShieldCheck, BadgeCheck, Award, Phone, MapPin,
-  PhoneCall, FileSignature, PlugZap, Users, Sparkles, ChevronRight,
+  ArrowRight,
+  CheckCircle2,
+  Zap,
+  Flame,
+  Layers,
+  Briefcase,
+  Home,
+  Building2,
+  TrendingDown,
+  AlertTriangle,
+  FileSearch,
+  Star,
+  ShieldCheck,
+  BadgeCheck,
+  Award,
+  Phone,
+  MapPin,
+  PhoneCall,
+  FileSignature,
+  PlugZap,
+  Users,
+  Sparkles,
+  ChevronRight,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { cn } from "@/lib/utils";
@@ -23,25 +47,37 @@ import comparisonHero from "@/assets/comparison-hero.jpg";
 
 import { z } from "zod";
 
-const homeSearchSchema = z.object({
-  start: z.enum(["strom", "gas", "beides", "gewerbe"]).optional(),
-  plz: z.string().optional(),
-  kwh: z.coerce.number().int().positive().optional(),
-}).optional();
+const homeSearchSchema = z
+  .object({
+    start: z.enum(["strom", "gas", "beides", "gewerbe"]).optional(),
+    plz: z.string().optional(),
+    kwh: z.coerce.number().int().positive().optional(),
+  })
+  .optional();
 
 export const Route = createFileRoute("/")({
   validateSearch: (s) => homeSearchSchema.parse(s) ?? {},
   head: () => ({
     meta: [
       { title: "EnergieClever | Strom & Gas vergleichen, bis zu 850 € sparen" },
-      { name: "description", content: "Kostenloser Strom- und Gasvergleich mit persönlicher Beratung. Geprüfte Anbieter, einfacher Wechsel, keine Versorgungslücke." },
-      { property: "og:title", content: "EnergieClever | Strom & Gas vergleichen, bis zu 850 € sparen" },
-      { property: "og:description", content: "Kostenloser Strom- und Gasvergleich mit persönlicher Beratung. Geprüfte Anbieter, einfacher Wechsel, keine Versorgungslücke." },
+      {
+        name: "description",
+        content:
+          "Kostenloser Strom- und Gasvergleich mit persönlicher Beratung. Geprüfte Anbieter, einfacher Wechsel, keine Versorgungslücke.",
+      },
+      {
+        property: "og:title",
+        content: "EnergieClever | Strom & Gas vergleichen, bis zu 850 € sparen",
+      },
+      {
+        property: "og:description",
+        content:
+          "Kostenloser Strom- und Gasvergleich mit persönlicher Beratung. Geprüfte Anbieter, einfacher Wechsel, keine Versorgungslücke.",
+      },
     ],
   }),
   component: HomePage,
 });
-
 
 const fadeUp = {
   initial: { opacity: 0, y: 16 },
@@ -74,7 +110,8 @@ function LazyLottie({ src }: { src: string }) {
 
   useEffect(() => {
     if (!visible) return;
-    const idle = (window as unknown as { requestIdleCallback?: (cb: () => void) => number }).requestIdleCallback;
+    const idle = (window as unknown as { requestIdleCallback?: (cb: () => void) => number })
+      .requestIdleCallback;
     if (idle) idle(() => setReady(true));
     else setTimeout(() => setReady(true), 150);
   }, [visible]);
@@ -116,7 +153,10 @@ function Hero() {
     const img = new Image();
     img.src = heroBg;
     if (img.decode) {
-      img.decode().then(() => setBgReady(true)).catch(() => setBgReady(true));
+      img
+        .decode()
+        .then(() => setBgReady(true))
+        .catch(() => setBgReady(true));
     } else {
       img.onload = () => setBgReady(true);
       img.onerror = () => setBgReady(true);
@@ -135,7 +175,10 @@ function Hero() {
         backgroundPosition: "center",
       }}
     >
-      <div className="pointer-events-none absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-success/20 blur-3xl" aria-hidden />
+      <div
+        className="pointer-events-none absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-success/20 blur-3xl"
+        aria-hidden
+      />
 
       <div className="mx-auto max-w-6xl px-4 pt-12 pb-10 md:pt-20 md:pb-16">
         <div className="grid items-start gap-10 lg:grid-cols-[1.05fr_1fr]">
@@ -151,8 +194,9 @@ function Hero() {
               Strom & Gas in 2 Minuten <span className="text-success">vergleichen.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">
-              Bis zu <strong className="text-primary">850 € pro Jahr</strong> sparen. Mit persönlicher
-              Beratung statt Tariflotterie. Unabhängig, transparent und ohne versteckte Kosten.
+              Bis zu <strong className="text-primary">850 € pro Jahr</strong> sparen. Mit
+              persönlicher Beratung statt Tariflotterie. Unabhängig, transparent und ohne versteckte
+              Kosten.
             </p>
 
             <ul className="mt-6 grid max-w-md gap-2.5 text-sm">
@@ -171,14 +215,23 @@ function Hero() {
             <div className="mt-7 flex items-center gap-3 text-sm text-muted-foreground">
               <div className="flex -space-x-2">
                 {["S", "M", "L", "K"].map((c, i) => (
-                  <div key={i} className="grid h-8 w-8 place-items-center rounded-full border-2 border-background bg-primary text-xs font-semibold text-primary-foreground">{c}</div>
+                  <div
+                    key={i}
+                    className="grid h-8 w-8 place-items-center rounded-full border-2 border-background bg-primary text-xs font-semibold text-primary-foreground"
+                  >
+                    {c}
+                  </div>
                 ))}
               </div>
               <div>
                 <div className="flex gap-0.5 text-success">
-                  {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-3.5 w-3.5 fill-current" />)}
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="h-3.5 w-3.5 fill-current" />
+                  ))}
                 </div>
-                <div className="text-xs"><strong className="text-primary">4,8 / 5</strong> · 12.400 zufriedene Kunden</div>
+                <div className="text-xs">
+                  <strong className="text-primary">4,8 / 5</strong> · 12.400 zufriedene Kunden
+                </div>
               </div>
             </div>
           </motion.div>
@@ -207,16 +260,14 @@ function QuickCalculator() {
   const [kwh, setKwh] = useState<number>(search?.kwh ?? 2500);
   const [plzError, setPlzError] = useState<string | null>(null);
 
-
   const tabs: { k: Energy; label: string; icon: typeof Zap }[] = [
     { k: "strom", label: "Strom", icon: Zap },
     { k: "gas", label: "Gas", icon: Flame },
     { k: "beides", label: "Strom & Gas", icon: Layers },
   ];
 
-  const kwhPresets = energy === "gas"
-    ? [5000, 12000, 18000, 25000, 35000]
-    : [1500, 2500, 3500, 4500, 5500];
+  const kwhPresets =
+    energy === "gas" ? [5000, 12000, 18000, 25000, 35000] : [1500, 2500, 3500, 4500, 5500];
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -230,7 +281,6 @@ function QuickCalculator() {
       search: { start: energy, plz, kwh: kwh || undefined } as never,
     });
   }
-
 
   return (
     <div className="rounded-2xl border border-border bg-card p-1.5 shadow-hero">
@@ -256,7 +306,9 @@ function QuickCalculator() {
                 onClick={() => setEnergy(t.k)}
                 className={cn(
                   "flex items-center justify-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition",
-                  active ? "bg-background text-primary shadow-soft" : "text-muted-foreground hover:text-primary",
+                  active
+                    ? "bg-background text-primary shadow-soft"
+                    : "text-muted-foreground hover:text-primary",
                 )}
               >
                 <t.icon className={cn("h-4 w-4", active ? "text-success" : "")} />
@@ -290,9 +342,7 @@ function QuickCalculator() {
                 )}
               />
             </div>
-            {plzError && (
-              <p className="mt-1.5 text-xs font-medium text-destructive">{plzError}</p>
-            )}
+            {plzError && <p className="mt-1.5 text-xs font-medium text-destructive">{plzError}</p>}
           </div>
 
           <div>
@@ -332,9 +382,15 @@ function QuickCalculator() {
         </form>
 
         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
-          <span className="inline-flex items-center gap-1"><ShieldCheck className="h-3.5 w-3.5 text-success" /> SSL-verschlüsselt</span>
-          <span className="inline-flex items-center gap-1"><BadgeCheck className="h-3.5 w-3.5 text-success" /> DSGVO-konform</span>
-          <span className="inline-flex items-center gap-1"><Award className="h-3.5 w-3.5 text-success" /> Geprüfte Anbieter</span>
+          <span className="inline-flex items-center gap-1">
+            <ShieldCheck className="h-3.5 w-3.5 text-success" /> SSL-verschlüsselt
+          </span>
+          <span className="inline-flex items-center gap-1">
+            <BadgeCheck className="h-3.5 w-3.5 text-success" /> DSGVO-konform
+          </span>
+          <span className="inline-flex items-center gap-1">
+            <Award className="h-3.5 w-3.5 text-success" /> Geprüfte Anbieter
+          </span>
         </div>
       </div>
     </div>
@@ -370,17 +426,30 @@ function TrustStrip() {
 function HowItWorks() {
   const steps = [
     {
-      n: "01", icon: FileSearch, t: "Daten eingeben", k: "~ 90 Sek.",
+      n: "01",
+      icon: FileSearch,
+      t: "Daten eingeben",
+      k: "~ 90 Sek.",
       d: "PLZ, Jahresverbrauch und Wunsch. Fertig. Keine Registrierung, keine Zwangsfelder.",
       bullets: ["Online oder telefonisch", "Auch ohne alte Rechnung", "Verschlüsselte Übertragung"],
     },
     {
-      n: "02", icon: PhoneCall, t: "Persönliches Angebot", k: "≤ 24 Std.",
+      n: "02",
+      icon: PhoneCall,
+      t: "Persönliches Angebot",
+      k: "≤ 24 Std.",
       d: "Ein echter Berater prüft 1.200+ Tarife manuell und ruft mit dem besten Vorschlag zurück.",
-      bullets: ["Vergleich inkl. Kleingedrucktem", "Lockboni ausgeschlossen", "Festpreisgarantie möglich"],
+      bullets: [
+        "Vergleich inkl. Kleingedrucktem",
+        "Lockboni ausgeschlossen",
+        "Festpreisgarantie möglich",
+      ],
     },
     {
-      n: "03", icon: FileSignature, t: "Wechseln & sparen", k: "Ø 380 €/Jahr",
+      n: "03",
+      icon: FileSignature,
+      t: "Wechseln & sparen",
+      k: "Ø 380 €/Jahr",
       d: "Wir übernehmen Kündigung beim Altanbieter und Anmeldung beim Neuen. Sie machen nichts.",
       bullets: ["Lückenlose Versorgung", "Schriftliche Bestätigung", "Erinnerung vor Vertragsende"],
     },
@@ -426,9 +495,7 @@ function HowItWorks() {
                   <div className="mt-3 text-[11px] font-bold uppercase tracking-wider text-success sm:text-xs">
                     Schritt {s.n}
                   </div>
-                  <div className="mt-1 text-sm font-semibold text-primary sm:text-base">
-                    {s.t}
-                  </div>
+                  <div className="mt-1 text-sm font-semibold text-primary sm:text-base">{s.t}</div>
                 </motion.div>
               );
             })}
@@ -521,7 +588,9 @@ function BenefitsSection() {
           <h2 className="mt-3 font-display text-3xl font-bold text-primary md:text-5xl">
             Wie viel <span className="text-success">sparst du</span>?
           </h2>
-          <p className="mt-3 text-muted-foreground">Verschieben Sie die Regler. Wir rechnen live.</p>
+          <p className="mt-3 text-muted-foreground">
+            Verschieben Sie die Regler. Wir rechnen live.
+          </p>
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_1fr]">
@@ -553,7 +622,10 @@ function SavingsCalculator() {
 
   return (
     <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-7 shadow-card md:p-9">
-      <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-success/10 blur-3xl" aria-hidden />
+      <div
+        className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-success/10 blur-3xl"
+        aria-hidden
+      />
 
       {/* Energy switch */}
       <div className="relative flex items-center justify-between">
@@ -568,7 +640,9 @@ function SavingsCalculator() {
               }}
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-semibold transition",
-                energy === e ? "bg-card text-primary shadow-soft" : "text-muted-foreground hover:text-primary",
+                energy === e
+                  ? "bg-card text-primary shadow-soft"
+                  : "text-muted-foreground hover:text-primary",
               )}
             >
               {e === "strom" ? <Zap className="h-3.5 w-3.5" /> : <Flame className="h-3.5 w-3.5" />}
@@ -587,7 +661,9 @@ function SavingsCalculator() {
           <div className="flex items-center gap-2 text-sm font-semibold text-primary">
             <Users className="h-4 w-4 text-success" /> Personen im Haushalt
           </div>
-          <div className="font-display text-xl font-extrabold tabular-nums text-primary">{persons}</div>
+          <div className="font-display text-xl font-extrabold tabular-nums text-primary">
+            {persons}
+          </div>
         </div>
         <Slider
           value={[persons]}
@@ -597,15 +673,21 @@ function SavingsCalculator() {
           onValueChange={(v) => {
             const p = v[0];
             setPersons(p);
-            const map = energy === "gas"
-              ? { 1: 5000, 2: 9000, 3: 14000, 4: 18000, 5: 22000, 6: 26000 }
-              : { 1: 1500, 2: 2500, 3: 3500, 4: 4500, 5: 5500, 6: 6500 };
+            const map =
+              energy === "gas"
+                ? { 1: 5000, 2: 9000, 3: 14000, 4: 18000, 5: 22000, 6: 26000 }
+                : { 1: 1500, 2: 2500, 3: 3500, 4: 4500, 5: 5500, 6: 6500 };
             setKwh(map[p as 1 | 2 | 3 | 4 | 5 | 6]);
           }}
           className="mt-4"
         />
         <div className="mt-1 flex justify-between text-[10px] uppercase tracking-wider text-muted-foreground">
-          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6+</span>
+          <span>1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>4</span>
+          <span>5</span>
+          <span>6+</span>
         </div>
       </div>
 
@@ -616,7 +698,8 @@ function SavingsCalculator() {
             <PlugZap className="h-4 w-4 text-success" /> Jahresverbrauch
           </div>
           <div className="font-display text-xl font-extrabold tabular-nums text-primary">
-            {kwh.toLocaleString("de-DE")} <span className="text-sm font-bold text-muted-foreground">kWh</span>
+            {kwh.toLocaleString("de-DE")}{" "}
+            <span className="text-sm font-bold text-muted-foreground">kWh</span>
           </div>
         </div>
         <Slider
@@ -632,16 +715,36 @@ function SavingsCalculator() {
       {/* Live bar chart */}
       <div className="relative mt-8 space-y-3">
         {[
-          { label: "Grundversorger", value: result.grund, color: "bg-primary/70", text: "text-primary" },
-          { label: "Portal-Tarif", value: result.portal, color: "bg-primary/40", text: "text-primary" },
-          { label: "EnergieClever", value: result.clever, color: "bg-success", text: "text-success", highlight: true },
+          {
+            label: "Grundversorger",
+            value: result.grund,
+            color: "bg-primary/70",
+            text: "text-primary",
+          },
+          {
+            label: "Portal-Tarif",
+            value: result.portal,
+            color: "bg-primary/40",
+            text: "text-primary",
+          },
+          {
+            label: "EnergieClever",
+            value: result.clever,
+            color: "bg-success",
+            text: "text-success",
+            highlight: true,
+          },
         ].map((b) => (
           <div key={b.label}>
             <div className="flex justify-between text-xs">
-              <span className={cn(b.highlight ? "font-semibold text-success" : "text-muted-foreground")}>
+              <span
+                className={cn(b.highlight ? "font-semibold text-success" : "text-muted-foreground")}
+              >
                 {b.label}
               </span>
-              <span className={cn("font-semibold tabular-nums", b.text)}>{b.value.toLocaleString("de-DE")} €/Jahr</span>
+              <span className={cn("font-semibold tabular-nums", b.text)}>
+                {b.value.toLocaleString("de-DE")} €/Jahr
+              </span>
             </div>
             <div className="mt-1 h-2.5 rounded-full bg-border/60">
               <div
@@ -656,13 +759,22 @@ function SavingsCalculator() {
       {/* Saving callout */}
       <div className="relative mt-7 flex items-center justify-between gap-4 rounded-2xl bg-gradient-to-r from-success/15 via-success/10 to-transparent p-5">
         <div>
-          <div className="text-xs font-semibold uppercase tracking-wider text-success">Deine Ersparnis</div>
+          <div className="text-xs font-semibold uppercase tracking-wider text-success">
+            Deine Ersparnis
+          </div>
           <div className="font-display text-4xl font-extrabold tabular-nums text-primary">
-            {result.saved.toLocaleString("de-DE")} €<span className="text-base font-bold text-muted-foreground"> / Jahr</span>
+            {result.saved.toLocaleString("de-DE")} €
+            <span className="text-base font-bold text-muted-foreground"> / Jahr</span>
           </div>
         </div>
-        <Button asChild size="lg" className="bg-success text-success-foreground hover:bg-success/90">
-          <Link to="/angebot">Sichern <ArrowRight className="ml-1 h-4 w-4" /></Link>
+        <Button
+          asChild
+          size="lg"
+          className="bg-success text-success-foreground hover:bg-success/90"
+        >
+          <Link to="/angebot">
+            Sichern <ArrowRight className="ml-1 h-4 w-4" />
+          </Link>
         </Button>
       </div>
     </div>
@@ -693,12 +805,18 @@ function ComparisonCard() {
         <div className="p-7 md:p-8">
           <header className="flex items-baseline justify-between gap-4">
             <div>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-success">Mit uns</div>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-success">
+                Mit uns
+              </div>
               <h3 className="mt-1 font-display text-2xl font-bold text-primary">EnergieClever</h3>
             </div>
             <div className="text-right">
-              <div className="font-display text-2xl font-extrabold tabular-nums text-primary">100 %</div>
-              <div className="text-[11px] uppercase tracking-wider text-muted-foreground">kostenlos</div>
+              <div className="font-display text-2xl font-extrabold tabular-nums text-primary">
+                100 %
+              </div>
+              <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                kostenlos
+              </div>
             </div>
           </header>
           <ul className="mt-5 space-y-3">
@@ -711,7 +829,6 @@ function ComparisonCard() {
           </ul>
         </div>
       </article>
-
 
       {/* Vertrauenssignal */}
       <div className="flex flex-wrap items-center justify-between gap-3 px-2 text-xs text-muted-foreground">
@@ -728,20 +845,46 @@ function ComparisonCard() {
 
 function AudienceSection() {
   const items = [
-    { icon: Home, t: "Privathaushalte", d: "Singles, Familien, WGs. Den passenden Tarif für jeden Verbrauch.", img: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=70" },
-    { icon: Briefcase, t: "Gewerbe", d: "Sondertarife für Selbstständige, Praxen und kleine Betriebe.", img: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=70" },
-    { icon: Building2, t: "Hausverwaltungen", d: "Effizienz für Mehrobjektportfolios mit Bündelung mehrerer Standorte.", img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=800&q=70" },
+    {
+      icon: Home,
+      t: "Privathaushalte",
+      d: "Singles, Familien, WGs. Den passenden Tarif für jeden Verbrauch.",
+      img: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=70",
+    },
+    {
+      icon: Briefcase,
+      t: "Gewerbe",
+      d: "Sondertarife für Selbstständige, Praxen und kleine Betriebe.",
+      img: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=70",
+    },
+    {
+      icon: Building2,
+      t: "Hausverwaltungen",
+      d: "Effizienz für Mehrobjektportfolios mit Bündelung mehrerer Standorte.",
+      img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=800&q=70",
+    },
   ];
   return (
     <section className="mx-auto max-w-6xl px-4 py-20 md:py-24">
       <motion.div {...fadeUp} className="mx-auto max-w-2xl text-center">
-        <h2 className="font-display text-3xl font-bold text-primary md:text-4xl">Für wen wir arbeiten</h2>
+        <h2 className="font-display text-3xl font-bold text-primary md:text-4xl">
+          Für wen wir arbeiten
+        </h2>
       </motion.div>
       <div className="mt-12 grid gap-5 md:grid-cols-3">
         {items.map((z) => (
-          <motion.div key={z.t} {...fadeUp} className="group overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition hover:shadow-card">
+          <motion.div
+            key={z.t}
+            {...fadeUp}
+            className="group overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition hover:shadow-card"
+          >
             <div className="relative aspect-[4/3] overflow-hidden bg-surface">
-              <img src={z.img} alt={z.t} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+              <img
+                src={z.img}
+                alt={z.t}
+                loading="lazy"
+                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+              />
               <div className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-xl bg-card/95 text-success shadow-soft">
                 <z.icon className="h-5 w-5" />
               </div>
@@ -764,13 +907,24 @@ function StatsBand() {
     { v: "50.000+", l: "Erfolgreiche Wechsel", sub: "seit 2018", icon: Users },
     { v: "380 €", l: "Ø Ersparnis pro Jahr", sub: "pro Haushalt", icon: TrendingDown },
     { v: "4,8 ★", l: "Kundenzufriedenheit", sub: "aus 2.400+ Bewertungen", icon: Star },
-    { v: "100 %", l: "Kostenlos & unverbindlich", sub: "keine versteckten Kosten", icon: ShieldCheck },
+    {
+      v: "100 %",
+      l: "Kostenlos & unverbindlich",
+      sub: "keine versteckten Kosten",
+      icon: ShieldCheck,
+    },
   ];
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary to-primary/95 py-20 text-primary-foreground md:py-24">
       {/* glows */}
-      <div className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-success/25 blur-3xl" aria-hidden />
-      <div className="pointer-events-none absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-success/15 blur-3xl" aria-hidden />
+      <div
+        className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-success/25 blur-3xl"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-success/15 blur-3xl"
+        aria-hidden
+      />
       {/* grid pattern */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.07]"
@@ -808,7 +962,10 @@ function StatsBand() {
                 whileHover={{ y: -4 }}
                 className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition hover:border-success/40 hover:bg-white/[0.08]"
               >
-                <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-success/20 blur-2xl opacity-0 transition group-hover:opacity-100" aria-hidden />
+                <div
+                  className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-success/20 blur-2xl opacity-0 transition group-hover:opacity-100"
+                  aria-hidden
+                />
                 <div className="relative flex items-start justify-between">
                   <div className="grid h-11 w-11 place-items-center rounded-xl bg-success/15 text-success ring-1 ring-success/30">
                     <Icon className="h-5 w-5" />
@@ -823,9 +980,7 @@ function StatsBand() {
                 <div className="relative mt-2 text-sm font-semibold text-primary-foreground">
                   {s.l}
                 </div>
-                <div className="relative mt-1 text-xs text-primary-foreground/60">
-                  {s.sub}
-                </div>
+                <div className="relative mt-1 text-xs text-primary-foreground/60">{s.sub}</div>
               </motion.div>
             );
           })}
@@ -908,7 +1063,8 @@ function PriceBreakdown() {
             Wie setzt sich dein Strompreis zusammen?
           </h2>
           <p className="mt-4 text-base text-muted-foreground md:text-lg">
-            Nur ein Bruchteil deiner Stromrechnung geht an den Anbieter selbst. Der Rest sind Netze und Steuern. Genau hier setzen wir an.
+            Nur ein Bruchteil deiner Stromrechnung geht an den Anbieter selbst. Der Rest sind Netze
+            und Steuern. Genau hier setzen wir an.
           </p>
         </motion.div>
 
@@ -951,7 +1107,8 @@ function PriceBreakdown() {
             </svg>
             <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
               <div className="text-5xl font-bold tracking-tight md:text-6xl">
-                {current.value}<span className="text-2xl md:text-3xl">%</span>
+                {current.value}
+                <span className="text-2xl md:text-3xl">%</span>
               </div>
               <div className="mt-1 max-w-[55%] text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {current.short}
@@ -974,7 +1131,7 @@ function PriceBreakdown() {
                       "group flex w-full items-center gap-4 rounded-2xl border px-4 py-3 text-left transition-all",
                       isActive
                         ? "border-foreground/15 bg-muted/60 shadow-sm"
-                        : "border-transparent hover:bg-muted/40"
+                        : "border-transparent hover:bg-muted/40",
                     )}
                   >
                     <span
@@ -999,7 +1156,8 @@ function PriceBreakdown() {
             </motion.div>
 
             <p className="mt-6 text-xs text-muted-foreground">
-              Beispielhafte Aufteilung für einen Jahresverbrauch von 2.900 kWh. Anteile variieren je nach Tarif und Netzgebiet.
+              Beispielhafte Aufteilung für einen Jahresverbrauch von 2.900 kWh. Anteile variieren je
+              nach Tarif und Netzgebiet.
             </p>
           </div>
         </motion.div>
@@ -1010,24 +1168,43 @@ function PriceBreakdown() {
 
 /* ------------------------------- TESTIMONIALS ----------------------------- */
 
-
 function Testimonials() {
   const items = [
-    { n: "Sandra K.", c: "Familie, München", t: "Innerhalb eines Tages hatte ich ein passendes Angebot. Spare jetzt 520 € im Jahr. Ohne Stress." },
-    { n: "Markus B.", c: "Inhaber Café, Köln", t: "Endlich Klartext statt Klick-Strecke. Die Gewerbeberatung war Gold wert." },
-    { n: "Familie Weiß", c: "Hannover", t: "Komplett ohne Aufwand. Kündigung beim alten Anbieter haben sie für uns übernommen." },
+    {
+      n: "Sandra K.",
+      c: "Familie, München",
+      t: "Innerhalb eines Tages hatte ich ein passendes Angebot. Spare jetzt 520 € im Jahr. Ohne Stress.",
+    },
+    {
+      n: "Markus B.",
+      c: "Inhaber Café, Köln",
+      t: "Endlich Klartext statt Klick-Strecke. Die Gewerbeberatung war Gold wert.",
+    },
+    {
+      n: "Familie Weiß",
+      c: "Hannover",
+      t: "Komplett ohne Aufwand. Kündigung beim alten Anbieter haben sie für uns übernommen.",
+    },
   ];
   return (
     <section className="bg-surface py-20 md:py-24">
       <div className="mx-auto max-w-6xl px-4">
         <motion.div {...fadeUp} className="mx-auto max-w-2xl text-center">
-          <h2 className="font-display text-3xl font-bold text-primary md:text-4xl">Was Kunden über uns sagen</h2>
+          <h2 className="font-display text-3xl font-bold text-primary md:text-4xl">
+            Was Kunden über uns sagen
+          </h2>
         </motion.div>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {items.map((r) => (
-            <motion.div key={r.n} {...fadeUp} className="rounded-2xl border border-border bg-card p-6 shadow-soft">
+            <motion.div
+              key={r.n}
+              {...fadeUp}
+              className="rounded-2xl border border-border bg-card p-6 shadow-soft"
+            >
               <div className="flex gap-0.5 text-success">
-                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-current" />
+                ))}
               </div>
               <p className="mt-3 text-sm leading-relaxed text-foreground">„{r.t}"</p>
               <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
@@ -1054,21 +1231,33 @@ function MoreSolutions() {
     {
       img: solutionAutostrom,
       title: "Autostrom",
-      bullets: ["Zuhause und unterwegs laden", "Sondertarif für E-Auto-Halter", "100 % Ökostrom aus Europa"],
+      bullets: [
+        "Zuhause und unterwegs laden",
+        "Sondertarif für E-Auto-Halter",
+        "100 % Ökostrom aus Europa",
+      ],
       cta: "Zum Autostrom",
       to: "/angebot",
     },
     {
       img: solutionWaermestrom,
       title: "Wärmestrom",
-      bullets: ["Günstiger heizen mit Strom", "Für Wärmepumpe & Nachtspeicher", "Alternativ zum Haushaltsstrom"],
+      bullets: [
+        "Günstiger heizen mit Strom",
+        "Für Wärmepumpe & Nachtspeicher",
+        "Alternativ zum Haushaltsstrom",
+      ],
       cta: "Zum Wärmestrom",
       to: "/angebot",
     },
     {
       img: solutionSolar,
       title: "Solaranlage",
-      bullets: ["Solaranlage kaufen oder mieten", "Mit geprüften Fach-Partnern", "Nachhaltig und unabhängig"],
+      bullets: [
+        "Solaranlage kaufen oder mieten",
+        "Mit geprüften Fach-Partnern",
+        "Nachhaltig und unabhängig",
+      ],
       cta: "Jetzt beraten lassen",
       to: "/kontakt",
     },
@@ -1077,7 +1266,10 @@ function MoreSolutions() {
   return (
     <section className="bg-success-soft py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-4">
-        <motion.h2 {...fadeUp} className="max-w-3xl font-display text-3xl font-extrabold leading-tight text-primary md:text-5xl">
+        <motion.h2
+          {...fadeUp}
+          className="max-w-3xl font-display text-3xl font-extrabold leading-tight text-primary md:text-5xl"
+        >
           Noch mehr clevere Energie-Lösungen<span className="text-success">.</span>
         </motion.h2>
 
@@ -1101,7 +1293,8 @@ function MoreSolutions() {
               </div>
               <div className="flex flex-1 flex-col p-8">
                 <h3 className="font-display text-3xl font-extrabold text-primary">
-                  {it.title}<span className="text-success">.</span>
+                  {it.title}
+                  <span className="text-success">.</span>
                 </h3>
                 <ul className="mt-6 space-y-3 text-[15px] text-foreground">
                   {it.bullets.map((b) => (
@@ -1132,30 +1325,62 @@ function MoreSolutions() {
 
 function RatgeberSection() {
   const items = [
-    { t: "Anbieterwechsel: Schritt für Schritt", d: "So läuft Ihr Wechsel reibungslos. Von der Kündigung bis zur ersten Abrechnung.", img: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=70", to: "/ablauf" },
-    { t: "Strompreise verstehen", d: "Grundpreis, Arbeitspreis, Boni: Was wirklich in Ihrem Tarif steckt.", img: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=70", to: "/faq" },
-    { t: "Über EnergieClever", d: "Warum wir unabhängig sind und wie wir Geld verdienen. Transparent erklärt.", img: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=70", to: "/ueber-uns" },
+    {
+      t: "Anbieterwechsel: Schritt für Schritt",
+      d: "So läuft Ihr Wechsel reibungslos. Von der Kündigung bis zur ersten Abrechnung.",
+      img: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=70",
+      to: "/ablauf",
+    },
+    {
+      t: "Strompreise verstehen",
+      d: "Grundpreis, Arbeitspreis, Boni: Was wirklich in Ihrem Tarif steckt.",
+      img: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=70",
+      to: "/faq",
+    },
+    {
+      t: "Über EnergieClever",
+      d: "Warum wir unabhängig sind und wie wir Geld verdienen. Transparent erklärt.",
+      img: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=70",
+      to: "/ueber-uns",
+    },
   ];
   return (
     <section className="mx-auto max-w-6xl px-4 py-20 md:py-24">
       <motion.div {...fadeUp} className="flex items-end justify-between gap-4">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-success">Ratgeber</span>
-          <h2 className="mt-2 font-display text-3xl font-bold text-primary md:text-4xl">Wissen, das spart</h2>
+          <span className="text-xs font-semibold uppercase tracking-wider text-success">
+            Ratgeber
+          </span>
+          <h2 className="mt-2 font-display text-3xl font-bold text-primary md:text-4xl">
+            Wissen, das spart
+          </h2>
         </div>
-        <Link to="/faq" className="hidden text-sm font-semibold text-primary hover:text-success md:inline-flex">
+        <Link
+          to="/faq"
+          className="hidden text-sm font-semibold text-primary hover:text-success md:inline-flex"
+        >
           Alle Artikel <ArrowRight className="ml-1 inline h-4 w-4" />
         </Link>
       </motion.div>
       <div className="mt-10 grid gap-6 md:grid-cols-3">
         {items.map((r) => (
           <motion.div key={r.t} {...fadeUp}>
-            <Link to={r.to} className="group block overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition hover:shadow-card">
+            <Link
+              to={r.to}
+              className="group block overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition hover:shadow-card"
+            >
               <div className="aspect-[16/10] overflow-hidden bg-surface">
-                <img src={r.img} alt={r.t} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                <img
+                  src={r.img}
+                  alt={r.t}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                />
               </div>
               <div className="p-6">
-                <h3 className="font-display text-lg font-bold text-primary group-hover:text-success">{r.t}</h3>
+                <h3 className="font-display text-lg font-bold text-primary group-hover:text-success">
+                  {r.t}
+                </h3>
                 <p className="mt-2 text-sm text-muted-foreground">{r.d}</p>
                 <div className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-success">
                   Weiterlesen <ArrowRight className="h-4 w-4" />
@@ -1183,20 +1408,27 @@ function FaqSection() {
         </motion.div>
 
         <div className="mt-14 grid gap-x-12 md:grid-cols-2">
-          {[faqs.slice(0, Math.ceil(faqs.length / 2)), faqs.slice(Math.ceil(faqs.length / 2))].map((col, ci) => (
-            <Accordion key={ci} type="single" collapsible className="divide-y divide-border border-t border-border">
-              {col.map((f, i) => (
-                <AccordionItem key={i} value={`c${ci}-${i}`} className="border-b-0">
-                  <AccordionTrigger className="py-5 text-left text-base font-semibold text-primary hover:text-success hover:no-underline [&[data-state=open]]:text-success">
-                    {f.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="pb-5 text-sm leading-relaxed text-muted-foreground">
-                    {f.a}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          ))}
+          {[faqs.slice(0, Math.ceil(faqs.length / 2)), faqs.slice(Math.ceil(faqs.length / 2))].map(
+            (col, ci) => (
+              <Accordion
+                key={ci}
+                type="single"
+                collapsible
+                className="divide-y divide-border border-t border-border"
+              >
+                {col.map((f, i) => (
+                  <AccordionItem key={i} value={`c${ci}-${i}`} className="border-b-0">
+                    <AccordionTrigger className="py-5 text-left text-base font-semibold text-primary hover:text-success hover:no-underline [&[data-state=open]]:text-success">
+                      {f.q}
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-5 text-sm leading-relaxed text-muted-foreground">
+                      {f.a}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            ),
+          )}
         </div>
       </div>
     </section>
@@ -1209,7 +1441,9 @@ function ContactSection() {
   const cards = [
     {
       title: (
-        <>Du hast Fragen zu deinem <span className="text-success">Strom- oder Gasvertrag</span>?</>
+        <>
+          Du hast Fragen zu deinem <span className="text-success">Strom- oder Gasvertrag</span>?
+        </>
       ),
       items: [
         {
@@ -1217,7 +1451,12 @@ function ContactSection() {
           text: (
             <>
               <div>Ruf uns an Montag bis Freitag, 9:00 bis 17:00 Uhr</div>
-              <a href="tel:08004008010" className="font-semibold text-success underline-offset-4 hover:underline">0800 400 8010</a>
+              <a
+                href="tel:08004008010"
+                className="font-semibold text-success underline-offset-4 hover:underline"
+              >
+                0800 400 8010
+              </a>
             </>
           ),
         },
@@ -1226,7 +1465,12 @@ function ContactSection() {
           text: (
             <>
               <div>Schreib uns jederzeit</div>
-              <a href="mailto:hallo@energieclever.de" className="font-semibold text-success underline-offset-4 hover:underline">hallo@energieclever.de</a>
+              <a
+                href="mailto:hallo@energieclever.de"
+                className="font-semibold text-success underline-offset-4 hover:underline"
+              >
+                hallo@energieclever.de
+              </a>
             </>
           ),
         },
@@ -1235,7 +1479,12 @@ function ContactSection() {
           text: (
             <>
               <div>Oft gestellte Fragen (FAQ)</div>
-              <a href="#faq" className="font-semibold text-success underline-offset-4 hover:underline">Zu den Antworten</a>
+              <a
+                href="#faq"
+                className="font-semibold text-success underline-offset-4 hover:underline"
+              >
+                Zu den Antworten
+              </a>
             </>
           ),
         },
@@ -1243,13 +1492,18 @@ function ContactSection() {
       footer: (
         <p className="mt-6 text-sm text-primary-foreground/80">
           Bevor du uns kontaktierst, lies dir gerne unsere Gedanken zu einem{" "}
-          <a href="#" className="font-semibold text-success underline-offset-4 hover:underline">respektvollen Service</a> durch.
+          <a href="#" className="font-semibold text-success underline-offset-4 hover:underline">
+            respektvollen Service
+          </a>{" "}
+          durch.
         </p>
       ),
     },
     {
       title: (
-        <>Du hast Fragen zu deiner <span className="text-success">Wärmepumpe</span>?</>
+        <>
+          Du hast Fragen zu deiner <span className="text-success">Wärmepumpe</span>?
+        </>
       ),
       items: [
         {
@@ -1257,7 +1511,12 @@ function ContactSection() {
           text: (
             <>
               <div>Ruf uns an Montag bis Freitag, 9:00 bis 17:00 Uhr</div>
-              <a href="tel:08938031600" className="font-semibold text-success underline-offset-4 hover:underline">089 38031 600</a>
+              <a
+                href="tel:08938031600"
+                className="font-semibold text-success underline-offset-4 hover:underline"
+              >
+                089 38031 600
+              </a>
             </>
           ),
         },
@@ -1266,7 +1525,12 @@ function ContactSection() {
           text: (
             <>
               <div>Schreib uns jederzeit:</div>
-              <a href="mailto:waermepumpe@energieclever.de" className="font-semibold text-success underline-offset-4 hover:underline">waermepumpe@energieclever.de</a>
+              <a
+                href="mailto:waermepumpe@energieclever.de"
+                className="font-semibold text-success underline-offset-4 hover:underline"
+              >
+                waermepumpe@energieclever.de
+              </a>
             </>
           ),
         },
@@ -1275,7 +1539,9 @@ function ContactSection() {
           text: (
             <>
               <div>Sprich direkt mit uns auf unseren Wärmepumpen-Events.</div>
-              <a href="#" className="font-semibold text-success underline-offset-4 hover:underline">Unsere Eventübersicht findest du hier.</a>
+              <a href="#" className="font-semibold text-success underline-offset-4 hover:underline">
+                Unsere Eventübersicht findest du hier.
+              </a>
             </>
           ),
         },
@@ -1284,7 +1550,12 @@ function ContactSection() {
           text: (
             <>
               <div>Oft gestellte Fragen (FAQ)</div>
-              <a href="#faq" className="font-semibold text-success underline-offset-4 hover:underline">Zu den Antworten</a>
+              <a
+                href="#faq"
+                className="font-semibold text-success underline-offset-4 hover:underline"
+              >
+                Zu den Antworten
+              </a>
             </>
           ),
         },
@@ -1292,7 +1563,9 @@ function ContactSection() {
       footer: (
         <p className="mt-6 text-sm text-primary-foreground/80">
           Unsere Wärmepumpen-AGB findest du{" "}
-          <a href="#" className="font-semibold text-success underline-offset-4 hover:underline">hier.</a>
+          <a href="#" className="font-semibold text-success underline-offset-4 hover:underline">
+            hier.
+          </a>
         </p>
       ),
     },
@@ -1337,7 +1610,10 @@ function ContactSection() {
 function FinalCta() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-20">
-      <motion.div {...fadeUp} className="relative overflow-hidden rounded-3xl p-10 text-white shadow-2xl md:p-14">
+      <motion.div
+        {...fadeUp}
+        className="relative overflow-hidden rounded-3xl p-10 text-white shadow-2xl md:p-14"
+      >
         {/* Background image */}
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -1347,20 +1623,37 @@ function FinalCta() {
         {/* Dark overlay for readability */}
         <div className="absolute inset-0 bg-black/50" aria-hidden />
         {/* Decorative glows */}
-        <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-success/20 blur-3xl" aria-hidden />
-        <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-primary/30 blur-3xl" aria-hidden />
+        <div
+          className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-success/20 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-primary/30 blur-3xl"
+          aria-hidden
+        />
         <div className="relative grid items-center gap-6 md:grid-cols-[1fr_auto]">
           <div>
-            <h2 className="font-display text-3xl font-extrabold md:text-4xl">Bereit, weniger zu zahlen?</h2>
+            <h2 className="font-display text-3xl font-extrabold md:text-4xl">
+              Bereit, weniger zu zahlen?
+            </h2>
             <p className="mt-3 max-w-xl opacity-95">
               Starten Sie jetzt Ihre kostenlose Tarifprüfung. 2 Minuten. Mehr brauchen wir nicht.
             </p>
             <div className="mt-4 flex items-center gap-2 text-sm opacity-95">
-              <Phone className="h-4 w-4" /> Lieber persönlich? <a className="font-semibold underline" href="tel:08001234567">0800 123 4567</a>
+              <Phone className="h-4 w-4" /> Lieber persönlich?{" "}
+              <a className="font-semibold underline" href="tel:08001234567">
+                0800 123 4567
+              </a>
             </div>
           </div>
-          <Button asChild size="lg" className="h-12 bg-white text-base font-semibold text-primary hover:bg-white/90">
-            <Link to="/angebot">Persönliches Angebot erhalten <ArrowRight className="ml-1 h-4 w-4" /></Link>
+          <Button
+            asChild
+            size="lg"
+            className="h-12 bg-white text-base font-semibold text-primary hover:bg-white/90"
+          >
+            <Link to="/angebot">
+              Persönliches Angebot erhalten <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
           </Button>
         </div>
       </motion.div>
@@ -1394,8 +1687,14 @@ function WechselCta() {
           className="relative mt-12 overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary via-primary to-primary/90 p-6 text-primary-foreground shadow-2xl md:p-12"
         >
           {/* decorative glows */}
-          <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-success/30 blur-3xl" aria-hidden />
-          <div className="pointer-events-none absolute -bottom-32 -right-16 h-80 w-80 rounded-full bg-success/20 blur-3xl" aria-hidden />
+          <div
+            className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-success/30 blur-3xl"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute -bottom-32 -right-16 h-80 w-80 rounded-full bg-success/20 blur-3xl"
+            aria-hidden
+          />
 
           <div className="relative grid items-center gap-10 md:grid-cols-[1fr_1.05fr]">
             {/* Lottie scene */}
@@ -1412,7 +1711,8 @@ function WechselCta() {
                 Hol' dir jetzt dein persönliches Angebot
               </h3>
               <p className="mt-2 text-sm text-primary-foreground/75">
-                Gib deine Postleitzahl ein. Wir zeigen dir in Sekunden die besten Tarife in deiner Region.
+                Gib deine Postleitzahl ein. Wir zeigen dir in Sekunden die besten Tarife in deiner
+                Region.
               </p>
 
               <form
@@ -1444,9 +1744,15 @@ function WechselCta() {
                 </div>
 
                 <ul className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-primary-foreground/80">
-                  <li className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-success" /> 100% kostenlos</li>
-                  <li className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-success" /> Unverbindlich</li>
-                  <li className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-success" /> Wechsel in 2 Min.</li>
+                  <li className="flex items-center gap-1.5">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-success" /> 100% kostenlos
+                  </li>
+                  <li className="flex items-center gap-1.5">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-success" /> Unverbindlich
+                  </li>
+                  <li className="flex items-center gap-1.5">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-success" /> Wechsel in 2 Min.
+                  </li>
                 </ul>
               </form>
             </div>
@@ -1458,13 +1764,36 @@ function WechselCta() {
 }
 
 const faqs = [
-
-  { q: "Ist die Beratung wirklich kostenlos?", a: "Ja. Wir werden vom neuen Anbieter vergütet, nicht von Ihnen. Für Sie entstehen keinerlei Kosten." },
-  { q: "Wie lange dauert ein Wechsel?", a: "Der Wechselprozess dauert in der Regel 4–8 Wochen. Die Versorgung läuft währenddessen lückenlos weiter." },
-  { q: "Gibt es eine Versorgungsunterbrechung?", a: "Nein. Strom und Gas fließen ohne Unterbrechung. Nur der Vertragspartner wechselt." },
-  { q: "Welche Daten brauchen Sie von mir?", a: "Postleitzahl, ungefährer Jahresverbrauch und Kontaktdaten reichen aus. Eine alte Jahresabrechnung beschleunigt die Prüfung." },
-  { q: "Was passiert mit meinen Daten?", a: "Alle Daten werden DSGVO-konform in Deutschland verarbeitet und nur zur Tarifprüfung verwendet." },
-  { q: "Bin ich verpflichtet, das Angebot anzunehmen?", a: "Nein. Die Beratung ist komplett unverbindlich. Sie entscheiden, ob Sie wechseln möchten." },
-  { q: "Auch für Gewerbekunden?", a: "Ja, wir betreuen Selbstständige, kleine Unternehmen und Hausverwaltungen mit Sondertarifen." },
-  { q: "Wie kündige ich meinen alten Vertrag?", a: "Auf Wunsch übernehmen wir die Kündigung beim alten Anbieter komplett für Sie." },
+  {
+    q: "Ist die Beratung wirklich kostenlos?",
+    a: "Ja. Wir werden vom neuen Anbieter vergütet, nicht von Ihnen. Für Sie entstehen keinerlei Kosten.",
+  },
+  {
+    q: "Wie lange dauert ein Wechsel?",
+    a: "Der Wechselprozess dauert in der Regel 4–8 Wochen. Die Versorgung läuft währenddessen lückenlos weiter.",
+  },
+  {
+    q: "Gibt es eine Versorgungsunterbrechung?",
+    a: "Nein. Strom und Gas fließen ohne Unterbrechung. Nur der Vertragspartner wechselt.",
+  },
+  {
+    q: "Welche Daten brauchen Sie von mir?",
+    a: "Postleitzahl, ungefährer Jahresverbrauch und Kontaktdaten reichen aus. Eine alte Jahresabrechnung beschleunigt die Prüfung.",
+  },
+  {
+    q: "Was passiert mit meinen Daten?",
+    a: "Alle Daten werden DSGVO-konform in Deutschland verarbeitet und nur zur Tarifprüfung verwendet.",
+  },
+  {
+    q: "Bin ich verpflichtet, das Angebot anzunehmen?",
+    a: "Nein. Die Beratung ist komplett unverbindlich. Sie entscheiden, ob Sie wechseln möchten.",
+  },
+  {
+    q: "Auch für Gewerbekunden?",
+    a: "Ja, wir betreuen Selbstständige, kleine Unternehmen und Hausverwaltungen mit Sondertarifen.",
+  },
+  {
+    q: "Wie kündige ich meinen alten Vertrag?",
+    a: "Auf Wunsch übernehmen wir die Kündigung beim alten Anbieter komplett für Sie.",
+  },
 ];

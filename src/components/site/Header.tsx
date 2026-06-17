@@ -36,7 +36,11 @@ const mainNav: NavItem[] = [
         { label: "Alles über Strom. Ratgeber", to: "/wissen" },
       ],
       articles: [
-        { to: "/wissen", title: "Strompreis 2026: Was Haushalte jetzt wissen müssen", image: imgAutostrom },
+        {
+          to: "/wissen",
+          title: "Strompreis 2026: Was Haushalte jetzt wissen müssen",
+          image: imgAutostrom,
+        },
         { to: "/wissen", title: "Ökostrom erkennen: Echte Labels im Vergleich", image: imgSolar },
         { to: "/wissen", title: "E-Auto laden zuhause: Der günstigste Weg", image: imgWaerme },
       ],
@@ -77,8 +81,16 @@ const mainNav: NavItem[] = [
       ],
       secondaryLinks: [{ label: "Doppel-Bonus erklärt", to: "/wissen" }],
       articles: [
-        { to: "/wissen", title: "Strom & Gas bündeln: Wann sich der Doppel-Bonus lohnt", image: imgSolar },
-        { to: "/wissen", title: "Ein Vertrag statt zwei: So einfach geht der Wechsel", image: imgAutostrom },
+        {
+          to: "/wissen",
+          title: "Strom & Gas bündeln: Wann sich der Doppel-Bonus lohnt",
+          image: imgSolar,
+        },
+        {
+          to: "/wissen",
+          title: "Ein Vertrag statt zwei: So einfach geht der Wechsel",
+          image: imgAutostrom,
+        },
       ],
     },
   },
@@ -98,13 +110,21 @@ const mainNav: NavItem[] = [
         { label: "Alles über Solar. Ratgeber", to: "/wissen" },
       ],
       articles: [
-        { to: "/wissen", title: "Solaranlage-Kosten 2026: Alle Infos auf einen Blick", image: imgSolar },
+        {
+          to: "/wissen",
+          title: "Solaranlage-Kosten 2026: Alle Infos auf einen Blick",
+          image: imgSolar,
+        },
         { to: "/wissen", title: "Solaranlagen Installation | So geht's", image: imgWaerme },
-        { to: "/wissen", title: "Förderungen & Zuschüsse für Solaranlagen 2026", image: imgAutostrom },
+        {
+          to: "/wissen",
+          title: "Förderungen & Zuschüsse für Solaranlagen 2026",
+          image: imgAutostrom,
+        },
       ],
     },
   },
-  
+
   { to: "/wissen", label: "Wissen" },
   {
     to: "/service",
@@ -119,7 +139,11 @@ const mainNav: NavItem[] = [
       ],
       secondaryLinks: [{ label: "Freunde werben & profitieren", to: "/service" }],
       articles: [
-        { to: "/wissen", title: "So einfach läuft dein Anbieterwechsel mit uns", image: imgAutostrom },
+        {
+          to: "/wissen",
+          title: "So einfach läuft dein Anbieterwechsel mit uns",
+          image: imgAutostrom,
+        },
         { to: "/wissen", title: "Diese Unterlagen brauchst du beim Wechsel", image: imgWaerme },
       ],
     },
@@ -137,8 +161,16 @@ const mainNav: NavItem[] = [
       ],
       secondaryLinks: [{ label: "Presse & Medien", to: "/ueber-uns" }],
       articles: [
-        { to: "/ueber-uns", title: "Unsere Mission: Energie einfach & ehrlich machen", image: imgSolar },
-        { to: "/ueber-uns", title: "Ausgezeichnet vom TÜV | Das steckt dahinter", image: imgAutostrom },
+        {
+          to: "/ueber-uns",
+          title: "Unsere Mission: Energie einfach & ehrlich machen",
+          image: imgSolar,
+        },
+        {
+          to: "/ueber-uns",
+          title: "Ausgezeichnet vom TÜV | Das steckt dahinter",
+          image: imgAutostrom,
+        },
       ],
     },
   },
@@ -177,7 +209,10 @@ export function Header() {
       <div className="mx-auto max-w-6xl px-4">
         {/* Top utility row */}
         <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 py-3 md:py-4">
-          <Link to="/" className="flex items-center gap-2.5 font-display font-extrabold text-primary">
+          <Link
+            to="/"
+            className="flex items-center gap-2.5 font-display font-extrabold text-primary"
+          >
             <span className="grid h-10 w-10 place-items-center rounded-full bg-success text-success-foreground shadow-soft">
               <Zap className="h-5 w-5" />
             </span>
@@ -187,19 +222,31 @@ export function Header() {
           <div />
 
           <div className="flex items-center gap-1 md:gap-5">
-            <a href="tel:08001234567" className="hidden items-center gap-2 text-sm font-semibold text-primary transition hover:text-success md:inline-flex">
+            <a
+              href="tel:08001234567"
+              className="hidden items-center gap-2 text-sm font-semibold text-primary transition hover:text-success md:inline-flex"
+            >
               <Phone className="h-4 w-4 text-success" />
               <span>0800 123 4567</span>
             </a>
-            <Link to="/kontakt" className="hidden items-center gap-2 text-sm font-medium text-primary transition hover:text-success md:inline-flex">
+            <Link
+              to="/kontakt"
+              className="hidden items-center gap-2 text-sm font-medium text-primary transition hover:text-success md:inline-flex"
+            >
               <UserPlus className="h-4 w-4 text-success" />
               <span>Freunde werben</span>
             </Link>
-            <Link to="/angebot" className="hidden items-center gap-2 text-sm font-medium text-primary transition hover:text-success md:inline-flex">
+            <Link
+              to="/angebot"
+              className="hidden items-center gap-2 text-sm font-medium text-primary transition hover:text-success md:inline-flex"
+            >
               <Smartphone className="h-4 w-4 text-success" />
               <span>App</span>
             </Link>
-            <Link to="/kontakt" className="hidden items-center gap-2 text-sm font-medium text-primary transition hover:text-success md:inline-flex">
+            <Link
+              to="/kontakt"
+              className="hidden items-center gap-2 text-sm font-medium text-primary transition hover:text-success md:inline-flex"
+            >
               <User className="h-4 w-4 text-success" />
               <span>Login</span>
             </Link>
@@ -226,7 +273,9 @@ export function Header() {
             return (
               <div
                 key={n.label}
-                ref={(el) => { itemRefs.current[n.label] = el; }}
+                ref={(el) => {
+                  itemRefs.current[n.label] = el;
+                }}
                 onMouseEnter={() => (n.dropdown ? open(n.label) : scheduleClose())}
                 onFocus={() => (n.dropdown ? open(n.label) : scheduleClose())}
                 className="relative"
@@ -243,11 +292,15 @@ export function Header() {
                   to={n.to}
                   className={cn(
                     "relative z-10 inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm transition-colors",
-                    n.highlight ? "font-bold text-primary" : "font-medium text-primary hover:text-success",
+                    n.highlight
+                      ? "font-bold text-primary"
+                      : "font-medium text-primary hover:text-success",
                   )}
                   activeProps={{ className: "font-bold text-primary" }}
                 >
-                  {n.highlight && <span className="mr-1 h-2 w-2 rounded-full bg-success" aria-hidden />}
+                  {n.highlight && (
+                    <span className="mr-1 h-2 w-2 rounded-full bg-success" aria-hidden />
+                  )}
                   <span>{n.label}</span>
                   {n.dropdown && (
                     <ChevronDown
@@ -293,7 +346,9 @@ export function Header() {
                     >
                       {/* Left column */}
                       <div className="bg-background p-7">
-                        <div className="text-base font-bold text-primary">{activeItem.dropdown.title}</div>
+                        <div className="text-base font-bold text-primary">
+                          {activeItem.dropdown.title}
+                        </div>
                         <ul className="mt-5 space-y-3">
                           {activeItem.dropdown.mainLinks.map((l) => (
                             <li key={l.label}>
@@ -307,24 +362,25 @@ export function Header() {
                             </li>
                           ))}
                         </ul>
-                        {activeItem.dropdown.secondaryLinks && activeItem.dropdown.secondaryLinks.length > 0 && (
-                          <>
-                            <div className="my-5 h-px bg-border" />
-                            <ul className="space-y-3">
-                              {activeItem.dropdown.secondaryLinks.map((l) => (
-                                <li key={l.label}>
-                                  <Link
-                                    to={l.to}
-                                    onClick={() => setOpenKey(null)}
-                                    className="text-sm text-primary transition hover:text-success"
-                                  >
-                                    {l.label}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </>
-                        )}
+                        {activeItem.dropdown.secondaryLinks &&
+                          activeItem.dropdown.secondaryLinks.length > 0 && (
+                            <>
+                              <div className="my-5 h-px bg-border" />
+                              <ul className="space-y-3">
+                                {activeItem.dropdown.secondaryLinks.map((l) => (
+                                  <li key={l.label}>
+                                    <Link
+                                      to={l.to}
+                                      onClick={() => setOpenKey(null)}
+                                      className="text-sm text-primary transition hover:text-success"
+                                    >
+                                      {l.label}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </>
+                          )}
                       </div>
 
                       {/* Right column. Articles */}
@@ -340,7 +396,6 @@ export function Header() {
                               <div className="overflow-hidden rounded-lg bg-background">
                                 <img
                                   src={a.image}
-
                                   alt=""
                                   className="h-28 w-full object-cover transition duration-500 group-hover:scale-105"
                                 />
@@ -358,7 +413,6 @@ export function Header() {
               </motion.div>
             )}
           </AnimatePresence>
-
         </nav>
       </div>
 
@@ -377,10 +431,17 @@ export function Header() {
                 <MobileNavItem key={n.label} item={n} onNavigate={() => setMobileOpen(false)} />
               ))}
               <div className="grid grid-cols-2 gap-2 py-4">
-                <a href="tel:08001234567" className="inline-flex items-center justify-center gap-2 rounded-full border border-border px-3 py-2 text-sm font-semibold text-primary">
+                <a
+                  href="tel:08001234567"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-border px-3 py-2 text-sm font-semibold text-primary"
+                >
                   <Phone className="h-4 w-4 text-success" /> Anrufen
                 </a>
-                <Link to="/angebot" onClick={() => setMobileOpen(false)} className="inline-flex items-center justify-center gap-2 rounded-full bg-success px-3 py-2 text-sm font-semibold text-success-foreground">
+                <Link
+                  to="/angebot"
+                  onClick={() => setMobileOpen(false)}
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-success px-3 py-2 text-sm font-semibold text-success-foreground"
+                >
                   Jetzt vergleichen
                 </Link>
               </div>
@@ -419,7 +480,12 @@ function MobileNavItem({ item, onNavigate }: { item: NavItem; onNavigate: () => 
           {item.highlight && <span className="h-2 w-2 rounded-full bg-success" />}
           {item.label}
         </span>
-        <ChevronDown className={cn("h-4 w-4 text-muted-foreground transition-transform duration-300", open && "rotate-180 text-success")} />
+        <ChevronDown
+          className={cn(
+            "h-4 w-4 text-muted-foreground transition-transform duration-300",
+            open && "rotate-180 text-success",
+          )}
+        />
       </button>
       <AnimatePresence initial={false}>
         {open && (

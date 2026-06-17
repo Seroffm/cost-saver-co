@@ -1,5 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Building2, TrendingDown, ShieldCheck, FileText, Flame, Users, BadgeCheck, Sparkles } from "lucide-react";
+import {
+  Building2,
+  TrendingDown,
+  ShieldCheck,
+  FileText,
+  Flame,
+  Users,
+  BadgeCheck,
+  Sparkles,
+} from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { TopicHero, FeatureGrid, ImageSplit, FinalCta } from "@/components/site/TopicSections";
 import heroImg from "@/assets/page-gas.jpg";
@@ -10,21 +19,53 @@ export const Route = createFileRoute("/gewerbegas")({
   head: () => ({
     meta: [
       { title: "Gewerbegas vergleichen: Festpreise sichern | EnergieClever" },
-      { name: "description", content: "Gewerbegas-Tarife persönlich vergleichen: Festpreise bis 36 Monate, Bio-Erdgas, Lastgangoptimierung. Für Gastronomie, Bäckereien, Produktion und Filialbetriebe." },
+      {
+        name: "description",
+        content:
+          "Gewerbegas-Tarife persönlich vergleichen: Festpreise bis 36 Monate, Bio-Erdgas, Lastgangoptimierung. Für Gastronomie, Bäckereien, Produktion und Filialbetriebe.",
+      },
       { property: "og:title", content: "Gewerbegas vergleichen | EnergieClever" },
-      { property: "og:description", content: "Gewerbegas: Festpreise, Preisgarantie, individuelle Beratung für Ihr Unternehmen." },
+      {
+        property: "og:description",
+        content:
+          "Gewerbegas: Festpreise, Preisgarantie, individuelle Beratung für Ihr Unternehmen.",
+      },
     ],
   }),
   component: GewerbegasPage,
 });
 
 const features = [
-  { icon: TrendingDown, title: "Spürbare Ersparnis", desc: "Bei Gas sind 15–25 % Ersparnis gegenüber Standardtarifen normal. Besonders bei Verbräuchen ab 50.000 kWh." },
-  { icon: ShieldCheck, title: "Festpreisgarantie", desc: "Wir verhandeln Festpreise für 12, 24 oder 36 Monate. Planbare Energiekosten ohne Überraschungen." },
-  { icon: Flame, title: "Auch Bio-Erdgas", desc: "Auf Wunsch zertifiziertes Bio-Erdgas. Wirksam für Ihre Nachhaltigkeitsbilanz, ohne CO₂-Aufschlag." },
-  { icon: FileText, title: "Mehrere Standorte", desc: "Wir bündeln Verträge für mehrere Standorte oder Filialen. Ein Ansprechpartner, eine saubere Rechnung." },
-  { icon: Users, title: "Persönliche Beratung", desc: "Sie erreichen Ihren Account-Manager direkt. Ohne Warteschleife, ohne Tariflotterie." },
-  { icon: BadgeCheck, title: "Wechselgarantie", desc: "Wir übernehmen die Kündigung und den lückenlosen Wechsel. Ihr Gas läuft ohne Unterbrechung weiter." },
+  {
+    icon: TrendingDown,
+    title: "Spürbare Ersparnis",
+    desc: "Bei Gas sind 15–25 % Ersparnis gegenüber Standardtarifen normal. Besonders bei Verbräuchen ab 50.000 kWh.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Festpreisgarantie",
+    desc: "Wir verhandeln Festpreise für 12, 24 oder 36 Monate. Planbare Energiekosten ohne Überraschungen.",
+  },
+  {
+    icon: Flame,
+    title: "Auch Bio-Erdgas",
+    desc: "Auf Wunsch zertifiziertes Bio-Erdgas. Wirksam für Ihre Nachhaltigkeitsbilanz, ohne CO₂-Aufschlag.",
+  },
+  {
+    icon: FileText,
+    title: "Mehrere Standorte",
+    desc: "Wir bündeln Verträge für mehrere Standorte oder Filialen. Ein Ansprechpartner, eine saubere Rechnung.",
+  },
+  {
+    icon: Users,
+    title: "Persönliche Beratung",
+    desc: "Sie erreichen Ihren Account-Manager direkt. Ohne Warteschleife, ohne Tariflotterie.",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Wechselgarantie",
+    desc: "Wir übernehmen die Kündigung und den lückenlosen Wechsel. Ihr Gas läuft ohne Unterbrechung weiter.",
+  },
 ];
 
 function GewerbegasPage() {
@@ -32,7 +73,12 @@ function GewerbegasPage() {
     <SiteLayout>
       <TopicHero
         kicker="Gewerbegas"
-        title={<>Gas für Ihr Unternehmen. <span className="text-success">Festgepreist statt schwankend.</span></>}
+        title={
+          <>
+            Gas für Ihr Unternehmen.{" "}
+            <span className="text-success">Festgepreist statt schwankend.</span>
+          </>
+        }
         lead="Vom Restaurant bis zur Produktion: Wir verhandeln planbare Gewerbegas-Tarife mit echter Preisgarantie. Kostenlos und unverbindlich."
         image={heroImg}
         imageAlt="Industrielle Anlage mit Gas-Heizsystem"

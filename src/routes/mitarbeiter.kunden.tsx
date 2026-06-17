@@ -7,16 +7,63 @@ import { Input } from "@/components/ui/input";
 import { AdminShell } from "@/components/mitarbeiter/AdminShell";
 
 export const Route = createFileRoute("/mitarbeiter/kunden")({
-  head: () => ({ meta: [{ title: "Kunden – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }] }),
+  head: () => ({
+    meta: [{ title: "Kunden – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }],
+  }),
   component: KundenPage,
 });
 
 const customers = [
-  { id: "K-001", name: "Thomas Richter", email: "t.richter@example.de", phone: "+49 171 2233445", contracts: 1, savings: 198, since: "2024-03-12", status: "Aktiv" },
-  { id: "K-002", name: "Bäckerei Krüger GmbH", email: "info@baeckerei-krueger.de", phone: "+49 221 5544332", contracts: 2, savings: 4820, since: "2025-01-08", status: "Aktiv" },
-  { id: "K-003", name: "Familie Schneider", email: "schneider@example.de", phone: "+49 162 9988221", contracts: 2, savings: 412, since: "2023-11-22", status: "Aktiv" },
-  { id: "K-004", name: "Petra Lehmann", email: "p.lehmann@example.de", phone: "+49 152 7766554", contracts: 1, savings: 240, since: "2024-07-30", status: "Wechsel offen" },
-  { id: "K-005", name: "Stadtcafé Linde", email: "kontakt@cafe-linde.de", phone: "+49 221 1122334", contracts: 1, savings: 1680, since: "2025-04-15", status: "Aktiv" },
+  {
+    id: "K-001",
+    name: "Thomas Richter",
+    email: "t.richter@example.de",
+    phone: "+49 171 2233445",
+    contracts: 1,
+    savings: 198,
+    since: "2024-03-12",
+    status: "Aktiv",
+  },
+  {
+    id: "K-002",
+    name: "Bäckerei Krüger GmbH",
+    email: "info@baeckerei-krueger.de",
+    phone: "+49 221 5544332",
+    contracts: 2,
+    savings: 4820,
+    since: "2025-01-08",
+    status: "Aktiv",
+  },
+  {
+    id: "K-003",
+    name: "Familie Schneider",
+    email: "schneider@example.de",
+    phone: "+49 162 9988221",
+    contracts: 2,
+    savings: 412,
+    since: "2023-11-22",
+    status: "Aktiv",
+  },
+  {
+    id: "K-004",
+    name: "Petra Lehmann",
+    email: "p.lehmann@example.de",
+    phone: "+49 152 7766554",
+    contracts: 1,
+    savings: 240,
+    since: "2024-07-30",
+    status: "Wechsel offen",
+  },
+  {
+    id: "K-005",
+    name: "Stadtcafé Linde",
+    email: "kontakt@cafe-linde.de",
+    phone: "+49 221 1122334",
+    contracts: 1,
+    savings: 1680,
+    since: "2025-04-15",
+    status: "Aktiv",
+  },
 ];
 
 function KundenPage() {
@@ -24,10 +71,18 @@ function KundenPage() {
     <AdminShell
       title="Kunden"
       subtitle={`${customers.length} aktive Bestandskunden`}
-      actions={<>
-        <Button variant="outline" size="sm"><Download className="mr-2 h-4 w-4" />Export</Button>
-        <Button size="sm"><Plus className="mr-2 h-4 w-4" />Kunde anlegen</Button>
-      </>}
+      actions={
+        <>
+          <Button variant="outline" size="sm">
+            <Download className="mr-2 h-4 w-4" />
+            Export
+          </Button>
+          <Button size="sm">
+            <Plus className="mr-2 h-4 w-4" />
+            Kunde anlegen
+          </Button>
+        </>
+      }
     >
       <div className="mb-4 max-w-xs">
         <Input placeholder="Kunde suchen…" />
@@ -55,15 +110,25 @@ function KundenPage() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex flex-col gap-1 text-xs text-muted-foreground">
-                        <span className="flex items-center gap-1"><Mail className="h-3 w-3" />{c.email}</span>
-                        <span className="flex items-center gap-1"><Phone className="h-3 w-3" />{c.phone}</span>
+                        <span className="flex items-center gap-1">
+                          <Mail className="h-3 w-3" />
+                          {c.email}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Phone className="h-3 w-3" />
+                          {c.phone}
+                        </span>
                       </div>
                     </td>
                     <td className="px-6 py-4">{c.contracts}</td>
                     <td className="px-6 py-4 font-medium text-emerald-600">+{c.savings} €</td>
-                    <td className="px-6 py-4 text-muted-foreground">{new Date(c.since).toLocaleDateString("de-DE")}</td>
+                    <td className="px-6 py-4 text-muted-foreground">
+                      {new Date(c.since).toLocaleDateString("de-DE")}
+                    </td>
                     <td className="px-6 py-4">
-                      <Badge variant={c.status === "Aktiv" ? "default" : "secondary"}>{c.status}</Badge>
+                      <Badge variant={c.status === "Aktiv" ? "default" : "secondary"}>
+                        {c.status}
+                      </Badge>
                     </td>
                   </tr>
                 ))}

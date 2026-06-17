@@ -6,7 +6,9 @@ import { AdminShell } from "@/components/mitarbeiter/AdminShell";
 import { employees } from "@/lib/mock-leads";
 
 export const Route = createFileRoute("/mitarbeiter/statistiken")({
-  head: () => ({ meta: [{ title: "Statistiken – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }] }),
+  head: () => ({
+    meta: [{ title: "Statistiken – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }],
+  }),
   component: StatistikenPage,
 });
 
@@ -28,7 +30,9 @@ function StatistikenPage() {
             <CardContent className="p-5">
               <div className="flex items-center justify-between">
                 <div className="text-sm text-muted-foreground">{k.label}</div>
-                <div className="rounded-lg bg-primary/10 p-2 text-primary"><k.icon className="h-4 w-4" /></div>
+                <div className="rounded-lg bg-primary/10 p-2 text-primary">
+                  <k.icon className="h-4 w-4" />
+                </div>
               </div>
               <div className="mt-2 text-2xl font-semibold">{k.value}</div>
             </CardContent>
@@ -38,13 +42,20 @@ function StatistikenPage() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <Card>
-          <CardHeader><CardTitle className="text-base">Abschlüsse pro Monat</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle className="text-base">Abschlüsse pro Monat</CardTitle>
+          </CardHeader>
           <CardContent>
             <div className="flex h-48 items-end gap-2">
               {monthly.map((v, i) => (
                 <div key={i} className="flex flex-1 flex-col items-center gap-1">
-                  <div className="w-full rounded-t-sm bg-gradient-to-t from-primary to-emerald-400" style={{ height: `${(v / 50) * 100}%` }} />
-                  <div className="text-[10px] text-muted-foreground">{["J","F","M","A","M","J","J","A","S","O","N","D"][i]}</div>
+                  <div
+                    className="w-full rounded-t-sm bg-gradient-to-t from-primary to-emerald-400"
+                    style={{ height: `${(v / 50) * 100}%` }}
+                  />
+                  <div className="text-[10px] text-muted-foreground">
+                    {["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"][i]}
+                  </div>
                 </div>
               ))}
             </div>
@@ -52,25 +63,33 @@ function StatistikenPage() {
         </Card>
 
         <Card>
-          <CardHeader><CardTitle className="text-base">Mitarbeiter-Ranking</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle className="text-base">Mitarbeiter-Ranking</CardTitle>
+          </CardHeader>
           <CardContent className="space-y-5">
-            {[...employees].sort((a, b) => b.closed - a.closed).map((e, i) => (
-              <div key={e.name}>
-                <div className="mb-1 flex items-center justify-between text-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-xs font-medium">{i + 1}</span>
-                    <span className="font-medium">{e.name}</span>
+            {[...employees]
+              .sort((a, b) => b.closed - a.closed)
+              .map((e, i) => (
+                <div key={e.name}>
+                  <div className="mb-1 flex items-center justify-between text-sm">
+                    <div className="flex items-center gap-2">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-xs font-medium">
+                        {i + 1}
+                      </span>
+                      <span className="font-medium">{e.name}</span>
+                    </div>
+                    <span className="text-xs text-muted-foreground">{e.closed} Abschlüsse</span>
                   </div>
-                  <span className="text-xs text-muted-foreground">{e.closed} Abschlüsse</span>
+                  <Progress value={(e.closed / 20) * 100} className="h-2" />
                 </div>
-                <Progress value={(e.closed / 20) * 100} className="h-2" />
-              </div>
-            ))}
+              ))}
           </CardContent>
         </Card>
 
         <Card className="lg:col-span-2">
-          <CardHeader><CardTitle className="text-base">Conversion-Funnel</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle className="text-base">Conversion-Funnel</CardTitle>
+          </CardHeader>
           <CardContent>
             <div className="space-y-3">
               {[
@@ -85,7 +104,10 @@ function StatistikenPage() {
                   <div className="w-40 text-sm">{f.label}</div>
                   <div className="flex-1">
                     <div className="h-6 overflow-hidden rounded bg-muted">
-                      <div className="flex h-full items-center justify-end bg-gradient-to-r from-primary to-emerald-500 px-2 text-xs font-medium text-primary-foreground" style={{ width: `${f.pct}%` }}>
+                      <div
+                        className="flex h-full items-center justify-end bg-gradient-to-r from-primary to-emerald-500 px-2 text-xs font-medium text-primary-foreground"
+                        style={{ width: `${f.pct}%` }}
+                      >
                         {f.pct}%
                       </div>
                     </div>

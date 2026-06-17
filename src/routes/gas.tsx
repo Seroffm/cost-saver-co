@@ -1,5 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Flame, Leaf, Building2, ShieldCheck, TrendingDown, Sparkles, BadgeCheck, Thermometer } from "lucide-react";
+import {
+  Flame,
+  Leaf,
+  Building2,
+  ShieldCheck,
+  TrendingDown,
+  Sparkles,
+  BadgeCheck,
+  Thermometer,
+} from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { TopicHero, FeatureGrid, ImageSplit, FinalCta } from "@/components/site/TopicSections";
 import heroImg from "@/assets/page-gas.jpg";
@@ -10,9 +19,16 @@ export const Route = createFileRoute("/gas")({
   head: () => ({
     meta: [
       { title: "Gas vergleichen: Heizkosten ehrlich senken | EnergieClever" },
-      { name: "description", content: "Gastarife persönlich vergleichen: Erdgas, Bio-Erdgas und Gewerbe-Gas. Geprüfte Anbieter, transparente Konditionen, kostenloser Wechsel." },
+      {
+        name: "description",
+        content:
+          "Gastarife persönlich vergleichen: Erdgas, Bio-Erdgas und Gewerbe-Gas. Geprüfte Anbieter, transparente Konditionen, kostenloser Wechsel.",
+      },
       { property: "og:title", content: "Gas vergleichen | EnergieClever" },
-      { property: "og:description", content: "Gastarife vergleichen und Heizkosten ehrlich senken. Persönlich beraten." },
+      {
+        property: "og:description",
+        content: "Gastarife vergleichen und Heizkosten ehrlich senken. Persönlich beraten.",
+      },
       { property: "og:image", content: "/__l5e/assets-v1/page-gas" },
     ],
   }),
@@ -20,12 +36,36 @@ export const Route = createFileRoute("/gas")({
 });
 
 const features = [
-  { icon: TrendingDown, title: "Bis zu 600 € sparen", desc: "Vor allem bei Verbräuchen ab 12.000 kWh lohnt sich der Wechsel deutlich." },
-  { icon: ShieldCheck, title: "Preisgarantien geprüft", desc: "Wir erkennen Marketing-Garantien und empfehlen nur echte Festpreise." },
-  { icon: Sparkles, title: "Persönliche Beratung", desc: "Wir erklären den Tarif so lange, bis Sie ihn verstehen. Ohne Kleingedrucktes." },
-  { icon: Leaf, title: "Bio-Erdgas auf Wunsch", desc: "Zertifizierte Bio-Gas-Tarife. Ohne Aufpreis." },
-  { icon: Building2, title: "Auch für Gewerbe", desc: "Sonderkonditionen für KMU, Gastronomie und Mehrfamilienhäuser." },
-  { icon: BadgeCheck, title: "Wechsel ohne Risiko", desc: "Versorgung läuft lückenlos weiter, gesetzlich abgesichert." },
+  {
+    icon: TrendingDown,
+    title: "Bis zu 600 € sparen",
+    desc: "Vor allem bei Verbräuchen ab 12.000 kWh lohnt sich der Wechsel deutlich.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Preisgarantien geprüft",
+    desc: "Wir erkennen Marketing-Garantien und empfehlen nur echte Festpreise.",
+  },
+  {
+    icon: Sparkles,
+    title: "Persönliche Beratung",
+    desc: "Wir erklären den Tarif so lange, bis Sie ihn verstehen. Ohne Kleingedrucktes.",
+  },
+  {
+    icon: Leaf,
+    title: "Bio-Erdgas auf Wunsch",
+    desc: "Zertifizierte Bio-Gas-Tarife. Ohne Aufpreis.",
+  },
+  {
+    icon: Building2,
+    title: "Auch für Gewerbe",
+    desc: "Sonderkonditionen für KMU, Gastronomie und Mehrfamilienhäuser.",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Wechsel ohne Risiko",
+    desc: "Versorgung läuft lückenlos weiter, gesetzlich abgesichert.",
+  },
 ];
 
 function GasPage() {

@@ -59,7 +59,9 @@ export function Footer() {
           </div>
           <button
             type="button"
-            onClick={() => typeof window !== "undefined" && window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={() =>
+              typeof window !== "undefined" && window.scrollTo({ top: 0, behavior: "smooth" })
+            }
             className="inline-flex items-center gap-2 self-start rounded-full border border-border px-4 py-2 text-sm font-semibold text-primary transition hover:border-success hover:text-success"
           >
             <ChevronUp className="h-4 w-4" /> Zum Seitenanfang
@@ -99,7 +101,9 @@ export function Footer() {
               </span>
               0800 123 4567
             </a>
-            <div className="mt-2 text-sm text-muted-foreground">Mo–Fr 8–20 Uhr · kostenlos aus dem dt. Festnetz</div>
+            <div className="mt-2 text-sm text-muted-foreground">
+              Mo–Fr 8–20 Uhr · kostenlos aus dem dt. Festnetz
+            </div>
           </div>
 
           <div className="md:text-right">
@@ -131,10 +135,18 @@ export function Footer() {
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-5 text-xs text-muted-foreground">
           <div>© {year} EnergieClever · Alle Tarife unverbindlich · DSGVO-konform</div>
           <div className="flex flex-wrap gap-x-6 gap-y-1">
-            <Link to="/impressum" className="hover:text-success">Impressum</Link>
-            <Link to="/datenschutz" className="hover:text-success">Datenschutz</Link>
-            <Link to="/widerruf" className="hover:text-success">Widerruf</Link>
-            <Link to="/faq" className="hover:text-success">AGB</Link>
+            <Link to="/impressum" className="hover:text-success">
+              Impressum
+            </Link>
+            <Link to="/datenschutz" className="hover:text-success">
+              Datenschutz
+            </Link>
+            <Link to="/widerruf" className="hover:text-success">
+              Widerruf
+            </Link>
+            <Link to="/faq" className="hover:text-success">
+              AGB
+            </Link>
           </div>
         </div>
       </div>

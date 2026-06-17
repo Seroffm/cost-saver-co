@@ -1,5 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Sun, Battery, Thermometer, TrendingDown, ShieldCheck, BadgeCheck, Wrench, Leaf } from "lucide-react";
+import {
+  Sun,
+  Battery,
+  Thermometer,
+  TrendingDown,
+  ShieldCheck,
+  BadgeCheck,
+  Wrench,
+  Leaf,
+} from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { TopicHero, FeatureGrid, ImageSplit, FinalCta } from "@/components/site/TopicSections";
 import heroImg from "@/assets/page-solar.jpg";
@@ -11,9 +20,16 @@ export const Route = createFileRoute("/solar")({
   head: () => ({
     meta: [
       { title: "Solar & Wärmepumpe: Unabhängig beraten | EnergieClever" },
-      { name: "description", content: "Solaranlage, Stromspeicher und Wärmepumpe. Wir vermitteln geprüfte Fachbetriebe, kennen die Förderungen und beraten ehrlich." },
+      {
+        name: "description",
+        content:
+          "Solaranlage, Stromspeicher und Wärmepumpe. Wir vermitteln geprüfte Fachbetriebe, kennen die Förderungen und beraten ehrlich.",
+      },
       { property: "og:title", content: "Solar & Wärmepumpe | EnergieClever" },
-      { property: "og:description", content: "Unabhängige Beratung zu Solaranlage, Stromspeicher und Wärmepumpe." },
+      {
+        property: "og:description",
+        content: "Unabhängige Beratung zu Solaranlage, Stromspeicher und Wärmepumpe.",
+      },
       { property: "og:image", content: "/__l5e/assets-v1/page-solar" },
     ],
   }),
@@ -21,12 +37,36 @@ export const Route = createFileRoute("/solar")({
 });
 
 const features = [
-  { icon: Sun, title: "Solaranlage planen", desc: "Wir kalkulieren Ertrag, Amortisation und passende Anlagengröße für Ihr Dach." },
-  { icon: Battery, title: "Stromspeicher", desc: "Damit Ihr Strom auch abends fließt. Größenwahl ohne Übertreibung." },
-  { icon: Thermometer, title: "Wärmepumpe", desc: "Wirtschaftlichkeitsprüfung & passender Wärmestromtarif aus einer Hand." },
-  { icon: BadgeCheck, title: "Geprüfte Fachbetriebe", desc: "Wir vermitteln nur regionale Installateure mit lückenloser Referenzliste." },
-  { icon: Wrench, title: "Förderung gesichert", desc: "BAFA, KfW, regionale Töpfe. Wir wissen, was wann beantragt werden muss." },
-  { icon: Leaf, title: "CO₂ runter, Wert rauf", desc: "Eigenversorgung senkt nicht nur Kosten, sondern hebt Ihren Immobilienwert." },
+  {
+    icon: Sun,
+    title: "Solaranlage planen",
+    desc: "Wir kalkulieren Ertrag, Amortisation und passende Anlagengröße für Ihr Dach.",
+  },
+  {
+    icon: Battery,
+    title: "Stromspeicher",
+    desc: "Damit Ihr Strom auch abends fließt. Größenwahl ohne Übertreibung.",
+  },
+  {
+    icon: Thermometer,
+    title: "Wärmepumpe",
+    desc: "Wirtschaftlichkeitsprüfung & passender Wärmestromtarif aus einer Hand.",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Geprüfte Fachbetriebe",
+    desc: "Wir vermitteln nur regionale Installateure mit lückenloser Referenzliste.",
+  },
+  {
+    icon: Wrench,
+    title: "Förderung gesichert",
+    desc: "BAFA, KfW, regionale Töpfe. Wir wissen, was wann beantragt werden muss.",
+  },
+  {
+    icon: Leaf,
+    title: "CO₂ runter, Wert rauf",
+    desc: "Eigenversorgung senkt nicht nur Kosten, sondern hebt Ihren Immobilienwert.",
+  },
 ];
 
 function SolarPage() {

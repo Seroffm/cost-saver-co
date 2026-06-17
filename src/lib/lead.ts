@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
-import { leadSchema, type LeadInput } from "../lead-schema";
-import { generateLeadNumber } from "../lead-number";
+import { leadSchema, type LeadInput } from "./lead-schema";
+import { generateLeadNumber } from "./lead-number";
 
 function formatLead(lead: LeadInput, leadId: string): string {
   const lines = [
@@ -12,7 +12,9 @@ function formatLead(lead: LeadInput, leadId: string): string {
     lead.stromVerbrauchKwh ? `  Strom: ${lead.stromVerbrauchKwh} kWh/Jahr` : "",
     lead.stromPersonen ? `  Strom (geschätzt): ${lead.stromPersonen} Personen` : "",
     lead.gasVerbrauchKwh ? `  Gas: ${lead.gasVerbrauchKwh} kWh/Jahr` : "",
-    lead.gasWohnflaeche ? `  Gas (geschätzt): ${lead.gasWohnflaeche} m², Heizart ${lead.gasHeizart}, ${lead.gasPersonen} Pers., Warmwasser: ${lead.gasWarmwasser ? "ja" : "nein"}` : "",
+    lead.gasWohnflaeche
+      ? `  Gas (geschätzt): ${lead.gasWohnflaeche} m², Heizart ${lead.gasHeizart}, ${lead.gasPersonen} Pers., Warmwasser: ${lead.gasWarmwasser ? "ja" : "nein"}`
+      : "",
     "",
     "AKTUELLE SITUATION:",
     `  Anbieter: ${lead.aktuellerAnbieter ?? "-"}`,
@@ -26,7 +28,9 @@ function formatLead(lead: LeadInput, leadId: string): string {
     `  ${lead.vorname} ${lead.nachname}`,
     `  ${lead.email} | ${lead.telefon}`,
     `  Beste Erreichbarkeit: ${lead.erreichbarkeit}`,
-    lead.rechnungDateiname ? `  Rechnung angekündigt: ${lead.rechnungDateiname} (${lead.rechnungGroesseKb} KB)` : "",
+    lead.rechnungDateiname
+      ? `  Rechnung angekündigt: ${lead.rechnungDateiname} (${lead.rechnungGroesseKb} KB)`
+      : "",
   ];
   return lines.filter(Boolean).join("\n");
 }

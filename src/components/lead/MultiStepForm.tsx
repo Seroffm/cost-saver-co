@@ -3,8 +3,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import {
-  ArrowLeft, ArrowRight, Zap, Flame, Layers, Briefcase, Home, Building2,
-  Users, ShieldCheck, Loader2, Upload, CheckCircle2,
+  ArrowLeft,
+  ArrowRight,
+  Zap,
+  Flame,
+  Layers,
+  Briefcase,
+  Home,
+  Building2,
+  Users,
+  ShieldCheck,
+  Loader2,
+  Upload,
+  CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,7 +26,11 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { track } from "@/lib/track";
 import {
-  energyTypes, customerTypes, goals, goalLabels, ESTIMATED_STROM_KWH,
+  energyTypes,
+  customerTypes,
+  goals,
+  goalLabels,
+  ESTIMATED_STROM_KWH,
   type LeadInput,
 } from "@/lib/lead-schema";
 import { submitLead } from "@/lib/api/lead";
@@ -28,7 +43,15 @@ let handledOfferReloadRedirect = false;
 
 const initial: Draft = { ziele: [] };
 
-export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initialEnergy?: LeadInput["energyType"]; initialPlz?: string; initialKwh?: number }) {
+export function MultiStepForm({
+  initialEnergy,
+  initialPlz,
+  initialKwh,
+}: {
+  initialEnergy?: LeadInput["energyType"];
+  initialPlz?: string;
+  initialKwh?: number;
+}) {
   const navigate = useNavigate();
   const submit = useServerFn(submitLead);
   const [step, setStep] = useState(1);
@@ -37,7 +60,9 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
     try {
       const raw = sessionStorage.getItem(STORAGE_KEY);
       return raw ? { ...initial, ...JSON.parse(raw) } : initial;
-    } catch { return initial; }
+    } catch {
+      return initial;
+    }
   });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,7 +72,9 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
     // Nach einem Reload auf der Startseite bleibt `navigation.type` ebenfalls "reload";
     // deshalb prüfen wir zusätzlich die ursprünglich geladene Dokument-URL.
     try {
-      const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+      const nav = performance.getEntriesByType("navigation")[0] as
+        | PerformanceNavigationTiming
+        | undefined;
       const initialPath = nav?.name ? new URL(nav.name).pathname : window.location.pathname;
       if (!handledOfferReloadRedirect && nav?.type === "reload" && initialPath === "/angebot") {
         handledOfferReloadRedirect = true;
@@ -55,7 +82,9 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
         navigate({ to: "/", search: {} as never });
         return;
       }
-    } catch {}
+    } catch (_) {
+      /* sessionStorage not available */
+    }
 
     const validPlz = initialPlz && /^\d{5}$/.test(initialPlz) ? initialPlz : undefined;
     setData((d) => ({
@@ -63,7 +92,8 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
       energyType: initialEnergy ?? d.energyType,
       plz: validPlz ?? d.plz,
       stromVerbrauchKwh:
-        initialKwh && (initialEnergy === "strom" || initialEnergy === "beides" || initialEnergy === "gewerbe")
+        initialKwh &&
+        (initialEnergy === "strom" || initialEnergy === "beides" || initialEnergy === "gewerbe")
           ? initialKwh
           : d.stromVerbrauchKwh,
       gasVerbrauchKwh:
@@ -75,10 +105,12 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
-
   useEffect(() => {
-    try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
+    try {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (_) {
+      /* sessionStorage not available */
+    }
   }, [data]);
 
   const set = <K extends keyof Draft>(k: K, v: Draft[K]) => setData((d) => ({ ...d, [k]: v }));
@@ -108,7 +140,8 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
 
   async function handleSubmit() {
     if (!canContinue) return;
-    setSubmitting(true); setError(null);
+    setSubmitting(true);
+    setError(null);
     try {
       // Finalize numeric estimates
       const payload = finalizePayload(data);
@@ -128,7 +161,9 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
   return (
     <div className="w-full">
       <div className="mb-6 flex items-center justify-between text-sm">
-        <span className="font-medium text-primary">Schritt {step} von {TOTAL_STEPS}</span>
+        <span className="font-medium text-primary">
+          Schritt {step} von {TOTAL_STEPS}
+        </span>
         <span className="text-muted-foreground">{Math.round((step / TOTAL_STEPS) * 100)} %</span>
       </div>
       <Progress value={(step / TOTAL_STEPS) * 100} className="mb-8 h-1.5" />
@@ -145,19 +180,41 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
         </motion.div>
       </AnimatePresence>
 
-      {error && <div className="mt-4 rounded-lg bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</div>}
+      {error && (
+        <div className="mt-4 rounded-lg bg-destructive/10 px-4 py-3 text-sm text-destructive">
+          {error}
+        </div>
+      )}
 
       <div className="mt-8 flex items-center justify-between gap-3">
         <Button type="button" variant="outline" onClick={back} disabled={submitting}>
           <ArrowLeft className="mr-1 h-4 w-4" /> Zurück
         </Button>
         {step < TOTAL_STEPS ? (
-          <Button type="button" onClick={next} disabled={!canContinue} className="bg-success text-success-foreground hover:bg-success/90">
+          <Button
+            type="button"
+            onClick={next}
+            disabled={!canContinue}
+            className="bg-success text-success-foreground hover:bg-success/90"
+          >
             Weiter <ArrowRight className="ml-1 h-4 w-4" />
           </Button>
         ) : (
-          <Button type="button" onClick={handleSubmit} disabled={!canContinue || submitting} className="bg-success text-success-foreground hover:bg-success/90">
-            {submitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sende…</> : <>Persönliches Angebot erhalten <ArrowRight className="ml-1 h-4 w-4" /></>}
+          <Button
+            type="button"
+            onClick={handleSubmit}
+            disabled={!canContinue || submitting}
+            className="bg-success text-success-foreground hover:bg-success/90"
+          >
+            {submitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sende…
+              </>
+            ) : (
+              <>
+                Persönliches Angebot erhalten <ArrowRight className="ml-1 h-4 w-4" />
+              </>
+            )}
           </Button>
         )}
       </div>
@@ -172,17 +229,34 @@ export function MultiStepForm({ initialEnergy, initialPlz, initialKwh }: { initi
 
 /* ----------------------------- Steps ----------------------------- */
 
-function StepRenderer({ step, data, set }: { step: number; data: Draft; set: <K extends keyof Draft>(k: K, v: Draft[K]) => void }) {
+function StepRenderer({
+  step,
+  data,
+  set,
+}: {
+  step: number;
+  data: Draft;
+  set: <K extends keyof Draft>(k: K, v: Draft[K]) => void;
+}) {
   switch (step) {
-    case 1: return <Step1 data={data} set={set} />;
-    case 2: return <Step2 data={data} set={set} />;
-    case 3: return <Step3 data={data} set={set} />;
-    case 4: return <Step4 data={data} set={set} />;
-    case 5: return <Step5 data={data} set={set} />;
-    case 6: return <Step6 data={data} set={set} />;
-    case 7: return <Step7 data={data} set={set} />;
-    case 8: return <Step8 data={data} set={set} />;
-    default: return null;
+    case 1:
+      return <Step1 data={data} set={set} />;
+    case 2:
+      return <Step2 data={data} set={set} />;
+    case 3:
+      return <Step3 data={data} set={set} />;
+    case 4:
+      return <Step4 data={data} set={set} />;
+    case 5:
+      return <Step5 data={data} set={set} />;
+    case 6:
+      return <Step6 data={data} set={set} />;
+    case 7:
+      return <Step7 data={data} set={set} />;
+    case 8:
+      return <Step8 data={data} set={set} />;
+    default:
+      return null;
   }
 }
 
@@ -195,17 +269,36 @@ function StepHead({ title, sub }: { title: string; sub?: string }) {
   );
 }
 
-function ChoiceCard({ active, onClick, icon: Icon, title, sub }: { active: boolean; onClick: () => void; icon: typeof Zap; title: string; sub?: string }) {
+function ChoiceCard({
+  active,
+  onClick,
+  icon: Icon,
+  title,
+  sub,
+}: {
+  active: boolean;
+  onClick: () => void;
+  icon: typeof Zap;
+  title: string;
+  sub?: string;
+}) {
   return (
     <button
       type="button"
       onClick={onClick}
       className={cn(
         "group flex items-start gap-3 rounded-xl border bg-card p-4 text-left transition",
-        active ? "border-success bg-success/5 ring-2 ring-success/30" : "border-border hover:border-primary/40 hover:bg-surface",
+        active
+          ? "border-success bg-success/5 ring-2 ring-success/30"
+          : "border-border hover:border-primary/40 hover:bg-surface",
       )}
     >
-      <div className={cn("grid h-10 w-10 flex-none place-items-center rounded-lg", active ? "bg-success text-success-foreground" : "bg-primary/10 text-primary")}>
+      <div
+        className={cn(
+          "grid h-10 w-10 flex-none place-items-center rounded-lg",
+          active ? "bg-success text-success-foreground" : "bg-primary/10 text-primary",
+        )}
+      >
         <Icon className="h-5 w-5" />
       </div>
       <div>
@@ -225,10 +318,20 @@ function Step1({ data, set }: StepProps) {
   ];
   return (
     <Field>
-      <StepHead title="Wofür suchen Sie einen Tarif?" sub="Wählen Sie aus, was wir prüfen sollen." />
+      <StepHead
+        title="Wofür suchen Sie einen Tarif?"
+        sub="Wählen Sie aus, was wir prüfen sollen."
+      />
       <div className="grid gap-3 sm:grid-cols-2">
         {items.map((i) => (
-          <ChoiceCard key={i.k} active={data.energyType === i.k} onClick={() => set("energyType", i.k)} icon={i.icon} title={i.t} sub={i.s} />
+          <ChoiceCard
+            key={i.k}
+            active={data.energyType === i.k}
+            onClick={() => set("energyType", i.k)}
+            icon={i.icon}
+            title={i.t}
+            sub={i.s}
+          />
         ))}
       </div>
     </Field>
@@ -247,7 +350,13 @@ function Step2({ data, set }: StepProps) {
       <StepHead title="Welcher Kundentyp passt zu Ihnen?" />
       <div className="grid gap-3 sm:grid-cols-2">
         {items.map((i) => (
-          <ChoiceCard key={i.k} active={data.customerType === i.k} onClick={() => set("customerType", i.k)} icon={i.icon} title={i.t} />
+          <ChoiceCard
+            key={i.k}
+            active={data.customerType === i.k}
+            onClick={() => set("customerType", i.k)}
+            icon={i.icon}
+            title={i.t}
+          />
         ))}
       </div>
     </Field>
@@ -257,20 +366,43 @@ function Step2({ data, set }: StepProps) {
 function Step3({ data, set }: StepProps) {
   return (
     <Field>
-      <StepHead title="Wo wohnen Sie?" sub="Tarife sind regional unterschiedlich – wir brauchen mindestens Ihre PLZ." />
+      <StepHead
+        title="Wo wohnen Sie?"
+        sub="Tarife sind regional unterschiedlich – wir brauchen mindestens Ihre PLZ."
+      />
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <Label htmlFor="plz">Postleitzahl <span className="text-success">*</span></Label>
-          <Input id="plz" inputMode="numeric" maxLength={5} placeholder="z.B. 10115"
-            value={data.plz ?? ""} onChange={(e) => set("plz", e.target.value.replace(/\D/g, ""))} />
+          <Label htmlFor="plz">
+            Postleitzahl <span className="text-success">*</span>
+          </Label>
+          <Input
+            id="plz"
+            inputMode="numeric"
+            maxLength={5}
+            placeholder="z.B. 10115"
+            value={data.plz ?? ""}
+            onChange={(e) => set("plz", e.target.value.replace(/\D/g, ""))}
+          />
         </div>
         <div>
-          <Label htmlFor="ort">Ort <span className="text-success">*</span></Label>
-          <Input id="ort" placeholder="z.B. Berlin" value={data.ort ?? ""} onChange={(e) => set("ort", e.target.value)} />
+          <Label htmlFor="ort">
+            Ort <span className="text-success">*</span>
+          </Label>
+          <Input
+            id="ort"
+            placeholder="z.B. Berlin"
+            value={data.ort ?? ""}
+            onChange={(e) => set("ort", e.target.value)}
+          />
         </div>
         <div className="sm:col-span-2">
           <Label htmlFor="strasse">Straße (optional)</Label>
-          <Input id="strasse" placeholder="Hilft bei der Tarif-Auswahl" value={data.strasse ?? ""} onChange={(e) => set("strasse", e.target.value)} />
+          <Input
+            id="strasse"
+            placeholder="Hilft bei der Tarif-Auswahl"
+            value={data.strasse ?? ""}
+            onChange={(e) => set("strasse", e.target.value)}
+          />
         </div>
       </div>
     </Field>
@@ -278,45 +410,93 @@ function Step3({ data, set }: StepProps) {
 }
 
 function Step4({ data, set }: StepProps) {
-  const showStrom = data.energyType === "strom" || data.energyType === "beides" || data.energyType === "gewerbe";
+  const showStrom =
+    data.energyType === "strom" || data.energyType === "beides" || data.energyType === "gewerbe";
   const showGas = data.energyType === "gas" || data.energyType === "beides";
   return (
     <Field>
-      <StepHead title="Wie hoch ist Ihr Jahresverbrauch?" sub="Sie kennen den Wert nicht? Wir schätzen ihn anhand Ihrer Angaben." />
+      <StepHead
+        title="Wie hoch ist Ihr Jahresverbrauch?"
+        sub="Sie kennen den Wert nicht? Wir schätzen ihn anhand Ihrer Angaben."
+      />
       {showStrom && (
         <div className="rounded-xl border border-border bg-card p-5">
-          <div className="mb-3 flex items-center gap-2 font-semibold text-primary"><Zap className="h-4 w-4 text-success" /> Strom</div>
+          <div className="mb-3 flex items-center gap-2 font-semibold text-primary">
+            <Zap className="h-4 w-4 text-success" /> Strom
+          </div>
           <Label htmlFor="strom-kwh">Jahresverbrauch in kWh</Label>
-          <Input id="strom-kwh" inputMode="numeric" placeholder="z.B. 3200"
-            value={data.stromVerbrauchKwh ?? ""} onChange={(e) => set("stromVerbrauchKwh", numOrUndef(e.target.value))} />
-          <div className="mt-4 text-sm text-muted-foreground">Kein Wert zur Hand? Wählen Sie eine Personenanzahl:</div>
+          <Input
+            id="strom-kwh"
+            inputMode="numeric"
+            placeholder="z.B. 3200"
+            value={data.stromVerbrauchKwh ?? ""}
+            onChange={(e) => set("stromVerbrauchKwh", numOrUndef(e.target.value))}
+          />
+          <div className="mt-4 text-sm text-muted-foreground">
+            Kein Wert zur Hand? Wählen Sie eine Personenanzahl:
+          </div>
           <div className="mt-2 flex flex-wrap gap-2">
             {[1, 2, 3, 4, 5].map((n) => (
-              <button key={n} type="button" onClick={() => set("stromPersonen", n)}
-                className={cn("rounded-full border px-4 py-1.5 text-sm transition",
-                  data.stromPersonen === n ? "border-success bg-success/10 text-success" : "border-border hover:border-primary/40")}>
+              <button
+                key={n}
+                type="button"
+                onClick={() => set("stromPersonen", n)}
+                className={cn(
+                  "rounded-full border px-4 py-1.5 text-sm transition",
+                  data.stromPersonen === n
+                    ? "border-success bg-success/10 text-success"
+                    : "border-border hover:border-primary/40",
+                )}
+              >
                 {n === 5 ? "5+ Pers." : `${n} Pers.`}
               </button>
             ))}
           </div>
           {data.stromPersonen && !data.stromVerbrauchKwh && (
-            <div className="mt-3 text-xs text-muted-foreground">Geschätzt: <strong className="text-primary">{ESTIMATED_STROM_KWH[data.stromPersonen]} kWh/Jahr</strong></div>
+            <div className="mt-3 text-xs text-muted-foreground">
+              Geschätzt:{" "}
+              <strong className="text-primary">
+                {ESTIMATED_STROM_KWH[data.stromPersonen]} kWh/Jahr
+              </strong>
+            </div>
           )}
         </div>
       )}
       {showGas && (
         <div className="mt-4 rounded-xl border border-border bg-card p-5">
-          <div className="mb-3 flex items-center gap-2 font-semibold text-primary"><Flame className="h-4 w-4 text-success" /> Gas</div>
+          <div className="mb-3 flex items-center gap-2 font-semibold text-primary">
+            <Flame className="h-4 w-4 text-success" /> Gas
+          </div>
           <Label htmlFor="gas-kwh">Jahresverbrauch in kWh</Label>
-          <Input id="gas-kwh" inputMode="numeric" placeholder="z.B. 15000"
-            value={data.gasVerbrauchKwh ?? ""} onChange={(e) => set("gasVerbrauchKwh", numOrUndef(e.target.value))} />
-          <div className="mt-4 text-sm text-muted-foreground">Kein Wert zur Hand? Wohnfläche eingeben:</div>
+          <Input
+            id="gas-kwh"
+            inputMode="numeric"
+            placeholder="z.B. 15000"
+            value={data.gasVerbrauchKwh ?? ""}
+            onChange={(e) => set("gasVerbrauchKwh", numOrUndef(e.target.value))}
+          />
+          <div className="mt-4 text-sm text-muted-foreground">
+            Kein Wert zur Hand? Wohnfläche eingeben:
+          </div>
           <div className="mt-2 grid gap-3 sm:grid-cols-2">
-            <Input inputMode="numeric" placeholder="Wohnfläche m²" value={data.gasWohnflaeche ?? ""} onChange={(e) => set("gasWohnflaeche", numOrUndef(e.target.value))} />
-            <Input inputMode="numeric" placeholder="Anzahl Personen" value={data.gasPersonen ?? ""} onChange={(e) => set("gasPersonen", numOrUndef(e.target.value))} />
+            <Input
+              inputMode="numeric"
+              placeholder="Wohnfläche m²"
+              value={data.gasWohnflaeche ?? ""}
+              onChange={(e) => set("gasWohnflaeche", numOrUndef(e.target.value))}
+            />
+            <Input
+              inputMode="numeric"
+              placeholder="Anzahl Personen"
+              value={data.gasPersonen ?? ""}
+              onChange={(e) => set("gasPersonen", numOrUndef(e.target.value))}
+            />
           </div>
           <label className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
-            <Checkbox checked={!!data.gasWarmwasser} onCheckedChange={(v) => set("gasWarmwasser", !!v)} />
+            <Checkbox
+              checked={!!data.gasWarmwasser}
+              onCheckedChange={(v) => set("gasWarmwasser", !!v)}
+            />
             Warmwasser läuft über Gas
           </label>
         </div>
@@ -332,21 +512,43 @@ function Step5({ data, set }: StepProps) {
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <Label htmlFor="anbieter">Aktueller Anbieter</Label>
-          <Input id="anbieter" placeholder="z.B. Stadtwerke …" value={data.aktuellerAnbieter ?? ""} onChange={(e) => set("aktuellerAnbieter", e.target.value)} />
+          <Input
+            id="anbieter"
+            placeholder="z.B. Stadtwerke …"
+            value={data.aktuellerAnbieter ?? ""}
+            onChange={(e) => set("aktuellerAnbieter", e.target.value)}
+          />
         </div>
         <div>
           <Label htmlFor="abschlag">Monatlicher Abschlag (€)</Label>
-          <Input id="abschlag" inputMode="numeric" placeholder="z.B. 95" value={data.monatlicherAbschlag ?? ""} onChange={(e) => set("monatlicherAbschlag", numOrUndef(e.target.value))} />
+          <Input
+            id="abschlag"
+            inputMode="numeric"
+            placeholder="z.B. 95"
+            value={data.monatlicherAbschlag ?? ""}
+            onChange={(e) => set("monatlicherAbschlag", numOrUndef(e.target.value))}
+          />
         </div>
         <div>
           <Label htmlFor="vertragsende">Vertragsende (optional)</Label>
-          <Input id="vertragsende" type="date" value={data.vertragsende ?? ""} onChange={(e) => set("vertragsende", e.target.value)} />
+          <Input
+            id="vertragsende"
+            type="date"
+            value={data.vertragsende ?? ""}
+            onChange={(e) => set("vertragsende", e.target.value)}
+          />
         </div>
         <div>
           <Label>Preisgarantie</Label>
-          <RadioGroup className="mt-2 flex gap-4" value={data.preisgarantie ?? ""} onValueChange={(v) => set("preisgarantie", v as LeadInput["preisgarantie"])}>
+          <RadioGroup
+            className="mt-2 flex gap-4"
+            value={data.preisgarantie ?? ""}
+            onValueChange={(v) => set("preisgarantie", v as LeadInput["preisgarantie"])}
+          >
             {[
-              { v: "ja", l: "Ja" }, { v: "nein", l: "Nein" }, { v: "weiss_nicht", l: "Weiß ich nicht" },
+              { v: "ja", l: "Ja" },
+              { v: "nein", l: "Nein" },
+              { v: "weiss_nicht", l: "Weiß ich nicht" },
             ].map((o) => (
               <label key={o.v} className="flex items-center gap-2 text-sm">
                 <RadioGroupItem value={o.v} /> {o.l}
@@ -360,20 +562,31 @@ function Step5({ data, set }: StepProps) {
 }
 
 function Step6({ data, set }: StepProps) {
-  const toggle = (g: typeof goals[number]) => {
+  const toggle = (g: (typeof goals)[number]) => {
     const cur = data.ziele;
     set("ziele", cur.includes(g) ? cur.filter((x) => x !== g) : [...cur, g]);
   };
   return (
     <Field>
-      <StepHead title="Was ist Ihnen wichtig?" sub="Mehrfachauswahl möglich – wir richten die Tarife danach aus." />
+      <StepHead
+        title="Was ist Ihnen wichtig?"
+        sub="Mehrfachauswahl möglich – wir richten die Tarife danach aus."
+      />
       <div className="flex flex-wrap gap-2">
         {goals.map((g) => {
           const active = data.ziele.includes(g);
           return (
-            <button key={g} type="button" onClick={() => toggle(g)}
-              className={cn("rounded-full border px-4 py-2 text-sm transition",
-                active ? "border-success bg-success/10 text-success" : "border-border hover:border-primary/40")}>
+            <button
+              key={g}
+              type="button"
+              onClick={() => toggle(g)}
+              className={cn(
+                "rounded-full border px-4 py-2 text-sm transition",
+                active
+                  ? "border-success bg-success/10 text-success"
+                  : "border-border hover:border-primary/40",
+              )}
+            >
               {goalLabels[g]}
             </button>
           );
@@ -386,21 +599,75 @@ function Step6({ data, set }: StepProps) {
 function Step7({ data, set }: StepProps) {
   return (
     <Field>
-      <StepHead title="Wie können wir Sie erreichen?" sub="Wir melden uns persönlich mit Ihrem Angebot." />
+      <StepHead
+        title="Wie können wir Sie erreichen?"
+        sub="Wir melden uns persönlich mit Ihrem Angebot."
+      />
       <div className="grid gap-4 sm:grid-cols-2">
-        <div><Label htmlFor="vn">Vorname <span className="text-success">*</span></Label><Input id="vn" value={data.vorname ?? ""} onChange={(e) => set("vorname", e.target.value)} /></div>
-        <div><Label htmlFor="nn">Nachname <span className="text-success">*</span></Label><Input id="nn" value={data.nachname ?? ""} onChange={(e) => set("nachname", e.target.value)} /></div>
-        <div><Label htmlFor="em">E-Mail <span className="text-success">*</span></Label><Input id="em" type="email" value={data.email ?? ""} onChange={(e) => set("email", e.target.value)} /></div>
-        <div><Label htmlFor="tel">Telefon <span className="text-success">*</span></Label><Input id="tel" type="tel" value={data.telefon ?? ""} onChange={(e) => set("telefon", e.target.value)} /></div>
+        <div>
+          <Label htmlFor="vn">
+            Vorname <span className="text-success">*</span>
+          </Label>
+          <Input
+            id="vn"
+            value={data.vorname ?? ""}
+            onChange={(e) => set("vorname", e.target.value)}
+          />
+        </div>
+        <div>
+          <Label htmlFor="nn">
+            Nachname <span className="text-success">*</span>
+          </Label>
+          <Input
+            id="nn"
+            value={data.nachname ?? ""}
+            onChange={(e) => set("nachname", e.target.value)}
+          />
+        </div>
+        <div>
+          <Label htmlFor="em">
+            E-Mail <span className="text-success">*</span>
+          </Label>
+          <Input
+            id="em"
+            type="email"
+            value={data.email ?? ""}
+            onChange={(e) => set("email", e.target.value)}
+          />
+        </div>
+        <div>
+          <Label htmlFor="tel">
+            Telefon <span className="text-success">*</span>
+          </Label>
+          <Input
+            id="tel"
+            type="tel"
+            value={data.telefon ?? ""}
+            onChange={(e) => set("telefon", e.target.value)}
+          />
+        </div>
         <div className="sm:col-span-2">
-          <Label>Beste Erreichbarkeit <span className="text-muted-foreground">(optional)</span></Label>
+          <Label>
+            Beste Erreichbarkeit <span className="text-muted-foreground">(optional)</span>
+          </Label>
           <div className="mt-2 flex flex-wrap gap-2">
             {[
-              { v: "vormittag", l: "Vormittag" }, { v: "nachmittag", l: "Nachmittag" }, { v: "abend", l: "Abend" }, { v: "egal", l: "Egal" },
+              { v: "vormittag", l: "Vormittag" },
+              { v: "nachmittag", l: "Nachmittag" },
+              { v: "abend", l: "Abend" },
+              { v: "egal", l: "Egal" },
             ].map((o) => (
-              <button key={o.v} type="button" onClick={() => set("erreichbarkeit", o.v as LeadInput["erreichbarkeit"])}
-                className={cn("rounded-full border px-4 py-1.5 text-sm",
-                  data.erreichbarkeit === o.v ? "border-success bg-success/10 text-success" : "border-border hover:border-primary/40")}>
+              <button
+                key={o.v}
+                type="button"
+                onClick={() => set("erreichbarkeit", o.v as LeadInput["erreichbarkeit"])}
+                className={cn(
+                  "rounded-full border px-4 py-1.5 text-sm",
+                  data.erreichbarkeit === o.v
+                    ? "border-success bg-success/10 text-success"
+                    : "border-border hover:border-primary/40",
+                )}
+              >
                 {o.l}
               </button>
             ))}
@@ -410,17 +677,34 @@ function Step7({ data, set }: StepProps) {
 
       <div className="mt-5 rounded-xl border border-border bg-surface p-4 text-xs text-muted-foreground">
         <ShieldCheck className="mr-1.5 inline h-4 w-4 text-success" />
-        Ihre Daten werden DSGVO-konform in Deutschland verarbeitet und nur zur Tarifprüfung verwendet.
+        Ihre Daten werden DSGVO-konform in Deutschland verarbeitet und nur zur Tarifprüfung
+        verwendet.
       </div>
 
       <div className="mt-5 space-y-3">
         <label className="flex items-start gap-3 text-sm text-foreground">
-          <Checkbox className="mt-0.5" checked={!!data.datenschutzAkzeptiert} onCheckedChange={(v) => set("datenschutzAkzeptiert", (!!v) as true)} />
-          <span>Ich akzeptiere die <a href="/datenschutz" target="_blank" rel="noopener noreferrer" className="underline">Datenschutzerklärung</a>.</span>
+          <Checkbox
+            className="mt-0.5"
+            checked={!!data.datenschutzAkzeptiert}
+            onCheckedChange={(v) => set("datenschutzAkzeptiert", !!v as true)}
+          />
+          <span>
+            Ich akzeptiere die{" "}
+            <a href="/datenschutz" target="_blank" rel="noopener noreferrer" className="underline">
+              Datenschutzerklärung
+            </a>
+            .
+          </span>
         </label>
         <label className="flex items-start gap-3 text-sm text-foreground">
-          <Checkbox className="mt-0.5" checked={!!data.kontaktAkzeptiert} onCheckedChange={(v) => set("kontaktAkzeptiert", (!!v) as true)} />
-          <span>Ich bin einverstanden, dass EnergieClever mich per E-Mail oder Telefon kontaktiert.</span>
+          <Checkbox
+            className="mt-0.5"
+            checked={!!data.kontaktAkzeptiert}
+            onCheckedChange={(v) => set("kontaktAkzeptiert", !!v as true)}
+          />
+          <span>
+            Ich bin einverstanden, dass EnergieClever mich per E-Mail oder Telefon kontaktiert.
+          </span>
         </label>
       </div>
     </Field>
@@ -436,17 +720,25 @@ function Step8({ data, set }: StepProps) {
   }
   return (
     <Field>
-      <StepHead title="Letzter Schritt – Rechnung optional" sub="Eine alte Jahresabrechnung beschleunigt die Prüfung. Sie können sie auch später nachreichen." />
+      <StepHead
+        title="Letzter Schritt – Rechnung optional"
+        sub="Eine alte Jahresabrechnung beschleunigt die Prüfung. Sie können sie auch später nachreichen."
+      />
       <label className="flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-border bg-surface p-8 text-center transition hover:border-success hover:bg-success/5">
         <Upload className="h-6 w-6 text-success" />
-        <div className="text-sm font-medium text-primary">{data.rechnungDateiname ? data.rechnungDateiname : "Rechnung hier ablegen oder auswählen"}</div>
-        <div className="text-xs text-muted-foreground">PDF, JPG oder PNG · optional · wird beim Beratungsgespräch nachgereicht</div>
+        <div className="text-sm font-medium text-primary">
+          {data.rechnungDateiname ? data.rechnungDateiname : "Rechnung hier ablegen oder auswählen"}
+        </div>
+        <div className="text-xs text-muted-foreground">
+          PDF, JPG oder PNG · optional · wird beim Beratungsgespräch nachgereicht
+        </div>
         <input type="file" accept=".pdf,image/*" className="hidden" onChange={onFile} />
       </label>
 
       <div className="mt-6 rounded-xl bg-primary/5 p-4 text-sm text-primary">
         <CheckCircle2 className="mr-1.5 inline h-4 w-4 text-success" />
-        Sobald Sie absenden, prüft ein Berater Ihre Anfrage und meldet sich innerhalb von 24 Stunden.
+        Sobald Sie absenden, prüft ein Berater Ihre Anfrage und meldet sich innerhalb von 24
+        Stunden.
       </div>
     </Field>
   );
@@ -467,28 +759,41 @@ function numOrUndef(v: string): number | undefined {
 
 function validateStep(step: number, d: Draft): boolean {
   switch (step) {
-    case 1: return !!d.energyType && energyTypes.includes(d.energyType);
-    case 2: return !!d.customerType && customerTypes.includes(d.customerType);
-    case 3: return !!d.plz && /^\d{5}$/.test(d.plz) && !!d.ort && d.ort.length >= 2;
+    case 1:
+      return !!d.energyType && energyTypes.includes(d.energyType);
+    case 2:
+      return !!d.customerType && customerTypes.includes(d.customerType);
+    case 3:
+      return !!d.plz && /^\d{5}$/.test(d.plz) && !!d.ort && d.ort.length >= 2;
     case 4: {
-      const needStrom = d.energyType === "strom" || d.energyType === "beides" || d.energyType === "gewerbe";
+      const needStrom =
+        d.energyType === "strom" || d.energyType === "beides" || d.energyType === "gewerbe";
       const needGas = d.energyType === "gas" || d.energyType === "beides";
       const stromOk = !needStrom || !!d.stromVerbrauchKwh || !!d.stromPersonen;
       const gasOk = !needGas || !!d.gasVerbrauchKwh || (!!d.gasWohnflaeche && !!d.gasPersonen);
       return stromOk && gasOk;
     }
-    case 5: return true; // optional
-    case 6: return true; // optional
-    case 7: return (
-      !!d.vorname && d.vorname.length >= 2 &&
-      !!d.nachname && d.nachname.length >= 2 &&
-      !!d.email && /.+@.+\..+/.test(d.email) &&
-      !!d.telefon && d.telefon.length >= 5 &&
-      d.datenschutzAkzeptiert === true &&
-      d.kontaktAkzeptiert === true
-    );
-    case 8: return true;
-    default: return false;
+    case 5:
+      return true; // optional
+    case 6:
+      return true; // optional
+    case 7:
+      return (
+        !!d.vorname &&
+        d.vorname.length >= 2 &&
+        !!d.nachname &&
+        d.nachname.length >= 2 &&
+        !!d.email &&
+        /.+@.+\..+/.test(d.email) &&
+        !!d.telefon &&
+        d.telefon.length >= 5 &&
+        d.datenschutzAkzeptiert === true &&
+        d.kontaktAkzeptiert === true
+      );
+    case 8:
+      return true;
+    default:
+      return false;
   }
 }
 

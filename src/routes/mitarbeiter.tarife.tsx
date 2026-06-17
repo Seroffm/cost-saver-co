@@ -9,7 +9,9 @@ import { AdminShell } from "@/components/mitarbeiter/AdminShell";
 import { tariffs } from "@/lib/mock-leads";
 
 export const Route = createFileRoute("/mitarbeiter/tarife")({
-  head: () => ({ meta: [{ title: "Tarife – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }] }),
+  head: () => ({
+    meta: [{ title: "Tarife – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }],
+  }),
   component: TariffsPage,
 });
 
@@ -20,11 +22,19 @@ function TariffsPage() {
   return (
     <AdminShell
       title="Tarife"
-      subtitle={`${tariffs.length} aktive Tarife · ${tariffs.filter(t => t.eco).length} Ökotarife`}
-      actions={<>
-        <Button variant="outline" size="sm"><Filter className="mr-2 h-4 w-4" />Filter</Button>
-        <Button size="sm"><Plus className="mr-2 h-4 w-4" />Tarif anlegen</Button>
-      </>}
+      subtitle={`${tariffs.length} aktive Tarife · ${tariffs.filter((t) => t.eco).length} Ökotarife`}
+      actions={
+        <>
+          <Button variant="outline" size="sm">
+            <Filter className="mr-2 h-4 w-4" />
+            Filter
+          </Button>
+          <Button size="sm">
+            <Plus className="mr-2 h-4 w-4" />
+            Tarif anlegen
+          </Button>
+        </>
+      }
     >
       <div className="mb-4">
         <Tabs value={filter} onValueChange={(v) => setFilter(v as "alle" | "strom" | "gas")}>
@@ -58,17 +68,30 @@ function TariffsPage() {
                       <div className="font-medium">{t.name}</div>
                       <div className="flex items-center gap-2 text-xs text-muted-foreground">
                         {t.provider}
-                        {t.eco && <span className="inline-flex items-center gap-1 text-emerald-600"><Leaf className="h-3 w-3" />Öko</span>}
+                        {t.eco && (
+                          <span className="inline-flex items-center gap-1 text-emerald-600">
+                            <Leaf className="h-3 w-3" />
+                            Öko
+                          </span>
+                        )}
                       </div>
                     </td>
-                    <td className="px-6 py-4"><Badge variant="outline" className="capitalize">{t.type}</Badge></td>
+                    <td className="px-6 py-4">
+                      <Badge variant="outline" className="capitalize">
+                        {t.type}
+                      </Badge>
+                    </td>
                     <td className="px-6 py-4 capitalize text-muted-foreground">{t.segment}</td>
                     <td className="px-6 py-4 font-medium">{t.pricePerKwh.toFixed(2)}</td>
-                    <td className="px-6 py-4 text-muted-foreground">{t.basePrice.toFixed(2)} €/Mt</td>
+                    <td className="px-6 py-4 text-muted-foreground">
+                      {t.basePrice.toFixed(2)} €/Mt
+                    </td>
                     <td className="px-6 py-4 text-muted-foreground">{t.duration} Mt</td>
                     <td className="px-6 py-4 text-muted-foreground">{t.priceGuarantee} Mt</td>
                     <td className="px-6 py-4 text-right">
-                      <Button variant="ghost" size="sm">Bearbeiten</Button>
+                      <Button variant="ghost" size="sm">
+                        Bearbeiten
+                      </Button>
                     </td>
                   </tr>
                 ))}

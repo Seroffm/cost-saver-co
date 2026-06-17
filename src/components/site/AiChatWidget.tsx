@@ -9,10 +9,12 @@ const ACTION_RE = /\[\[ACTION:([^|\]]+)\|([^\]]+)\]\]/g;
 
 function parseMessage(text: string): { body: string; actions: { label: string; href: string }[] } {
   const actions: { label: string; href: string }[] = [];
-  const body = text.replace(ACTION_RE, (_m, label: string, href: string) => {
-    actions.push({ label: label.trim(), href: href.trim() });
-    return "";
-  }).trim();
+  const body = text
+    .replace(ACTION_RE, (_m, label: string, href: string) => {
+      actions.push({ label: label.trim(), href: href.trim() });
+      return "";
+    })
+    .trim();
   return { body, actions };
 }
 
@@ -119,7 +121,10 @@ export function AiChatWidget() {
               onClick={handleResetChat}
               className="grid h-8 w-8 flex-none place-items-center rounded-full text-primary-foreground/70 transition hover:bg-primary-foreground/10 hover:text-primary-foreground"
             >
-              <RefreshCw key={resetCount} className={cn("h-4 w-4", resetCount > 0 && "animate-[spin_0.4s_ease-in-out]")} />
+              <RefreshCw
+                key={resetCount}
+                className={cn("h-4 w-4", resetCount > 0 && "animate-[spin_0.4s_ease-in-out]")}
+              />
             </button>
           </header>
 
@@ -131,7 +136,10 @@ export function AiChatWidget() {
                 ? { body: text, actions: [] as { label: string; href: string }[] }
                 : parseMessage(text);
               return (
-                <div key={m.id} className={cn("flex flex-col gap-2", isUser ? "items-end" : "items-start")}>
+                <div
+                  key={m.id}
+                  className={cn("flex flex-col gap-2", isUser ? "items-end" : "items-start")}
+                >
                   <div
                     className={cn(
                       "max-w-[85%] whitespace-pre-wrap rounded-2xl px-3 py-2 text-sm shadow-soft",

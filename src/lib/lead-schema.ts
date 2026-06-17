@@ -5,7 +5,7 @@ export const customerTypes = ["privat", "gewerbe", "hausverwaltung", "mehrere_st
 export const heatingTypes = ["gasheizung", "etagenheizung", "kombitherme", "andere"] as const;
 export const reachability = ["vormittag", "nachmittag", "abend", "egal"] as const;
 export const goals = [
-  "guenstigster_preis" ,
+  "guenstigster_preis",
   "preisgarantie",
   "oekostrom",
   "kurze_laufzeit",
@@ -15,7 +15,11 @@ export const priceGuarantee = ["ja", "nein", "weiss_nicht"] as const;
 
 // Verbrauchs-Schätzwerte (kWh / Jahr)
 export const ESTIMATED_STROM_KWH: Record<number, number> = {
-  1: 1500, 2: 2500, 3: 3500, 4: 4250, 5: 5500,
+  1: 1500,
+  2: 2500,
+  3: 3500,
+  4: 4250,
+  5: 5500,
 };
 
 export function estimateGasKwh(wohnflaecheM2: number, withWarmwater: boolean): number {
@@ -61,19 +65,19 @@ export const leadSchema = z.object({
 
 export type LeadInput = z.infer<typeof leadSchema>;
 
-export const energyTypeLabels: Record<typeof energyTypes[number], string> = {
+export const energyTypeLabels: Record<(typeof energyTypes)[number], string> = {
   strom: "Strom",
   gas: "Gas",
   beides: "Strom & Gas",
   gewerbe: "Gewerbe",
 };
-export const customerTypeLabels: Record<typeof customerTypes[number], string> = {
+export const customerTypeLabels: Record<(typeof customerTypes)[number], string> = {
   privat: "Privatkunde",
   gewerbe: "Gewerbekunde",
   hausverwaltung: "Hausverwaltung",
   mehrere_standorte: "Mehrere Standorte",
 };
-export const goalLabels: Record<typeof goals[number], string> = {
+export const goalLabels: Record<(typeof goals)[number], string> = {
   guenstigster_preis: "Günstigster Preis",
   preisgarantie: "Preisgarantie",
   oekostrom: "Ökostrom",

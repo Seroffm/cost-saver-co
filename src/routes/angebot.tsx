@@ -4,18 +4,24 @@ import { z } from "zod";
 import { MultiStepForm } from "@/components/lead/MultiStepForm";
 import { energyTypes } from "@/lib/lead-schema";
 
-const search = z.object({
-  start: z.enum(energyTypes).optional(),
-  plz: z.string().optional(),
-  kwh: z.coerce.number().int().positive().optional(),
-}).optional();
+const search = z
+  .object({
+    start: z.enum(energyTypes).optional(),
+    plz: z.string().optional(),
+    kwh: z.coerce.number().int().positive().optional(),
+  })
+  .optional();
 
 export const Route = createFileRoute("/angebot")({
   validateSearch: (s) => search.parse(s) ?? {},
   head: () => ({
     meta: [
       { title: "Kostenlose Tarifprüfung | EnergieClever" },
-      { name: "description", content: "In 2 Minuten zum persönlichen Strom- oder Gasangebot. Unverbindlich und kostenlos." },
+      {
+        name: "description",
+        content:
+          "In 2 Minuten zum persönlichen Strom- oder Gasangebot. Unverbindlich und kostenlos.",
+      },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -41,12 +47,17 @@ function AngebotPage() {
             </span>
             <span className="inline-flex items-center gap-1">
               <span className="flex gap-0.5 text-success">
-                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-3 w-3 fill-current" />)}
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="h-3 w-3 fill-current" />
+                ))}
               </span>
               <strong className="text-primary">4,8/5</strong>
             </span>
           </div>
-          <a href="tel:08001234567" className="flex items-center gap-2 text-sm font-semibold text-primary">
+          <a
+            href="tel:08001234567"
+            className="flex items-center gap-2 text-sm font-semibold text-primary"
+          >
             <Phone className="h-4 w-4 text-success" />
             <span className="hidden sm:inline">0800 123 4567</span>
           </a>
@@ -63,7 +74,8 @@ function AngebotPage() {
             Ihr persönliches Strom- & Gasangebot in 2 Minuten.
           </h1>
           <p className="mt-4 text-muted-foreground">
-            Wir vergleichen für Sie. Sie entscheiden. Kein Account, kein Tariflotterie, keine Versorgungslücke.
+            Wir vergleichen für Sie. Sie entscheiden. Kein Account, kein Tariflotterie, keine
+            Versorgungslücke.
           </p>
           <ul className="mt-6 space-y-2.5 text-sm">
             {[
@@ -79,7 +91,8 @@ function AngebotPage() {
           </ul>
           <div className="mt-8 flex items-center gap-3 rounded-xl border border-border bg-background p-4 text-xs text-muted-foreground">
             <ShieldCheck className="h-5 w-5 flex-none text-success" />
-            Ihre Daten sind sicher. Wir verarbeiten ausschließlich DSGVO-konform in Deutschland und geben nichts ohne Ihre Einwilligung weiter.
+            Ihre Daten sind sicher. Wir verarbeiten ausschließlich DSGVO-konform in Deutschland und
+            geben nichts ohne Ihre Einwilligung weiter.
           </div>
         </div>
 

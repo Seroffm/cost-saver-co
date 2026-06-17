@@ -8,7 +8,12 @@ import { AdminShell } from "@/components/mitarbeiter/AdminShell";
 import { emailTemplates } from "@/lib/mock-leads";
 
 export const Route = createFileRoute("/mitarbeiter/vorlagen")({
-  head: () => ({ meta: [{ title: "E-Mail-Vorlagen – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }] }),
+  head: () => ({
+    meta: [
+      { title: "E-Mail-Vorlagen – Mitarbeiter" },
+      { name: "robots", content: "noindex,nofollow" },
+    ],
+  }),
   component: TemplatesPage,
 });
 
@@ -17,7 +22,12 @@ function TemplatesPage() {
     <AdminShell
       title="E-Mail-Vorlagen"
       subtitle="Automationen entlang des Lead-Funnels verwalten"
-      actions={<Button size="sm"><Plus className="mr-2 h-4 w-4" />Neue Vorlage</Button>}
+      actions={
+        <Button size="sm">
+          <Plus className="mr-2 h-4 w-4" />
+          Neue Vorlage
+        </Button>
+      }
     >
       <div className="grid gap-4 lg:grid-cols-2">
         {emailTemplates.map((t) => (
@@ -50,7 +60,10 @@ function TemplatesPage() {
                   ) : (
                     <Badge variant="outline">Pausiert</Badge>
                   )}
-                  <Button variant="outline" size="sm"><Edit className="mr-2 h-3.5 w-3.5" />Bearbeiten</Button>
+                  <Button variant="outline" size="sm">
+                    <Edit className="mr-2 h-3.5 w-3.5" />
+                    Bearbeiten
+                  </Button>
                 </div>
               </div>
             </CardContent>

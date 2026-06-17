@@ -1,7 +1,15 @@
 import type { ReactNode } from "react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 
-export function StaticPage({ title, lead, children }: { title: string; lead?: string; children: ReactNode }) {
+export function StaticPage({
+  title,
+  lead,
+  children,
+}: {
+  title: string;
+  lead?: string;
+  children: ReactNode;
+}) {
   return (
     <SiteLayout>
       <section className="mx-auto max-w-3xl px-4 py-16 md:py-24">

@@ -27,7 +27,9 @@ export function CookieConsent() {
   const save = (c: Omit<Consent, "date">) => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...c, date: new Date().toISOString() }));
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
     setOpen(false);
   };
 
@@ -49,37 +51,74 @@ export function CookieConsent() {
             </div>
             <div className="flex-1">
               <div className="flex items-start justify-between gap-3">
-                <h2 className="font-display text-lg font-bold text-primary">Cookies & Datenschutz</h2>
-                <button onClick={() => save({ necessary: true, analytics: false, marketing: false })} aria-label="Schließen" className="text-muted-foreground hover:text-primary">
+                <h2 className="font-display text-lg font-bold text-primary">
+                  Cookies & Datenschutz
+                </h2>
+                <button
+                  onClick={() => save({ necessary: true, analytics: false, marketing: false })}
+                  aria-label="Schließen"
+                  className="text-muted-foreground hover:text-primary"
+                >
                   <X className="h-5 w-5" />
                 </button>
               </div>
               <p className="mt-1 text-sm text-muted-foreground">
-                Wir nutzen Cookies, um unsere Seite zu verbessern und passende Inhalte auszuspielen. Notwendige Cookies sind immer aktiv.
-                Mehr in unserer <Link to="/datenschutz" className="underline hover:text-primary">Datenschutzerklärung</Link>.
+                Wir nutzen Cookies, um unsere Seite zu verbessern und passende Inhalte auszuspielen.
+                Notwendige Cookies sind immer aktiv. Mehr in unserer{" "}
+                <Link to="/datenschutz" className="underline hover:text-primary">
+                  Datenschutzerklärung
+                </Link>
+                .
               </p>
 
               {settings && (
                 <div className="mt-4 space-y-3 rounded-lg border bg-muted/30 p-4">
-                  <Row title="Notwendig" desc="Für Grundfunktionen erforderlich. Nicht abwählbar." checked disabled />
-                  <Row title="Statistik" desc="Anonyme Nutzungsanalyse (z. B. GA4) zur Verbesserung der Seite." checked={analytics} onCheck={setAnalytics} />
-                  <Row title="Marketing" desc="Personalisierte Werbung (z. B. Meta Pixel, Google Ads)." checked={marketing} onCheck={setMarketing} />
+                  <Row
+                    title="Notwendig"
+                    desc="Für Grundfunktionen erforderlich. Nicht abwählbar."
+                    checked
+                    disabled
+                  />
+                  <Row
+                    title="Statistik"
+                    desc="Anonyme Nutzungsanalyse (z. B. GA4) zur Verbesserung der Seite."
+                    checked={analytics}
+                    onCheck={setAnalytics}
+                  />
+                  <Row
+                    title="Marketing"
+                    desc="Personalisierte Werbung (z. B. Meta Pixel, Google Ads)."
+                    checked={marketing}
+                    onCheck={setMarketing}
+                  />
                 </div>
               )}
 
               <div className="mt-4 flex flex-wrap items-center justify-end gap-2">
-                <Button variant="ghost" size="sm" onClick={() => save({ necessary: true, analytics: false, marketing: false })}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => save({ necessary: true, analytics: false, marketing: false })}
+                >
                   Nur notwendige
                 </Button>
                 <Button variant="outline" size="sm" onClick={() => setSettings((s) => !s)}>
                   {settings ? "Schließen" : "Einstellungen"}
                 </Button>
                 {settings ? (
-                  <Button size="sm" className="bg-success text-success-foreground hover:bg-success/90" onClick={() => save({ necessary: true, analytics, marketing })}>
+                  <Button
+                    size="sm"
+                    className="bg-success text-success-foreground hover:bg-success/90"
+                    onClick={() => save({ necessary: true, analytics, marketing })}
+                  >
                     Auswahl speichern
                   </Button>
                 ) : (
-                  <Button size="sm" className="bg-success text-success-foreground hover:bg-success/90" onClick={() => save({ necessary: true, analytics: true, marketing: true })}>
+                  <Button
+                    size="sm"
+                    className="bg-success text-success-foreground hover:bg-success/90"
+                    onClick={() => save({ necessary: true, analytics: true, marketing: true })}
+                  >
                     Alle akzeptieren
                   </Button>
                 )}
@@ -92,7 +131,19 @@ export function CookieConsent() {
   );
 }
 
-function Row({ title, desc, checked, disabled, onCheck }: { title: string; desc: string; checked: boolean; disabled?: boolean; onCheck?: (v: boolean) => void }) {
+function Row({
+  title,
+  desc,
+  checked,
+  disabled,
+  onCheck,
+}: {
+  title: string;
+  desc: string;
+  checked: boolean;
+  disabled?: boolean;
+  onCheck?: (v: boolean) => void;
+}) {
   return (
     <div className="flex items-start justify-between gap-3">
       <div>

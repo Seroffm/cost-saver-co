@@ -11,7 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { MockAuthProvider } from "../lib/mock-auth";
+import { AuthProvider } from "../lib/auth-context";
 import { AiChatWidget } from "../components/site/AiChatWidget";
 import { CookieConsent } from "../components/site/CookieConsent";
 import { useRouterState } from "@tanstack/react-router";
@@ -82,21 +82,44 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "EnergieClever – Strom & Gas günstiger machen" },
-      { name: "description", content: "Kostenlose, unverbindliche Strom- und Gasberatung. Persönlich, transparent, DSGVO-konform." },
+      {
+        name: "description",
+        content:
+          "Kostenlose, unverbindliche Strom- und Gasberatung. Persönlich, transparent, DSGVO-konform.",
+      },
       { property: "og:title", content: "EnergieClever – Strom & Gas günstiger machen" },
-      { property: "og:description", content: "Kostenlose, unverbindliche Strom- und Gasberatung. Persönlich, transparent, DSGVO-konform." },
+      {
+        property: "og:description",
+        content:
+          "Kostenlose, unverbindliche Strom- und Gasberatung. Persönlich, transparent, DSGVO-konform.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "EnergieClever – Strom & Gas günstiger machen" },
-      { name: "twitter:description", content: "Kostenlose, unverbindliche Strom- und Gasberatung. Persönlich, transparent, DSGVO-konform." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2e72fdec-f7f5-4add-9559-45eec1933508/id-preview-824a31ca--1e3d9cad-ee9e-405f-b7f2-4bc862fb8930.lovable.app-1781369723832.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2e72fdec-f7f5-4add-9559-45eec1933508/id-preview-824a31ca--1e3d9cad-ee9e-405f-b7f2-4bc862fb8930.lovable.app-1781369723832.png" },
+      {
+        name: "twitter:description",
+        content:
+          "Kostenlose, unverbindliche Strom- und Gasberatung. Persönlich, transparent, DSGVO-konform.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2e72fdec-f7f5-4add-9559-45eec1933508/id-preview-824a31ca--1e3d9cad-ee9e-405f-b7f2-4bc862fb8930.lovable.app-1781369723832.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2e72fdec-f7f5-4add-9559-45eec1933508/id-preview-824a31ca--1e3d9cad-ee9e-405f-b7f2-4bc862fb8930.lovable.app-1781369723832.png",
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -127,12 +150,12 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <MockAuthProvider>
+      <AuthProvider>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
         {!hideChat && <AiChatWidget />}
         {!hideConsent && <CookieConsent />}
-      </MockAuthProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

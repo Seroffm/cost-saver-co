@@ -1,5 +1,27 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, Mail, Phone, MapPin, Zap, FileText, Send, Save, MessageSquare, Calendar, FileSignature, CheckCircle2, Upload, Download, Clock, RefreshCw, AlertCircle, Inbox, MoreVertical, CalendarClock } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Mail,
+  Phone,
+  MapPin,
+  Zap,
+  FileText,
+  Send,
+  Save,
+  MessageSquare,
+  Calendar,
+  FileSignature,
+  CheckCircle2,
+  Upload,
+  Download,
+  Clock,
+  RefreshCw,
+  AlertCircle,
+  Inbox,
+  MoreVertical,
+  CalendarClock,
+} from "lucide-react";
 import { useRef, useState, useMemo } from "react";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,18 +30,83 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 import { AdminShell } from "@/components/mitarbeiter/AdminShell";
 import { cn } from "@/lib/utils";
-import { useMockAuth, roleBadgeLabel } from "@/lib/mock-auth";
+import { useAuth, roleBadgeLabel } from "@/lib/auth-context";
 import {
-  getLead, statusColor, statusLabel, typeLabel,
-  type Lead, type LeadStatus, type LeadNote, type LeadHistoryEntry, type LeadWiedervorlage, type LeadDocument,
+  statusColor,
+  statusLabel,
+  typeLabel,
+  type Lead,
+  type LeadStatus,
+  type LeadNote,
+  type LeadHistoryEntry,
+  type LeadWiedervorlage,
+  type LeadDocument,
+  type LeadEmail,
+  type LeadOffer,
 } from "@/lib/mock-leads";
-import { getNextTask, completeTasksForLead, leadHasOpenTask, DEFAULT_WIEDERVORLAGE_TIME } from "@/lib/mock-tasks";
+import {
+  getNextTask,
+  completeTasksForLead,
+  leadHasOpenTask,
+  DEFAULT_WIEDERVORLAGE_TIME,
+} from "@/lib/mock-tasks";
+import { getLead as getBackendLead } from "@/lib/api-client";
+import { mapLeadStatus, mapLeadType, type BackendLeadDetail } from "@/lib/api-types";
+
+function mapBackendToLead(raw: BackendLeadDetail): Lead {
+  const delivery = raw.addresses?.find((a) => a.address_type === "delivery");
+  const electricity = raw.energy_demands?.find((e) => e.energy_type === "electricity");
+  const gas = raw.energy_demands?.find((e) => e.energy_type === "gas");
+  const demand = electricity ?? gas;
+  return {
+    id: raw.id,
+    name: `${raw.first_name} ${raw.last_name}`,
+    email: raw.email,
+    phone: raw.phone ?? "",
+    city: delivery?.city ?? "",
+    plz: delivery?.postal_code ?? "",
+    type: mapLeadType(raw.product_type, raw.customer_type),
+    consumption: demand?.annual_consumption_kwh ?? 0,
+    currentProvider: demand?.current_provider ?? "—",
+    monthlyPayment: demand?.monthly_payment ?? 0,
+    status: mapLeadStatus(raw.status),
+    score: raw.score,
+    assignee: raw.assigned_to ? raw.assigned_to.slice(0, 8) + "…" : "—",
+    createdAt: raw.created_at,
+    expectedSavings: 0,
+    source: "Backend",
+    hasInvoice: false,
+    notes: [],
+    documents: [],
+    emails: [],
+    offers: [],
+    history: [],
+    wiedervorlage: undefined,
+  };
+}
 
 /** Kleine Formatierungshelfer für die Anzeige "am DD.MM.YYYY um HH:MM Uhr". */
 function formatDateDe(iso: string) {
@@ -38,18 +125,32 @@ function formatFileSize(bytes: number): string {
 }
 
 export const Route = createFileRoute("/mitarbeiter/leads/$id")({
-  head: () => ({ meta: [{ title: "Lead Detail – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }] }),
-  loader: ({ params }): { lead: Lead } => {
-    const lead = getLead(params.id);
-    if (!lead) throw notFound();
-    return { lead };
+  head: () => ({
+    meta: [{ title: "Lead Detail – Mitarbeiter" }, { name: "robots", content: "noindex,nofollow" }],
+  }),
+  loader: async ({ params }): Promise<{ lead: Lead }> => {
+    try {
+      const raw = await getBackendLead(params.id);
+      return { lead: mapBackendToLead(raw) };
+    } catch {
+      throw notFound();
+    }
   },
   notFoundComponent: () => (
     <AdminShell title="Lead nicht gefunden">
-      <Button asChild variant="outline"><Link to="/mitarbeiter/leads"><ArrowLeft className="mr-2 h-4 w-4" />Zurück</Link></Button>
+      <Button asChild variant="outline">
+        <Link to="/mitarbeiter/leads">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Zurück
+        </Link>
+      </Button>
     </AdminShell>
   ),
-  errorComponent: () => <AdminShell title="Fehler"><p>Lead konnte nicht geladen werden.</p></AdminShell>,
+  errorComponent: () => (
+    <AdminShell title="Fehler">
+      <p>Lead konnte nicht geladen werden.</p>
+    </AdminShell>
+  ),
   component: LeadDetail,
 });
 
@@ -69,14 +170,16 @@ const offerStatusColor = {
 
 function LeadDetail() {
   const { lead: loaderLead } = Route.useLoaderData() as { lead: Lead };
-  // Loader-Daten können (z. B. durch Router-Caching/SSR-Hydration) ein Snapshot sein, der nicht
-  // mehr ===-gleich zum Element im live `leads`-Array ist. Wir lösen daher hier nochmal über
-  // getLead() auf, damit Mutationen (lead.status, lead.wiedervorlage, ...) aus anderen
-  // Seitenaufrufen garantiert berücksichtigt werden – konsistent mit mock-tasks.ts, das
-  // ebenfalls direkt auf `leads` arbeitet. TODO Supabase: entfällt, sobald per Server-Function
-  // frisch geladen wird.
-  const lead = getLead(loaderLead.id) ?? loaderLead;
-  const { user } = useMockAuth();
+  const lead = loaderLead;
+  const { user: authUser } = useAuth();
+  const user = authUser ?? {
+    name: "Mitarbeiter",
+    role: "mitarbeiter" as const,
+    id: "",
+    profileId: "",
+    initials: "M",
+    email: "",
+  };
   const navigate = useNavigate();
 
   // "status" = aktuelle Auswahl im Dropdown, "currentStatus" = tatsächlich gespeicherter Status des Leads.
@@ -85,7 +188,9 @@ function LeadDetail() {
   const [note, setNote] = useState("");
   const [notes, setNotes] = useState<LeadNote[]>(lead.notes);
   const [history, setHistory] = useState<LeadHistoryEntry[]>(lead.history);
-  const [wiedervorlage, setWiedervorlage] = useState<LeadWiedervorlage | undefined>(lead.wiedervorlage);
+  const [wiedervorlage, setWiedervorlage] = useState<LeadWiedervorlage | undefined>(
+    lead.wiedervorlage,
+  );
   const [documents, setDocuments] = useState<LeadDocument[]>(lead.documents);
   // Versionszähler: wird nach completeTasksForLead() erhöht, damit useMemo unten
   // einen Re-Run triggert (completedTaskIds ist kein React-State).
@@ -187,7 +292,9 @@ function LeadDetail() {
     lead.history = updatedHistory;
 
     setWvOpen(false);
-    toast.success(isUpdate ? "Wiedervorlage erfolgreich aktualisiert" : "Wiedervorlage erfolgreich gespeichert");
+    toast.success(
+      isUpdate ? "Wiedervorlage erfolgreich aktualisiert" : "Wiedervorlage erfolgreich gespeichert",
+    );
   }
 
   // Anforderung 6: aktuelle Aufgabe(n) dieses Leads erledigen.
@@ -245,7 +352,9 @@ function LeadDetail() {
     setDocuments(updated);
     lead.documents = updated;
     e.target.value = "";
-    toast.success(newDocs.length === 1 ? "Dokument hochgeladen" : `${newDocs.length} Dokumente hochgeladen`);
+    toast.success(
+      newDocs.length === 1 ? "Dokument hochgeladen" : `${newDocs.length} Dokumente hochgeladen`,
+    );
   }
 
   function openCallDialog() {
@@ -293,24 +402,42 @@ function LeadDetail() {
     <AdminShell
       title={lead.name}
       subtitle={`${lead.id} · ${typeLabel[lead.type]} · ${lead.plz} ${lead.city}`}
-      actions={<>
-        <Button asChild variant="outline" size="sm"><Link to="/mitarbeiter/leads"><ArrowLeft className="mr-2 h-4 w-4" />Zurück</Link></Button>
-        <Button size="sm"><Send className="mr-2 h-4 w-4" />Angebot senden</Button>
-      </>}
+      actions={
+        <>
+          <Button asChild variant="outline" size="sm">
+            <Link to="/mitarbeiter/leads">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Zurück
+            </Link>
+          </Button>
+          <Button size="sm">
+            <Send className="mr-2 h-4 w-4" />
+            Angebot senden
+          </Button>
+        </>
+      }
     >
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="text-base">Kontakt & Verbrauch</CardTitle>
-              <Badge className={`${statusColor[currentStatus]} border-0 px-4 py-1.5 text-sm font-bold`}>{statusLabel[currentStatus]}</Badge>
+              <Badge
+                className={`${statusColor[currentStatus]} border-0 px-4 py-1.5 text-sm font-bold`}
+              >
+                {statusLabel[currentStatus]}
+              </Badge>
             </CardHeader>
             <CardContent className="grid gap-4 sm:grid-cols-2">
               <Info icon={Mail} label="E-Mail" value={lead.email} />
               <Info icon={Phone} label="Telefon" value={lead.phone || "—"} />
               <Info icon={MapPin} label="Adresse" value={`${lead.plz} ${lead.city}`} />
               <Info icon={Zap} label="Aktueller Anbieter" value={lead.currentProvider} />
-              <Info icon={Zap} label="Jahresverbrauch" value={`${lead.consumption.toLocaleString("de-DE")} kWh`} />
+              <Info
+                icon={Zap}
+                label="Jahresverbrauch"
+                value={`${lead.consumption.toLocaleString("de-DE")} kWh`}
+              />
               <Info icon={FileText} label="Monatl. Abschlag" value={`${lead.monthlyPayment} €`} />
             </CardContent>
           </Card>
@@ -332,7 +459,9 @@ function LeadDetail() {
                   <Timeline lead={lead} status={currentStatus} notes={notes} />
                   {history.length > 0 && (
                     <div className="mt-8">
-                      <h3 className="mb-3 text-sm font-semibold text-muted-foreground">Aktivität</h3>
+                      <h3 className="mb-3 text-sm font-semibold text-muted-foreground">
+                        Aktivität
+                      </h3>
                       <ul className="space-y-3">
                         {history.map((h) => (
                           <li key={h.id} className="rounded-lg border bg-muted/30 p-3 text-sm">
@@ -349,26 +478,44 @@ function LeadDetail() {
                 </TabsContent>
 
                 <TabsContent value="notes" className="space-y-4 p-6">
-                  {notes.length === 0 && <p className="text-sm text-muted-foreground">Noch keine Notizen.</p>}
+                  {notes.length === 0 && (
+                    <p className="text-sm text-muted-foreground">Noch keine Notizen.</p>
+                  )}
                   {notes.map((n) => (
                     <div
                       key={n.id}
                       className={cn(
                         "rounded-lg border bg-muted/30 p-4",
-                        n.isImportant && "border-rose-400 bg-rose-50/60 dark:border-rose-500/60 dark:bg-rose-950/20",
+                        n.isImportant &&
+                          "border-rose-400 bg-rose-50/60 dark:border-rose-500/60 dark:bg-rose-950/20",
                       )}
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                           <span className="font-medium text-foreground">{n.author}</span>
-                          {n.authorRole && <Badge variant="outline" className="text-[10px]">{roleBadgeLabel[n.authorRole]}</Badge>}
-                          {n.isImportant && <Badge className="border-0 bg-rose-500/15 text-[10px] text-rose-700 dark:text-rose-300">Wichtig</Badge>}
+                          {n.authorRole && (
+                            <Badge variant="outline" className="text-[10px]">
+                              {roleBadgeLabel[n.authorRole]}
+                            </Badge>
+                          )}
+                          {n.isImportant && (
+                            <Badge className="border-0 bg-rose-500/15 text-[10px] text-rose-700 dark:text-rose-300">
+                              Wichtig
+                            </Badge>
+                          )}
                         </div>
                         <div className="flex flex-none items-center gap-1">
-                          <span className="text-xs text-muted-foreground">{formatDateTimeDe(n.date)}</span>
+                          <span className="text-xs text-muted-foreground">
+                            {formatDateTimeDe(n.date)}
+                          </span>
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="icon" className="h-6 w-6" aria-label="Notiz-Aktionen">
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-6 w-6"
+                                aria-label="Notiz-Aktionen"
+                              >
                                 <MoreVertical className="h-3.5 w-3.5" />
                               </Button>
                             </DropdownMenuTrigger>
@@ -384,19 +531,29 @@ function LeadDetail() {
                     </div>
                   ))}
                   <div className="space-y-2 pt-2">
-                    <Textarea placeholder="Neue Notiz hinzufügen…" value={note} onChange={(e) => setNote(e.target.value)} />
+                    <Textarea
+                      placeholder="Neue Notiz hinzufügen…"
+                      value={note}
+                      onChange={(e) => setNote(e.target.value)}
+                    />
                     <div className="flex justify-end">
                       <Button size="sm" onClick={handleSaveNote} disabled={!note.trim()}>
-                        <Save className="mr-2 h-4 w-4" />Speichern
+                        <Save className="mr-2 h-4 w-4" />
+                        Speichern
                       </Button>
                     </div>
                   </div>
                 </TabsContent>
 
                 <TabsContent value="documents" className="space-y-3 p-6">
-                  {documents.length === 0 && <p className="text-sm text-muted-foreground">Noch keine Dokumente.</p>}
+                  {documents.length === 0 && (
+                    <p className="text-sm text-muted-foreground">Noch keine Dokumente.</p>
+                  )}
                   {documents.map((d) => (
-                    <div key={d.id} className="flex items-center justify-between rounded-lg border p-3">
+                    <div
+                      key={d.id}
+                      className="flex items-center justify-between rounded-lg border p-3"
+                    >
                       <div className="flex items-center gap-3">
                         <div className="grid h-10 w-10 place-items-center rounded-md bg-muted">
                           <FileText className="h-5 w-5 text-muted-foreground" />
@@ -410,7 +567,9 @@ function LeadDetail() {
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Badge className={`${docColor[d.kind]} border-0 capitalize`}>{d.kind}</Badge>
+                        <Badge className={`${docColor[d.kind]} border-0 capitalize`}>
+                          {d.kind}
+                        </Badge>
                         <Button
                           variant="ghost"
                           size="icon"
@@ -430,52 +589,87 @@ function LeadDetail() {
                     className="hidden"
                     onChange={handleFilesSelected}
                   />
-                  <Button variant="outline" size="sm" className="w-full" onClick={() => fileInputRef.current?.click()}>
-                    <Upload className="mr-2 h-4 w-4" />Dokument hochladen
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    <Upload className="mr-2 h-4 w-4" />
+                    Dokument hochladen
                   </Button>
                 </TabsContent>
 
                 <TabsContent value="emails" className="space-y-3 p-6">
-                  {lead.emails.length === 0 && <p className="text-sm text-muted-foreground">Noch keine E-Mails.</p>}
+                  {lead.emails.length === 0 && (
+                    <p className="text-sm text-muted-foreground">Noch keine E-Mails.</p>
+                  )}
                   {lead.emails.map((e) => (
                     <div key={e.id} className="flex gap-3 rounded-lg border p-3">
-                      <div className={`mt-0.5 grid h-8 w-8 flex-none place-items-center rounded-full ${e.direction === "in" ? "bg-blue-500/15 text-blue-600" : "bg-emerald-500/15 text-emerald-600"}`}>
-                        {e.direction === "in" ? <Inbox className="h-4 w-4" /> : <Send className="h-3.5 w-3.5" />}
+                      <div
+                        className={`mt-0.5 grid h-8 w-8 flex-none place-items-center rounded-full ${e.direction === "in" ? "bg-blue-500/15 text-blue-600" : "bg-emerald-500/15 text-emerald-600"}`}
+                      >
+                        {e.direction === "in" ? (
+                          <Inbox className="h-4 w-4" />
+                        ) : (
+                          <Send className="h-3.5 w-3.5" />
+                        )}
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex justify-between gap-2">
                           <span className="truncate text-sm font-medium">{e.subject}</span>
-                          <span className="flex-none text-xs text-muted-foreground">{new Date(e.date).toLocaleString("de-DE")}</span>
+                          <span className="flex-none text-xs text-muted-foreground">
+                            {new Date(e.date).toLocaleString("de-DE")}
+                          </span>
                         </div>
                         <div className="mt-0.5 text-xs text-muted-foreground">
-                          {e.direction === "in" ? "Von" : "An"}: {e.direction === "in" ? e.from : e.to}
+                          {e.direction === "in" ? "Von" : "An"}:{" "}
+                          {e.direction === "in" ? e.from : e.to}
                         </div>
-                        <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{e.preview}</p>
+                        <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
+                          {e.preview}
+                        </p>
                       </div>
                     </div>
                   ))}
                 </TabsContent>
 
                 <TabsContent value="offers" className="space-y-3 p-6">
-                  {lead.offers.length === 0 && <p className="text-sm text-muted-foreground">Noch keine Angebote erstellt.</p>}
+                  {lead.offers.length === 0 && (
+                    <p className="text-sm text-muted-foreground">Noch keine Angebote erstellt.</p>
+                  )}
                   {lead.offers.map((o) => (
                     <div key={o.id} className="rounded-lg border p-4">
                       <div className="flex flex-wrap items-start justify-between gap-2">
                         <div>
-                          <div className="font-semibold">{o.providerName} · {o.tariffName}</div>
+                          <div className="font-semibold">
+                            {o.providerName} · {o.tariffName}
+                          </div>
                           <div className="mt-1 text-xs text-muted-foreground">
-                            {o.monthlyPrice} €/Monat · {o.yearlyPrice.toLocaleString("de-DE")} €/Jahr
+                            {o.monthlyPrice} €/Monat · {o.yearlyPrice.toLocaleString("de-DE")}{" "}
+                            €/Jahr
                           </div>
                         </div>
-                        <Badge className={`${offerStatusColor[o.status]} border-0 capitalize`}>{o.status}</Badge>
+                        <Badge className={`${offerStatusColor[o.status]} border-0 capitalize`}>
+                          {o.status}
+                        </Badge>
                       </div>
                       <div className="mt-3 flex items-center justify-between border-t pt-3">
-                        <div className="text-sm font-medium text-emerald-600">Ersparnis: +{o.savings} €/Jahr</div>
-                        {o.sentAt && <div className="text-xs text-muted-foreground">Versendet: {new Date(o.sentAt).toLocaleDateString("de-DE")}</div>}
+                        <div className="text-sm font-medium text-emerald-600">
+                          Ersparnis: +{o.savings} €/Jahr
+                        </div>
+                        {o.sentAt && (
+                          <div className="text-xs text-muted-foreground">
+                            Versendet: {new Date(o.sentAt).toLocaleDateString("de-DE")}
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}
-                  <Button variant="outline" size="sm" className="w-full"><FileText className="mr-2 h-4 w-4" />Neues Angebot erstellen</Button>
+                  <Button variant="outline" size="sm" className="w-full">
+                    <FileText className="mr-2 h-4 w-4" />
+                    Neues Angebot erstellen
+                  </Button>
                 </TabsContent>
               </Tabs>
             </CardContent>
@@ -484,95 +678,194 @@ function LeadDetail() {
 
         <div className="space-y-6">
           <Card className="border-primary/30">
-            <CardHeader><CardTitle className="text-base">Aufgabe</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle className="text-base">Aufgabe</CardTitle>
+            </CardHeader>
             <CardContent className="space-y-2">
               {hasOpenTask ? (
                 <>
-                  <p className="text-sm text-muted-foreground">Für diesen Lead liegt eine offene Aufgabe vor.</p>
-                  <Button variant="outline" className="w-full" size="sm" onClick={handleCompleteTask}>
-                    <CheckCircle2 className="mr-2 h-4 w-4" />Aufgabe abschließen
+                  <p className="text-sm text-muted-foreground">
+                    Für diesen Lead liegt eine offene Aufgabe vor.
+                  </p>
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    size="sm"
+                    onClick={handleCompleteTask}
+                  >
+                    <CheckCircle2 className="mr-2 h-4 w-4" />
+                    Aufgabe abschließen
                   </Button>
                 </>
               ) : (
-                <p className="text-sm text-muted-foreground">Keine offene Aufgabe für diesen Lead.</p>
+                <p className="text-sm text-muted-foreground">
+                  Keine offene Aufgabe für diesen Lead.
+                </p>
               )}
               <Button className="w-full" size="sm" onClick={handleOpenNextTask}>
-                <ArrowRight className="mr-2 h-4 w-4" />Nächste Aufgabe öffnen
+                <ArrowRight className="mr-2 h-4 w-4" />
+                Nächste Aufgabe öffnen
               </Button>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader><CardTitle className="text-base">Lead-Score</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle className="text-base">Lead-Score</CardTitle>
+            </CardHeader>
             <CardContent className="text-center">
-              <div className={`mx-auto flex h-28 w-28 items-center justify-center rounded-full text-4xl font-bold ${lead.score > 80 ? "bg-emerald-500/10 text-emerald-600" : lead.score > 50 ? "bg-amber-500/10 text-amber-600" : "bg-rose-500/10 text-rose-600"}`}>
+              <div
+                className={`mx-auto flex h-28 w-28 items-center justify-center rounded-full text-4xl font-bold ${lead.score > 80 ? "bg-emerald-500/10 text-emerald-600" : lead.score > 50 ? "bg-amber-500/10 text-amber-600" : "bg-rose-500/10 text-rose-600"}`}
+              >
                 {lead.score}
               </div>
               <p className="mt-3 text-xs text-muted-foreground">
-                {lead.score > 80 ? "Heißer Lead – sofort kontaktieren" : lead.score > 50 ? "Solider Lead" : "Niedrige Priorität"}
+                {lead.score > 80
+                  ? "Heißer Lead – sofort kontaktieren"
+                  : lead.score > 50
+                    ? "Solider Lead"
+                    : "Niedrige Priorität"}
               </p>
               <div className="mt-4 space-y-1 text-left text-xs text-muted-foreground">
-                <div className="flex justify-between"><span>Rechnung hochgeladen</span><span>{lead.hasInvoice ? "+15" : "0"}</span></div>
-                <div className="flex justify-between"><span>Telefon vorhanden</span><span>{lead.phone ? "+10" : "0"}</span></div>
-                <div className="flex justify-between"><span>Verbrauch</span><span>+{Math.min(40, Math.round(lead.consumption / 200))}</span></div>
-                <div className="flex justify-between"><span>Quelle: {lead.source}</span><span>+5</span></div>
+                <div className="flex justify-between">
+                  <span>Rechnung hochgeladen</span>
+                  <span>{lead.hasInvoice ? "+15" : "0"}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Telefon vorhanden</span>
+                  <span>{lead.phone ? "+10" : "0"}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Verbrauch</span>
+                  <span>+{Math.min(40, Math.round(lead.consumption / 200))}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Quelle: {lead.source}</span>
+                  <span>+5</span>
+                </div>
               </div>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader><CardTitle className="text-base">Status ändern</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle className="text-base">Status ändern</CardTitle>
+            </CardHeader>
             <CardContent className="space-y-3">
               <Select value={status} onValueChange={(v) => setStatus(v as LeadStatus)}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(statusLabel).map(([k, v]) => <SelectItem key={k} value={k}>{v}</SelectItem>)}
+                  {Object.entries(statusLabel).map(([k, v]) => (
+                    <SelectItem key={k} value={k}>
+                      {v}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
-              <Button className="w-full" size="sm" onClick={handleStatusUpdate} disabled={status === currentStatus}>
+              <Button
+                className="w-full"
+                size="sm"
+                onClick={handleStatusUpdate}
+                disabled={status === currentStatus}
+              >
                 Aktualisieren
               </Button>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader><CardTitle className="text-base">Erwartete Ersparnis</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle className="text-base">Erwartete Ersparnis</CardTitle>
+            </CardHeader>
             <CardContent>
-              <div className="text-3xl font-semibold text-emerald-600">+{lead.expectedSavings} €</div>
-              <p className="mt-1 text-xs text-muted-foreground">pro Jahr · {typeLabel[lead.type]}</p>
+              <div className="text-3xl font-semibold text-emerald-600">
+                +{lead.expectedSavings} €
+              </div>
+              <p className="mt-1 text-xs text-muted-foreground">
+                pro Jahr · {typeLabel[lead.type]}
+              </p>
             </CardContent>
           </Card>
 
           {wiedervorlage && (
             <Card>
-              <CardHeader><CardTitle className="text-base">Wiedervorlage</CardTitle></CardHeader>
+              <CardHeader>
+                <CardTitle className="text-base">Wiedervorlage</CardTitle>
+              </CardHeader>
               <CardContent className="space-y-1">
                 <div className="flex items-center gap-2 text-sm font-medium">
                   <CalendarClock className="h-4 w-4 text-muted-foreground" />
                   {formatDateDe(wiedervorlage.date)}, {formatTimeDe(wiedervorlage.date)} Uhr
                 </div>
-                {wiedervorlage.comment && <p className="text-xs text-muted-foreground">{wiedervorlage.comment}</p>}
+                {wiedervorlage.comment && (
+                  <p className="text-xs text-muted-foreground">{wiedervorlage.comment}</p>
+                )}
               </CardContent>
             </Card>
           )}
 
           <Card>
-            <CardHeader><CardTitle className="text-base">Schnellaktionen</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle className="text-base">Schnellaktionen</CardTitle>
+            </CardHeader>
             <CardContent className="space-y-2">
-              <Button variant="outline" className="w-full justify-start" size="sm" onClick={openCallDialog} disabled={!lead.phone}>
-                <Phone className="mr-2 h-4 w-4" />Anrufen
+              <Button
+                variant="outline"
+                className="w-full justify-start"
+                size="sm"
+                onClick={openCallDialog}
+                disabled={!lead.phone}
+              >
+                <Phone className="mr-2 h-4 w-4" />
+                Anrufen
               </Button>
-              <Button variant="outline" className="w-full justify-start" size="sm"><Mail className="mr-2 h-4 w-4" />E-Mail senden</Button>
-              <Button variant="outline" className="w-full justify-start" size="sm"><MessageSquare className="mr-2 h-4 w-4" />Rückfrage senden</Button>
-              <Button variant="outline" className="w-full justify-start" size="sm"><FileText className="mr-2 h-4 w-4" />Angebot anfordern</Button>
-              <Button variant="outline" className="w-full justify-start" size="sm"><Send className="mr-2 h-4 w-4" />Angebot senden</Button>
-              <Button variant="outline" className="w-full justify-start" size="sm"><FileSignature className="mr-2 h-4 w-4" />Vertrag vorbereiten</Button>
-              <Button variant="outline" className="w-full justify-start" size="sm"><FileSignature className="mr-2 h-4 w-4" />Vertrag senden</Button>
-              <Button variant="outline" className="w-full justify-start" size="sm" onClick={openWiedervorlage}>
-                <Clock className="mr-2 h-4 w-4" />{wiedervorlage ? "Wiedervorlage bearbeiten" : "Wiedervorlage setzen"}
+              <Button variant="outline" className="w-full justify-start" size="sm">
+                <Mail className="mr-2 h-4 w-4" />
+                E-Mail senden
               </Button>
-              <Button variant="outline" className="w-full justify-start" size="sm"><RefreshCw className="mr-2 h-4 w-4" />Lead neu zuweisen</Button>
-              <Button variant="outline" className="w-full justify-start text-rose-600 hover:text-rose-700" size="sm"><AlertCircle className="mr-2 h-4 w-4" />Lead ablehnen</Button>
+              <Button variant="outline" className="w-full justify-start" size="sm">
+                <MessageSquare className="mr-2 h-4 w-4" />
+                Rückfrage senden
+              </Button>
+              <Button variant="outline" className="w-full justify-start" size="sm">
+                <FileText className="mr-2 h-4 w-4" />
+                Angebot anfordern
+              </Button>
+              <Button variant="outline" className="w-full justify-start" size="sm">
+                <Send className="mr-2 h-4 w-4" />
+                Angebot senden
+              </Button>
+              <Button variant="outline" className="w-full justify-start" size="sm">
+                <FileSignature className="mr-2 h-4 w-4" />
+                Vertrag vorbereiten
+              </Button>
+              <Button variant="outline" className="w-full justify-start" size="sm">
+                <FileSignature className="mr-2 h-4 w-4" />
+                Vertrag senden
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full justify-start"
+                size="sm"
+                onClick={openWiedervorlage}
+              >
+                <Clock className="mr-2 h-4 w-4" />
+                {wiedervorlage ? "Wiedervorlage bearbeiten" : "Wiedervorlage setzen"}
+              </Button>
+              <Button variant="outline" className="w-full justify-start" size="sm">
+                <RefreshCw className="mr-2 h-4 w-4" />
+                Lead neu zuweisen
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full justify-start text-rose-600 hover:text-rose-700"
+                size="sm"
+              >
+                <AlertCircle className="mr-2 h-4 w-4" />
+                Lead ablehnen
+              </Button>
             </CardContent>
           </Card>
         </div>
@@ -587,12 +880,24 @@ function LeadDetail() {
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label htmlFor="wv-date">Datum</Label>
-                <Input id="wv-date" type="date" value={wvDate} onChange={(e) => setWvDate(e.target.value)} />
+                <Input
+                  id="wv-date"
+                  type="date"
+                  value={wvDate}
+                  onChange={(e) => setWvDate(e.target.value)}
+                />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="wv-time">Uhrzeit (optional)</Label>
-                <Input id="wv-time" type="time" value={wvTime} onChange={(e) => setWvTime(e.target.value)} />
-                <p className="text-xs text-muted-foreground">Ohne Angabe: {DEFAULT_WIEDERVORLAGE_TIME} Uhr</p>
+                <Input
+                  id="wv-time"
+                  type="time"
+                  value={wvTime}
+                  onChange={(e) => setWvTime(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Ohne Angabe: {DEFAULT_WIEDERVORLAGE_TIME} Uhr
+                </p>
               </div>
             </div>
             <div className="space-y-1.5">
@@ -606,8 +911,12 @@ function LeadDetail() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setWvOpen(false)}>Abbrechen</Button>
-            <Button onClick={handleSaveWiedervorlage} disabled={!wvDate}>Speichern</Button>
+            <Button variant="outline" onClick={() => setWvOpen(false)}>
+              Abbrechen
+            </Button>
+            <Button onClick={handleSaveWiedervorlage} disabled={!wvDate}>
+              Speichern
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -615,7 +924,10 @@ function LeadDetail() {
       <Dialog open={callOpen} onOpenChange={setCallOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2"><Phone className="h-5 w-5" />Anruf</DialogTitle>
+            <DialogTitle className="flex items-center gap-2">
+              <Phone className="h-5 w-5" />
+              Anruf
+            </DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div className="rounded-lg border bg-muted/30 p-5 text-center">
@@ -627,7 +939,9 @@ function LeadDetail() {
               >
                 {lead.phone || "Keine Telefonnummer hinterlegt"}
               </a>
-              <Badge className={`${statusColor[currentStatus]} border-0 mt-3 px-4 py-1.5 text-sm font-bold`}>
+              <Badge
+                className={`${statusColor[currentStatus]} border-0 mt-3 px-4 py-1.5 text-sm font-bold`}
+              >
                 {statusLabel[currentStatus]}
               </Badge>
             </div>
@@ -642,8 +956,12 @@ function LeadDetail() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setCallOpen(false)}>Abbrechen</Button>
-            <Button onClick={handleSaveCallNote} disabled={!callNote.trim()}>Gesprächsnotiz speichern</Button>
+            <Button variant="outline" onClick={() => setCallOpen(false)}>
+              Abbrechen
+            </Button>
+            <Button onClick={handleSaveCallNote} disabled={!callNote.trim()}>
+              Gesprächsnotiz speichern
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -654,11 +972,16 @@ function LeadDetail() {
             <DialogTitle>🎉 Alle Aufgaben erledigt</DialogTitle>
           </DialogHeader>
           <p className="text-sm text-muted-foreground">
-            Aktuell liegen keine fälligen Wiedervorlagen, Rückfragen oder neuen Leads vor. Starke Leistung!
+            Aktuell liegen keine fälligen Wiedervorlagen, Rückfragen oder neuen Leads vor. Starke
+            Leistung!
           </p>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setAllDoneOpen(false)}>Schließen</Button>
-            <Button onClick={() => navigate({ to: "/mitarbeiter/dashboard" })}>Zurück zum Dashboard</Button>
+            <Button variant="outline" onClick={() => setAllDoneOpen(false)}>
+              Schließen
+            </Button>
+            <Button onClick={() => navigate({ to: "/mitarbeiter/dashboard" })}>
+              Zurück zum Dashboard
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -670,21 +993,63 @@ function Timeline({ lead, status, notes }: { lead: Lead; status: LeadStatus; not
   const firstContactNote = notes[notes.length - 1];
   const steps = [
     { icon: Calendar, label: "Lead eingegangen", date: lead.createdAt, done: true },
-    { icon: MessageSquare, label: "Erstkontakt", date: firstContactNote?.date, done: status !== "neu" },
-    { icon: FileText, label: "Angebot erstellt", date: lead.offers[0]?.sentAt, done: ["angebot_erstellt","angebot_gesendet","interessiert","vertrag_vorbereitet","vertrag_gesendet","abgeschlossen"].includes(status) },
-    { icon: Send, label: "Angebot gesendet", date: lead.offers[0]?.sentAt, done: ["angebot_gesendet","interessiert","vertrag_vorbereitet","vertrag_gesendet","abgeschlossen"].includes(status) },
-    { icon: FileSignature, label: "Vertrag gesendet", date: status === "vertrag_gesendet" || status === "abgeschlossen" ? "2026-06-14" : undefined, done: ["vertrag_gesendet","abgeschlossen"].includes(status) },
-    { icon: CheckCircle2, label: "Abgeschlossen", date: status === "abgeschlossen" ? "2026-06-15" : undefined, done: status === "abgeschlossen" },
+    {
+      icon: MessageSquare,
+      label: "Erstkontakt",
+      date: firstContactNote?.date,
+      done: status !== "neu",
+    },
+    {
+      icon: FileText,
+      label: "Angebot erstellt",
+      date: lead.offers[0]?.sentAt,
+      done: [
+        "angebot_erstellt",
+        "angebot_gesendet",
+        "interessiert",
+        "vertrag_vorbereitet",
+        "vertrag_gesendet",
+        "abgeschlossen",
+      ].includes(status),
+    },
+    {
+      icon: Send,
+      label: "Angebot gesendet",
+      date: lead.offers[0]?.sentAt,
+      done: [
+        "angebot_gesendet",
+        "interessiert",
+        "vertrag_vorbereitet",
+        "vertrag_gesendet",
+        "abgeschlossen",
+      ].includes(status),
+    },
+    {
+      icon: FileSignature,
+      label: "Vertrag gesendet",
+      date: status === "vertrag_gesendet" || status === "abgeschlossen" ? "2026-06-14" : undefined,
+      done: ["vertrag_gesendet", "abgeschlossen"].includes(status),
+    },
+    {
+      icon: CheckCircle2,
+      label: "Abgeschlossen",
+      date: status === "abgeschlossen" ? "2026-06-15" : undefined,
+      done: status === "abgeschlossen",
+    },
   ];
   return (
     <ol className="relative space-y-6 border-l-2 border-muted pl-6">
       {steps.map((t, i) => (
         <li key={i} className="relative">
-          <div className={`absolute -left-[31px] flex h-6 w-6 items-center justify-center rounded-full ${t.done ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+          <div
+            className={`absolute -left-[31px] flex h-6 w-6 items-center justify-center rounded-full ${t.done ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
+          >
             <t.icon className="h-3 w-3" />
           </div>
           <div className="font-medium">{t.label}</div>
-          <div className="text-xs text-muted-foreground">{t.date ? new Date(t.date).toLocaleString("de-DE") : "Ausstehend"}</div>
+          <div className="text-xs text-muted-foreground">
+            {t.date ? new Date(t.date).toLocaleString("de-DE") : "Ausstehend"}
+          </div>
         </li>
       ))}
     </ol>
@@ -694,7 +1059,9 @@ function Timeline({ lead, status, notes }: { lead: Lead; status: LeadStatus; not
 function Info({ icon: Icon, label, value }: { icon: typeof Mail; label: string; value: string }) {
   return (
     <div className="flex items-start gap-3">
-      <div className="rounded-lg bg-muted p-2"><Icon className="h-4 w-4 text-muted-foreground" /></div>
+      <div className="rounded-lg bg-muted p-2">
+        <Icon className="h-4 w-4 text-muted-foreground" />
+      </div>
       <div className="min-w-0">
         <div className="text-xs text-muted-foreground">{label}</div>
         <div className="truncate font-medium">{value}</div>

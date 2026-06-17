@@ -1,8 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
-  Headphones, ArrowRight, Phone, Mail, MessageCircle, FileText,
-  Gift, Wrench, HelpCircle, Clock, ShieldCheck,
+  Headphones,
+  ArrowRight,
+  Phone,
+  Mail,
+  MessageCircle,
+  FileText,
+  Gift,
+  Wrench,
+  HelpCircle,
+  Clock,
+  ShieldCheck,
 } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { TopicHero } from "@/components/site/TopicSections";
@@ -15,9 +24,16 @@ export const Route = createFileRoute("/service")({
   head: () => ({
     meta: [
       { title: "Service: Persönliche Hilfe rund um Energie | EnergieClever" },
-      { name: "description", content: "Kontakt, Wechselservice, Dokumente, FAQ und Empfehlungsprogramm. Alles, was Sie nach dem Abschluss von uns brauchen." },
+      {
+        name: "description",
+        content:
+          "Kontakt, Wechselservice, Dokumente, FAQ und Empfehlungsprogramm. Alles, was Sie nach dem Abschluss von uns brauchen.",
+      },
       { property: "og:title", content: "Service | EnergieClever" },
-      { property: "og:description", content: "Persönliche Hilfe rund um Ihren Energievertrag. Schnell, freundlich, kostenlos." },
+      {
+        property: "og:description",
+        content: "Persönliche Hilfe rund um Ihren Energievertrag. Schnell, freundlich, kostenlos.",
+      },
       { property: "og:image", content: "/__l5e/assets-v1/page-service" },
     ],
   }),
@@ -32,18 +48,66 @@ const fadeUp = {
 };
 
 const services = [
-  { icon: Phone, title: "Persönliche Beratung", desc: "Kostenlos, deutschlandweit, echte Menschen. Mo–Fr 8–20 Uhr, Sa 10–16 Uhr.", to: "/kontakt", cta: "Berater anrufen" },
-  { icon: HelpCircle, title: "Hilfe & FAQ", desc: "Antworten auf die häufigsten Fragen zu Wechsel, Tarifen, Datenschutz und mehr.", to: "/faq", cta: "Zur FAQ" },
-  { icon: Wrench, title: "Wechsel-Service", desc: "Wir übernehmen Kündigung, Anmeldung und alle Termine. Sie unterschreiben einmal.", to: "/ablauf", cta: "So läuft's ab" },
-  { icon: FileText, title: "Dokumente & Verträge", desc: "Vertragskopien, Widerrufsformulare und Datenschutzunterlagen auf einen Klick.", to: "/datenschutz", cta: "Dokumente" },
-  { icon: Gift, title: "Freunde werben", desc: "Empfehlen Sie uns weiter und sichern Sie sich bis zu 50 € Prämie pro Wechsel.", to: "/kontakt", cta: "Mehr erfahren" },
-  { icon: MessageCircle, title: "Rückruf-Service", desc: "Sagen Sie uns, wann es Ihnen am besten passt. Wir melden uns pünktlich.", to: "/kontakt", cta: "Rückruf anfragen" },
+  {
+    icon: Phone,
+    title: "Persönliche Beratung",
+    desc: "Kostenlos, deutschlandweit, echte Menschen. Mo–Fr 8–20 Uhr, Sa 10–16 Uhr.",
+    to: "/kontakt",
+    cta: "Berater anrufen",
+  },
+  {
+    icon: HelpCircle,
+    title: "Hilfe & FAQ",
+    desc: "Antworten auf die häufigsten Fragen zu Wechsel, Tarifen, Datenschutz und mehr.",
+    to: "/faq",
+    cta: "Zur FAQ",
+  },
+  {
+    icon: Wrench,
+    title: "Wechsel-Service",
+    desc: "Wir übernehmen Kündigung, Anmeldung und alle Termine. Sie unterschreiben einmal.",
+    to: "/ablauf",
+    cta: "So läuft's ab",
+  },
+  {
+    icon: FileText,
+    title: "Dokumente & Verträge",
+    desc: "Vertragskopien, Widerrufsformulare und Datenschutzunterlagen auf einen Klick.",
+    to: "/datenschutz",
+    cta: "Dokumente",
+  },
+  {
+    icon: Gift,
+    title: "Freunde werben",
+    desc: "Empfehlen Sie uns weiter und sichern Sie sich bis zu 50 € Prämie pro Wechsel.",
+    to: "/kontakt",
+    cta: "Mehr erfahren",
+  },
+  {
+    icon: MessageCircle,
+    title: "Rückruf-Service",
+    desc: "Sagen Sie uns, wann es Ihnen am besten passt. Wir melden uns pünktlich.",
+    to: "/kontakt",
+    cta: "Rückruf anfragen",
+  },
 ];
 
 const promises = [
-  { icon: Clock, title: "Antwort < 24 h", desc: "Auf jede Anfrage antworten wir spätestens am nächsten Werktag." },
-  { icon: ShieldCheck, title: "DSGVO & Made in Germany", desc: "Daten bleiben in Deutschland. Keine Weitergabe an Dritte ohne Einwilligung." },
-  { icon: Headphones, title: "Echte Menschen", desc: "Keine Warteschleifen, keine Bots. Persönliche Ansprechpartner für Sie." },
+  {
+    icon: Clock,
+    title: "Antwort < 24 h",
+    desc: "Auf jede Anfrage antworten wir spätestens am nächsten Werktag.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "DSGVO & Made in Germany",
+    desc: "Daten bleiben in Deutschland. Keine Weitergabe an Dritte ohne Einwilligung.",
+  },
+  {
+    icon: Headphones,
+    title: "Echte Menschen",
+    desc: "Keine Warteschleifen, keine Bots. Persönliche Ansprechpartner für Sie.",
+  },
 ];
 
 function ServicePage() {
@@ -63,8 +127,12 @@ function ServicePage() {
       {/* SERVICES GRID */}
       <section className="mx-auto max-w-6xl px-4 py-20 md:py-24">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold text-primary md:text-4xl">Alle Services auf einen Blick</h2>
-          <p className="mt-4 text-muted-foreground">Sechs Wege, wie wir Ihnen weiterhelfen können. Wählen Sie den passenden.</p>
+          <h2 className="text-3xl font-bold text-primary md:text-4xl">
+            Alle Services auf einen Blick
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            Sechs Wege, wie wir Ihnen weiterhelfen können. Wählen Sie den passenden.
+          </p>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
@@ -79,8 +147,12 @@ function ServicePage() {
               </div>
               <h3 className="mt-4 text-lg font-semibold text-primary">{s.title}</h3>
               <p className="mt-2 flex-1 text-sm text-muted-foreground">{s.desc}</p>
-              <Link to={s.to} className="mt-5 inline-flex items-center gap-1 text-sm font-bold text-success hover:underline">
-                {s.cta} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <Link
+                to={s.to}
+                className="mt-5 inline-flex items-center gap-1 text-sm font-bold text-success hover:underline"
+              >
+                {s.cta}{" "}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </motion.div>
           ))}
@@ -92,10 +164,16 @@ function ServicePage() {
         <div className="mx-auto max-w-6xl px-4 py-20 md:py-24">
           <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
             <motion.div {...fadeUp}>
-              <div className="text-xs font-bold uppercase tracking-wider text-success">Wechsel-Service</div>
-              <h2 className="mt-3 text-3xl font-bold text-primary md:text-4xl">Wir übernehmen die Arbeit. Sie genießen die Ersparnis.</h2>
+              <div className="text-xs font-bold uppercase tracking-wider text-success">
+                Wechsel-Service
+              </div>
+              <h2 className="mt-3 text-3xl font-bold text-primary md:text-4xl">
+                Wir übernehmen die Arbeit. Sie genießen die Ersparnis.
+              </h2>
               <p className="mt-5 text-muted-foreground">
-                Kündigung beim alten Anbieter, Anmeldung beim neuen, fristgerechte Übergabe, lückenlose Versorgung. Das alles erledigen wir für Sie. Sie unterschreiben genau ein Dokument.
+                Kündigung beim alten Anbieter, Anmeldung beim neuen, fristgerechte Übergabe,
+                lückenlose Versorgung. Das alles erledigen wir für Sie. Sie unterschreiben genau ein
+                Dokument.
               </p>
               <ul className="mt-6 space-y-3">
                 {[
@@ -110,8 +188,17 @@ function ServicePage() {
                 ))}
               </ul>
             </motion.div>
-            <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="overflow-hidden rounded-3xl border border-border shadow-card">
-              <img src={imgWechsel} alt="Vertrag wird unterzeichnet" loading="lazy" className="aspect-[4/3] w-full object-cover" />
+            <motion.div
+              {...fadeUp}
+              transition={{ ...fadeUp.transition, delay: 0.1 }}
+              className="overflow-hidden rounded-3xl border border-border shadow-card"
+            >
+              <img
+                src={imgWechsel}
+                alt="Vertrag wird unterzeichnet"
+                loading="lazy"
+                className="aspect-[4/3] w-full object-cover"
+              />
             </motion.div>
           </div>
         </div>
@@ -120,14 +207,31 @@ function ServicePage() {
       {/* DOKUMENTE */}
       <section className="mx-auto max-w-6xl px-4 py-20 md:py-24">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
-          <motion.div {...fadeUp} className="overflow-hidden rounded-3xl border border-border shadow-card md:order-2">
-            <img src={imgDocs} alt="Dokumente und Verträge" loading="lazy" className="aspect-[4/3] w-full object-cover" />
+          <motion.div
+            {...fadeUp}
+            className="overflow-hidden rounded-3xl border border-border shadow-card md:order-2"
+          >
+            <img
+              src={imgDocs}
+              alt="Dokumente und Verträge"
+              loading="lazy"
+              className="aspect-[4/3] w-full object-cover"
+            />
           </motion.div>
-          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="md:order-1">
-            <div className="text-xs font-bold uppercase tracking-wider text-success">Dokumente & Verträge</div>
-            <h2 className="mt-3 text-3xl font-bold text-primary md:text-4xl">Alles griffbereit, wenn Sie es brauchen.</h2>
+          <motion.div
+            {...fadeUp}
+            transition={{ ...fadeUp.transition, delay: 0.1 }}
+            className="md:order-1"
+          >
+            <div className="text-xs font-bold uppercase tracking-wider text-success">
+              Dokumente & Verträge
+            </div>
+            <h2 className="mt-3 text-3xl font-bold text-primary md:text-4xl">
+              Alles griffbereit, wenn Sie es brauchen.
+            </h2>
             <p className="mt-5 text-muted-foreground">
-              Wir bewahren Vertragskopien und Bestätigungen sicher für Sie auf. Eine kurze E-Mail genügt. Sie bekommen das gewünschte Dokument innerhalb eines Werktags.
+              Wir bewahren Vertragskopien und Bestätigungen sicher für Sie auf. Eine kurze E-Mail
+              genügt. Sie bekommen das gewünschte Dokument innerhalb eines Werktags.
             </p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {[
@@ -136,14 +240,20 @@ function ServicePage() {
                 { label: "Wechselbestätigung", icon: FileText },
                 { label: "Datenschutzerklärung", icon: ShieldCheck },
               ].map((d) => (
-                <div key={d.label} className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-soft">
+                <div
+                  key={d.label}
+                  className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-soft"
+                >
                   <d.icon className="h-5 w-5 text-success" />
                   <span className="text-sm font-semibold text-primary">{d.label}</span>
                 </div>
               ))}
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="mailto:service@energieclever.de" className="inline-flex items-center gap-2 text-sm font-bold text-success hover:underline">
+              <a
+                href="mailto:service@energieclever.de"
+                className="inline-flex items-center gap-2 text-sm font-bold text-success hover:underline"
+              >
                 <Mail className="h-4 w-4" /> service@energieclever.de
               </a>
             </div>
@@ -155,8 +265,12 @@ function ServicePage() {
       <section className="border-t border-border bg-muted/30">
         <div className="mx-auto max-w-6xl px-4 py-20 md:py-24">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold text-primary md:text-4xl">Unser Service-Versprechen</h2>
-            <p className="mt-4 text-muted-foreground">Drei Dinge, auf die Sie sich verlassen können.</p>
+            <h2 className="text-3xl font-bold text-primary md:text-4xl">
+              Unser Service-Versprechen
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              Drei Dinge, auf die Sie sich verlassen können.
+            </p>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {promises.map((p, i) => (
@@ -179,7 +293,13 @@ function ServicePage() {
 
       {/* FINAL CTA */}
       <section className="relative isolate overflow-hidden">
-        <img src={ctaBg} alt="" aria-hidden loading="lazy" className="absolute inset-0 -z-10 h-full w-full object-cover" />
+        <img
+          src={ctaBg}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          className="absolute inset-0 -z-10 h-full w-full object-cover"
+        />
         <div className="absolute inset-0 -z-10 bg-primary/85" />
         <div className="mx-auto max-w-5xl px-4 py-20 text-center text-primary-foreground md:py-28">
           <h2 className="text-3xl font-bold md:text-5xl">Eine Frage. Eine Antwort.</h2>
@@ -187,10 +307,16 @@ function ServicePage() {
             Rufen Sie an, schreiben Sie uns oder lassen Sie sich zurückrufen. Wir sind für Sie da.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <a href="tel:08001234567" className="inline-flex items-center gap-2 rounded-full bg-success px-6 py-3 text-sm font-bold text-success-foreground transition hover:bg-success/90">
+            <a
+              href="tel:08001234567"
+              className="inline-flex items-center gap-2 rounded-full bg-success px-6 py-3 text-sm font-bold text-success-foreground transition hover:bg-success/90"
+            >
               <Phone className="h-4 w-4" /> 0800 123 4567
             </a>
-            <Link to="/kontakt" className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-transparent px-6 py-3 text-sm font-bold text-primary-foreground transition hover:bg-white/10">
+            <Link
+              to="/kontakt"
+              className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-transparent px-6 py-3 text-sm font-bold text-primary-foreground transition hover:bg-white/10"
+            >
               Kontaktformular <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
