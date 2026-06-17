@@ -73,7 +73,7 @@ const services = [
     icon: FileText,
     title: "Dokumente & Verträge",
     desc: "Vertragskopien, Widerrufsformulare und Datenschutzunterlagen auf einen Klick.",
-    to: "/datenschutz",
+    to: "/widerruf",
     cta: "Dokumente",
   },
   {

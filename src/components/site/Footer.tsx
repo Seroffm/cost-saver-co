@@ -7,21 +7,21 @@ const columns: Col[] = [
   {
     title: "Strom",
     links: [
-      { to: "/angebot", label: "Stromtarife" },
+      { to: "/strom", label: "Stromtarife" },
       { to: "/angebot", label: "Tarifrechner" },
-      { to: "/angebot", label: "Ökostrom" },
-      { to: "/angebot", label: "Gewerbestrom" },
-      { to: "/faq", label: "Anbieterwechsel" },
+      { to: "/strom", label: "Ökostrom" },
+      { to: "/gewerbestrom", label: "Gewerbestrom" },
+      { to: "/ablauf", label: "Anbieterwechsel" },
     ],
   },
   {
     title: "Gas",
     links: [
-      { to: "/angebot", label: "Gastarife" },
+      { to: "/gas", label: "Gastarife" },
       { to: "/angebot", label: "Gasrechner" },
-      { to: "/angebot", label: "Bio-Gas" },
-      { to: "/angebot", label: "Gewerbegas" },
-      { to: "/faq", label: "Gasanbieter wechseln" },
+      { to: "/gas", label: "Bio-Gas" },
+      { to: "/gewerbegas", label: "Gewerbegas" },
+      { to: "/ablauf", label: "Gasanbieter wechseln" },
     ],
   },
   {
@@ -30,7 +30,7 @@ const columns: Col[] = [
       { to: "/ablauf", label: "So funktioniert's" },
       { to: "/kontakt", label: "Kontakt & Beratung" },
       { to: "/faq", label: "Hilfe & FAQ" },
-      { to: "/ueber-uns", label: "Magazin" },
+      { to: "/wissen", label: "Magazin" },
     ],
   },
   {
@@ -39,7 +39,7 @@ const columns: Col[] = [
       { to: "/ueber-uns", label: "Unternehmen" },
       { to: "/ueber-uns", label: "Karriere" },
       { to: "/ueber-uns", label: "Presse" },
-      { to: "/ueber-uns", label: "Partnerprogramm" },
+      { to: "/kontakt", label: "Partnerprogramm" },
     ],
   },
 ];

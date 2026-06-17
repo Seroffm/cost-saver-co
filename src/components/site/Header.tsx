@@ -8,7 +8,7 @@ import imgWaerme from "@/assets/solution-waermestrom.jpg";
 import imgSolar from "@/assets/solution-solar.jpg";
 
 type SimpleLink = { to: string; label: string };
-type Article = { to: string; title: string; image: string };
+type Article = { to: string; params?: Record<string, string>; title: string; image: string };
 type DropdownContent = {
   title: string;
   mainLinks: SimpleLink[];
@@ -37,12 +37,23 @@ const mainNav: NavItem[] = [
       ],
       articles: [
         {
-          to: "/wissen",
+          to: "/wissen/$slug",
+          params: { slug: "strompreis-2026" },
           title: "Strompreis 2026: Was Haushalte jetzt wissen müssen",
           image: imgAutostrom,
         },
-        { to: "/wissen", title: "Ökostrom erkennen: Echte Labels im Vergleich", image: imgSolar },
-        { to: "/wissen", title: "E-Auto laden zuhause: Der günstigste Weg", image: imgWaerme },
+        {
+          to: "/wissen/$slug",
+          params: { slug: "oekostrom-labels" },
+          title: "Ökostrom erkennen: Echte Labels im Vergleich",
+          image: imgSolar,
+        },
+        {
+          to: "/wissen/$slug",
+          params: { slug: "e-auto-laden" },
+          title: "E-Auto laden zuhause: Der günstigste Weg",
+          image: imgWaerme,
+        },
       ],
     },
   },
@@ -62,7 +73,12 @@ const mainNav: NavItem[] = [
         { label: "Alles über Gas. Ratgeber", to: "/wissen" },
       ],
       articles: [
-        { to: "/wissen", title: "Gaspreise 2026: Prognose & Tipps zum Sparen", image: imgWaerme },
+        {
+          to: "/wissen/$slug",
+          params: { slug: "gaspreise-2026" },
+          title: "Gaspreise 2026: Prognose & Tipps zum Sparen",
+          image: imgWaerme,
+        },
         { to: "/wissen", title: "Heizkosten senken: 7 schnelle Maßnahmen", image: imgAutostrom },
       ],
     },
@@ -82,7 +98,8 @@ const mainNav: NavItem[] = [
       secondaryLinks: [{ label: "Doppel-Bonus erklärt", to: "/wissen" }],
       articles: [
         {
-          to: "/wissen",
+          to: "/wissen/$slug",
+          params: { slug: "bundle-doppelbonus" },
           title: "Strom & Gas bündeln: Wann sich der Doppel-Bonus lohnt",
           image: imgSolar,
         },
@@ -111,7 +128,8 @@ const mainNav: NavItem[] = [
       ],
       articles: [
         {
-          to: "/wissen",
+          to: "/wissen/$slug",
+          params: { slug: "solaranlage-kosten-2026" },
           title: "Solaranlage-Kosten 2026: Alle Infos auf einen Blick",
           image: imgSolar,
         },
@@ -390,6 +408,7 @@ export function Header() {
                             <Link
                               key={a.title}
                               to={a.to}
+                              params={a.params}
                               onClick={() => setOpenKey(null)}
                               className="group block"
                             >

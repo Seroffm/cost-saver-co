@@ -1479,12 +1479,12 @@ function ContactSection() {
           text: (
             <>
               <div>Oft gestellte Fragen (FAQ)</div>
-              <a
-                href="#faq"
+              <Link
+                to="/faq"
                 className="font-semibold text-success underline-offset-4 hover:underline"
               >
                 Zu den Antworten
-              </a>
+              </Link>
             </>
           ),
         },
@@ -1492,9 +1492,9 @@ function ContactSection() {
       footer: (
         <p className="mt-6 text-sm text-primary-foreground/80">
           Bevor du uns kontaktierst, lies dir gerne unsere Gedanken zu einem{" "}
-          <a href="#" className="font-semibold text-success underline-offset-4 hover:underline">
+          <Link to="/service" className="font-semibold text-success underline-offset-4 hover:underline">
             respektvollen Service
-          </a>{" "}
+          </Link>{" "}
           durch.
         </p>
       ),
@@ -1539,9 +1539,9 @@ function ContactSection() {
           text: (
             <>
               <div>Sprich direkt mit uns auf unseren Wärmepumpen-Events.</div>
-              <a href="#" className="font-semibold text-success underline-offset-4 hover:underline">
-                Unsere Eventübersicht findest du hier.
-              </a>
+              <Link to="/kontakt" className="font-semibold text-success underline-offset-4 hover:underline">
+                Jetzt Termin anfragen.
+              </Link>
             </>
           ),
         },
@@ -1550,12 +1550,12 @@ function ContactSection() {
           text: (
             <>
               <div>Oft gestellte Fragen (FAQ)</div>
-              <a
-                href="#faq"
+              <Link
+                to="/faq"
                 className="font-semibold text-success underline-offset-4 hover:underline"
               >
                 Zu den Antworten
-              </a>
+              </Link>
             </>
           ),
         },
@@ -1563,9 +1563,9 @@ function ContactSection() {
       footer: (
         <p className="mt-6 text-sm text-primary-foreground/80">
           Unsere Wärmepumpen-AGB findest du{" "}
-          <a href="#" className="font-semibold text-success underline-offset-4 hover:underline">
+          <Link to="/widerruf" className="font-semibold text-success underline-offset-4 hover:underline">
             hier.
-          </a>
+          </Link>
         </p>
       ),
     },
