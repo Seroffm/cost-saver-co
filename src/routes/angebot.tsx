@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Phone,
   ShieldCheck,
-  CheckCircle2,
   Lock,
   Star,
   Play,
@@ -10,7 +9,6 @@ import {
   ChevronDown,
   ChevronUp,
   Users,
-  BadgeCheck,
 } from "lucide-react";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
@@ -186,22 +184,16 @@ function AngebotPage() {
             Prüfen Sie jetzt kostenlos Ihren Tarif.
           </p>
 
-          {/* 4th hero element: trust icons */}
-          <div className="mt-7 flex flex-wrap gap-x-5 gap-y-3">
-            {[
-              { Icon: Lock, label: "SSL-verschlüsselt" },
-              { Icon: ShieldCheck, label: "DSGVO-konform" },
-              { Icon: BadgeCheck, label: "Kostenlos & unverbindlich" },
-              { Icon: Star, label: "4,8 / 5 Sterne" },
-            ].map(({ Icon, label }) => (
-              <span
-                key={label}
-                className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground"
-              >
-                <Icon className="h-3.5 w-3.5 flex-none text-success" />
-                {label}
-              </span>
-            ))}
+          {/* 4th hero element: lifestyle image */}
+          <div className="mt-7 overflow-hidden rounded-2xl">
+            <img
+              src="https://picsum.photos/seed/modern-german-home-living/800/500"
+              alt="Zuhause in Deutschland"
+              width={800}
+              height={500}
+              className="w-full object-cover"
+              loading="lazy"
+            />
           </div>
         </motion.div>
 
