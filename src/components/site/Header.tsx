@@ -244,7 +244,7 @@ export function Header() {
               <span>App</span>
             </Link>
             <Link
-              to="/kontakt"
+              to="/mitarbeiter/login"
               className="hidden items-center gap-2 text-sm font-medium text-primary transition hover:text-success md:inline-flex"
             >
               <User className="h-4 w-4 text-success" />

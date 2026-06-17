@@ -43,7 +43,19 @@ async function loadProfile(session: Session): Promise<AppUser | null> {
       role: mapRole(profile.role),
     };
   } catch {
-    return null;
+    // Backend-API nicht erreichbar → Fallback auf Supabase-Basisdaten
+    const name =
+      (session.user.user_metadata?.full_name as string | undefined) ??
+      session.user.email ??
+      "Mitarbeiter";
+    return {
+      id: session.user.id,
+      profileId: session.user.id,
+      name,
+      initials: getInitials(name),
+      email: session.user.email ?? "",
+      role: "mitarbeiter",
+    };
   }
 }
 
