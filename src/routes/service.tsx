@@ -23,13 +23,13 @@ import ctaBg from "@/assets/final-cta-bg.jpg";
 export const Route = createFileRoute("/service")({
   head: () => ({
     meta: [
-      { title: "Service: Persönliche Hilfe rund um Energie | EnergieClever" },
+      { title: "Service: Persönliche Hilfe rund um Energie | PRIME ENERGIE" },
       {
         name: "description",
         content:
           "Kontakt, Wechselservice, Dokumente, FAQ und Empfehlungsprogramm. Alles, was Sie nach dem Abschluss von uns brauchen.",
       },
-      { property: "og:title", content: "Service | EnergieClever" },
+      { property: "og:title", content: "Service | PRIME ENERGIE" },
       {
         property: "og:description",
         content: "Persönliche Hilfe rund um Ihren Energievertrag. Schnell, freundlich, kostenlos.",

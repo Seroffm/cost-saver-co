@@ -59,7 +59,7 @@ export const Route = createFileRoute("/")({
   validateSearch: (s) => homeSearchSchema.parse(s) ?? {},
   head: () => ({
     meta: [
-      { title: "EnergieClever | Strom & Gas vergleichen, bis zu 850 € sparen" },
+      { title: "PRIME ENERGIE | Strom & Gas vergleichen, bis zu 850 € sparen" },
       {
         name: "description",
         content:
@@ -67,7 +67,7 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:title",
-        content: "EnergieClever | Strom & Gas vergleichen, bis zu 850 € sparen",
+        content: "PRIME ENERGIE | Strom & Gas vergleichen, bis zu 850 € sparen",
       },
       {
         property: "og:description",
@@ -742,7 +742,7 @@ function SavingsCalculator() {
             text: "text-primary",
           },
           {
-            label: "EnergieClever",
+            label: "PRIME ENERGIE",
             value: result.clever,
             color: "bg-success",
             text: "text-success",
@@ -822,7 +822,7 @@ function ComparisonCard() {
               <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-success">
                 Mit uns
               </div>
-              <h3 className="mt-1 font-display text-2xl font-bold text-primary">EnergieClever</h3>
+              <h3 className="mt-1 font-display text-2xl font-bold text-primary">PRIME ENERGIE</h3>
             </div>
             <div className="text-right">
               <div className="font-display text-2xl font-extrabold tabular-nums text-primary">
@@ -1352,7 +1352,7 @@ function RatgeberSection() {
       to: "/faq",
     },
     {
-      t: "Über EnergieClever",
+      t: "Über PRIME ENERGIE",
       d: "Warum wir unabhängig sind und wie wir Geld verdienen. Transparent erklärt.",
       img: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=70",
       to: "/ueber-uns",

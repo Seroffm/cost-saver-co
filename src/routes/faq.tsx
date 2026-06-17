@@ -22,13 +22,13 @@ import {
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { title: "FAQ: Antworten zum Tarifwechsel | EnergieClever" },
+      { title: "FAQ: Antworten zum Tarifwechsel | PRIME ENERGIE" },
       {
         name: "description",
         content:
           "Häufige Fragen zu Strom- und Gasvergleich, Beratung, Datenschutz und Wechselablauf. Klar und ehrlich beantwortet.",
       },
-      { property: "og:title", content: "FAQ | EnergieClever" },
+      { property: "og:title", content: "FAQ | PRIME ENERGIE" },
       {
         property: "og:description",
         content:

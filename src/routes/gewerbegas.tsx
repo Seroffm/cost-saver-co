@@ -18,13 +18,13 @@ import ctaBg from "@/assets/final-cta-bg.jpg";
 export const Route = createFileRoute("/gewerbegas")({
   head: () => ({
     meta: [
-      { title: "Gewerbegas vergleichen: Festpreise sichern | EnergieClever" },
+      { title: "Gewerbegas vergleichen: Festpreise sichern | PRIME ENERGIE" },
       {
         name: "description",
         content:
           "Gewerbegas-Tarife persönlich vergleichen: Festpreise bis 36 Monate, Bio-Erdgas, Lastgangoptimierung. Für Gastronomie, Bäckereien, Produktion und Filialbetriebe.",
       },
-      { property: "og:title", content: "Gewerbegas vergleichen | EnergieClever" },
+      { property: "og:title", content: "Gewerbegas vergleichen | PRIME ENERGIE" },
       {
         property: "og:description",
         content:
@@ -87,7 +87,7 @@ function GewerbegasPage() {
       />
 
       <FeatureGrid
-        title="Warum Gewerbegas über EnergieClever?"
+        title="Warum Gewerbegas über PRIME ENERGIE?"
         intro="Sechs Gründe, warum Sie Ihren Gastarif mit uns prüfen sollten."
         items={features}
       />

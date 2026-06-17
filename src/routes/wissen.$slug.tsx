@@ -202,7 +202,7 @@ export const Route = createFileRoute("/wissen/$slug")({
     if (!a) return {};
     return {
       meta: [
-        { title: `${a.title} | EnergieClever Wissen` },
+        { title: `${a.title} | PRIME ENERGIE Wissen` },
         { name: "description", content: a.teaser },
         { property: "og:title", content: a.title },
         { property: "og:description", content: a.teaser },

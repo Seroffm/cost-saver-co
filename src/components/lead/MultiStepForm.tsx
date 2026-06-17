@@ -703,7 +703,7 @@ function Step7({ data, set }: StepProps) {
             onCheckedChange={(v) => set("kontaktAkzeptiert", !!v as true)}
           />
           <span>
-            Ich bin einverstanden, dass EnergieClever mich per E-Mail oder Telefon kontaktiert.
+            Ich bin einverstanden, dass PRIME ENERGIE mich per E-Mail oder Telefon kontaktiert.
           </span>
         </label>
       </div>

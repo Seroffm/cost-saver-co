@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Zap, Phone, UserPlus, Smartphone, User, ChevronDown, Menu, X } from "lucide-react";
+import { Phone, UserPlus, Smartphone, User, ChevronDown, Menu, X } from "lucide-react";
+import logoUrl from "@/assets/logo.svg";
 import { useState, useRef, useLayoutEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -233,14 +234,8 @@ export function Header() {
       <div className="mx-auto max-w-6xl px-4">
         {/* Top utility row */}
         <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 py-3 md:py-4">
-          <Link
-            to="/"
-            className="flex items-center gap-2.5 font-display font-extrabold text-primary"
-          >
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-success text-success-foreground shadow-soft">
-              <Zap className="h-5 w-5" />
-            </span>
-            <span className="text-lg tracking-tight">EnergieClever</span>
+          <Link to="/" className="flex items-center">
+            <img src={logoUrl} alt="PRIME ENERGIE" className="h-12 w-auto" />
           </Link>
 
           <div />

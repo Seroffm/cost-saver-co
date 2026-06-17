@@ -2,11 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { StaticPage } from "@/components/site/StaticPage";
 
 export const Route = createFileRoute("/impressum")({
-  head: () => ({ meta: [{ title: "Impressum – EnergieClever" }] }),
+  head: () => ({ meta: [{ title: "Impressum – PRIME ENERGIE" }] }),
   component: () => (
     <StaticPage title="Impressum">
       <p>
-        EnergieClever GmbH (Platzhalter)
+        PRIME ENERGIE GmbH (Platzhalter)
         <br />
         Musterstraße 1<br />
         10115 Berlin

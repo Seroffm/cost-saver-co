@@ -20,13 +20,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/ueber-uns")({
   head: () => ({
     meta: [
-      { title: "Über uns: Unabhängige Energieberatung | EnergieClever" },
+      { title: "Über uns: Unabhängige Energieberatung | PRIME ENERGIE" },
       {
         name: "description",
         content:
           "Wir sind ein unabhängiges Beratungsteam für Strom- und Gastarife mit Sitz in Deutschland. Persönlich, transparent, ohne Provisionsdruck.",
       },
-      { property: "og:title", content: "Über uns | EnergieClever" },
+      { property: "og:title", content: "Über uns | PRIME ENERGIE" },
       {
         property: "og:description",
         content:
@@ -96,7 +96,7 @@ const milestones = [
   {
     year: "2018",
     title: "Gründung in Berlin",
-    desc: "Drei Branchenprofis starten EnergieClever mit einer Idee: Beratung ohne Provisionsdruck.",
+    desc: "Drei Branchenprofis starten PRIME ENERGIE mit einer Idee: Beratung ohne Provisionsdruck.",
   },
   {
     year: "2020",
@@ -281,7 +281,7 @@ function UeberUnsPage() {
               <Award className="h-3.5 w-3.5" /> Unser Weg
             </div>
             <h2 className="mt-4 text-3xl font-bold text-primary md:text-4xl">
-              Sieben Jahre EnergieClever
+              Sieben Jahre PRIME ENERGIE
             </h2>
           </div>
           <ol className="relative mt-14 space-y-8 border-l-2 border-success/20 pl-8">

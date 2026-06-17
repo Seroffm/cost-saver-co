@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { StaticPage } from "@/components/site/StaticPage";
 
 export const Route = createFileRoute("/widerruf")({
-  head: () => ({ meta: [{ title: "Widerruf – EnergieClever" }] }),
+  head: () => ({ meta: [{ title: "Widerruf – PRIME ENERGIE" }] }),
   component: () => (
     <StaticPage
       title="Widerrufsbelehrung"

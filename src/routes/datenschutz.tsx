@@ -2,14 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { StaticPage } from "@/components/site/StaticPage";
 
 export const Route = createFileRoute("/datenschutz")({
-  head: () => ({ meta: [{ title: "Datenschutz – EnergieClever" }] }),
+  head: () => ({ meta: [{ title: "Datenschutz – PRIME ENERGIE" }] }),
   component: () => (
     <StaticPage
       title="Datenschutzerklärung"
       lead="Wir verarbeiten Ihre Daten ausschließlich gemäß DSGVO."
     >
       <h2>1. Verantwortlicher</h2>
-      <p>EnergieClever GmbH (Platzhalter), Musterstraße 1, 10115 Berlin.</p>
+      <p>PRIME ENERGIE GmbH (Platzhalter), Musterstraße 1, 10115 Berlin.</p>
       <h2>2. Welche Daten wir erheben</h2>
       <p>
         Kontaktdaten (Name, E-Mail, Telefon), Postleitzahl, Verbrauchsangaben sowie freiwillige

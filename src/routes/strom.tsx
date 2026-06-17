@@ -18,13 +18,13 @@ import ctaBg from "@/assets/final-cta-bg.jpg";
 export const Route = createFileRoute("/strom")({
   head: () => ({
     meta: [
-      { title: "Strom vergleichen: Bis zu 850 € sparen | EnergieClever" },
+      { title: "Strom vergleichen: Bis zu 850 € sparen | PRIME ENERGIE" },
       {
         name: "description",
         content:
           "Stromtarife persönlich vergleichen: Haushaltsstrom, Ökostrom, Autostrom und Wärmestrom. Geprüfte Anbieter, kostenloser Wechsel ohne Versorgungslücke.",
       },
-      { property: "og:title", content: "Strom vergleichen | EnergieClever" },
+      { property: "og:title", content: "Strom vergleichen | PRIME ENERGIE" },
       {
         property: "og:description",
         content: "Stromtarife persönlich vergleichen und bis zu 850 € pro Jahr sparen.",
@@ -82,7 +82,7 @@ function StromPage() {
       />
 
       <FeatureGrid
-        title="Warum mit EnergieClever wechseln?"
+        title="Warum mit PRIME ENERGIE wechseln?"
         intro="Sechs Gründe, warum sich der Anruf lohnt. Auch wenn Sie schon mal verglichen haben."
         items={features}
       />

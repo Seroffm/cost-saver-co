@@ -16,7 +16,7 @@ export const Route = createFileRoute("/angebot")({
   validateSearch: (s) => search.parse(s) ?? {},
   head: () => ({
     meta: [
-      { title: "Kostenlose Tarifprüfung | EnergieClever" },
+      { title: "Kostenlose Tarifprüfung | PRIME ENERGIE" },
       {
         name: "description",
         content:
@@ -39,7 +39,7 @@ function AngebotPage() {
             <span className="grid h-9 w-9 place-items-center rounded-lg bg-success text-success-foreground">
               <Zap className="h-4 w-4" />
             </span>
-            <span className="font-display text-lg">EnergieClever</span>
+            <span className="font-display text-lg">PRIME ENERGIE</span>
           </Link>
           <div className="hidden items-center gap-4 text-xs text-muted-foreground sm:flex">
             <span className="inline-flex items-center gap-1.5">

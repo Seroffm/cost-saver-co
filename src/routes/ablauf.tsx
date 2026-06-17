@@ -19,13 +19,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/ablauf")({
   head: () => ({
     meta: [
-      { title: "Ablauf: So funktioniert der Tarifwechsel | EnergieClever" },
+      { title: "Ablauf: So funktioniert der Tarifwechsel | PRIME ENERGIE" },
       {
         name: "description",
         content:
           "In 4 Schritten zum besseren Strom- oder Gastarif: Anfrage, Prüfung, Angebot, Wechsel. Persönlich, kostenlos, ohne Versorgungslücke.",
       },
-      { property: "og:title", content: "Ablauf: So funktioniert der Tarifwechsel | EnergieClever" },
+      { property: "og:title", content: "Ablauf: So funktioniert der Tarifwechsel | PRIME ENERGIE" },
       {
         property: "og:description",
         content:
@@ -208,7 +208,7 @@ function AblaufPage() {
               Was wir Ihnen garantieren
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Drei Versprechen, die für jeden Wechsel über EnergieClever gelten.
+              Drei Versprechen, die für jeden Wechsel über PRIME ENERGIE gelten.
             </p>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">

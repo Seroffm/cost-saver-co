@@ -18,13 +18,13 @@ import ctaBg from "@/assets/final-cta-bg.jpg";
 export const Route = createFileRoute("/gewerbestrom")({
   head: () => ({
     meta: [
-      { title: "Gewerbestrom vergleichen: Bis 30 % sparen | EnergieClever" },
+      { title: "Gewerbestrom vergleichen: Bis 30 % sparen | PRIME ENERGIE" },
       {
         name: "description",
         content:
           "Gewerbestrom-Tarife persönlich vergleichen: bis zu 30 % Ersparnis für KMU, Handwerk, Gastronomie und Filialbetriebe. Festpreise, Preisgarantie, Wechselgarantie.",
       },
-      { property: "og:title", content: "Gewerbestrom vergleichen | EnergieClever" },
+      { property: "og:title", content: "Gewerbestrom vergleichen | PRIME ENERGIE" },
       {
         property: "og:description",
         content:
@@ -87,7 +87,7 @@ function GewerbestromPage() {
       />
 
       <FeatureGrid
-        title="Warum Gewerbestrom über EnergieClever?"
+        title="Warum Gewerbestrom über PRIME ENERGIE?"
         intro="Sechs Gründe, warum Geschäftsführer und Einkäufer mit uns vergleichen."
         items={features}
       />

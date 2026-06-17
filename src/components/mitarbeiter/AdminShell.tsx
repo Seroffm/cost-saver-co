@@ -84,7 +84,7 @@ export function AdminShell({
             <Zap className="h-5 w-5" />
           </div>
           <div>
-            <div className="text-sm font-semibold">EnergieClever</div>
+            <div className="text-sm font-semibold">PRIME ENERGIE</div>
             <div className="text-xs text-muted-foreground">Mitarbeiter-CRM</div>
           </div>
         </div>

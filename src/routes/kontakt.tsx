@@ -18,13 +18,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
     meta: [
-      { title: "Kontakt: Persönliche Energieberatung | EnergieClever" },
+      { title: "Kontakt: Persönliche Energieberatung | PRIME ENERGIE" },
       {
         name: "description",
         content:
           "Sprechen Sie mit echten Menschen. Per Telefon, E-Mail oder Formular. Kostenlose, unverbindliche Beratung zu Strom und Gas.",
       },
-      { property: "og:title", content: "Kontakt | EnergieClever" },
+      { property: "og:title", content: "Kontakt | PRIME ENERGIE" },
       {
         property: "og:description",
         content: "Persönliche Energieberatung per Telefon, E-Mail oder Formular.",
@@ -172,7 +172,7 @@ function KontaktPage() {
               </div>
               <h2 className="mt-5 text-xl font-bold text-primary">Unser Sitz</h2>
               <address className="mt-4 not-italic text-muted-foreground">
-                EnergieClever GmbH
+                PRIME ENERGIE GmbH
                 <br />
                 Friedrichstraße 123
                 <br />

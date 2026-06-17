@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Zap, Linkedin, Mail, Youtube, Phone, ChevronUp } from "lucide-react";
+import { Linkedin, Mail, Youtube, Phone, ChevronUp } from "lucide-react";
+import logoUrl from "@/assets/logo.svg";
 
 type Col = { title: string; links: { to: string; label: string }[] };
 
@@ -34,7 +35,7 @@ const columns: Col[] = [
     ],
   },
   {
-    title: "Über EnergieClever",
+    title: "Über PRIME ENERGIE",
     links: [
       { to: "/ueber-uns", label: "Unternehmen" },
       { to: "/ueber-uns", label: "Karriere" },
@@ -51,12 +52,7 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-4 py-16">
         {/* Top row: logo + back-to-top */}
         <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-start">
-          <div className="flex items-center gap-3 font-display text-xl font-extrabold text-primary">
-            <span className="grid h-9 w-9 place-items-center rounded-lg bg-success text-success-foreground">
-              <Zap className="h-4 w-4" />
-            </span>
-            EnergieClever
-          </div>
+          <img src={logoUrl} alt="PRIME ENERGIE" className="h-20 w-auto" />
           <button
             type="button"
             onClick={() =>
@@ -133,7 +129,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-border bg-surface">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-5 text-xs text-muted-foreground">
-          <div>© {year} EnergieClever · Alle Tarife unverbindlich · DSGVO-konform</div>
+          <div>© {year} PRIME ENERGIE · Alle Tarife unverbindlich · DSGVO-konform</div>
           <div className="flex flex-wrap gap-x-6 gap-y-1">
             <Link to="/impressum" className="hover:text-success">
               Impressum
