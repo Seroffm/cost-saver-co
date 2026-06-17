@@ -927,23 +927,14 @@ function StatsBand() {
   return (
     <section className="bg-primary">
       <div className="mx-auto max-w-6xl px-4">
-        {/* Header */}
-        <div className="flex flex-col gap-5 border-b border-white/[0.08] py-14 md:flex-row md:items-end md:justify-between md:gap-12">
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-success">
-              Transparente Bilanz
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-extrabold text-primary-foreground md:text-4xl">
-              Zahlen, die für sich sprechen.
-            </h2>
-          </div>
-          <p className="text-sm leading-relaxed text-primary-foreground/50 md:max-w-[240px] md:text-right">
-            Echte Ergebnisse von echten Kunden — transparent,
-            nachprüfbar, ohne Fußnoten.
-          </p>
+        {/* Headline only — no eyebrow, no split */}
+        <div className="border-b border-white/[0.08] py-14">
+          <h2 className="font-display text-3xl font-extrabold text-primary-foreground md:text-4xl">
+            Zahlen, die für sich sprechen.
+          </h2>
         </div>
 
-        {/* Stats — gap-px creates 1 px hairline dividers between cells */}
+        {/* Stats — gap-px creates 1 px hairline dividers between all cells */}
         <div className="grid grid-cols-2 gap-px bg-white/[0.06] lg:grid-cols-4">
           {stats.map((s, i) => (
             <motion.div
@@ -954,13 +945,10 @@ function StatsBand() {
               transition={{ duration: 0.5, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col bg-primary px-6 py-12 md:px-8 md:py-16"
             >
-              <span className="font-mono text-[10px] tracking-widest text-primary-foreground/20">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="mt-5 font-display text-5xl font-extrabold leading-none text-success md:text-[3.25rem]">
+              <span className="font-display text-5xl font-extrabold leading-none text-success md:text-[3.25rem]">
                 {s.v}
               </span>
-              <span className="mt-4 text-sm font-semibold text-primary-foreground/80">
+              <span className="mt-5 text-sm font-semibold text-primary-foreground/80">
                 {s.l}
               </span>
               <span className="mt-1.5 text-xs text-primary-foreground/40">
