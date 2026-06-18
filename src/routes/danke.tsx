@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { CheckCircle2, Phone, Mail, ArrowRight } from "lucide-react";
+import { CheckCircle2, ArrowRight } from "lucide-react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { SiteLayout } from "@/components/site/SiteLayout";
@@ -39,24 +39,6 @@ function ThanksPage() {
             <span className="font-mono font-semibold text-primary">{id}</span>
           </div>
         )}
-        <div className="mx-auto mt-10 grid max-w-md gap-3 text-left sm:grid-cols-2">
-          <a
-            href="tel:08001234567"
-            className="rounded-xl border border-border bg-card p-4 transition hover:border-success"
-          >
-            <Phone className="h-5 w-5 text-success" />
-            <div className="mt-2 text-xs text-muted-foreground">Direkt anrufen</div>
-            <div className="font-semibold text-primary">0800 123 4567</div>
-          </a>
-          <a
-            href="mailto:hallo@energieclever.de"
-            className="rounded-xl border border-border bg-card p-4 transition hover:border-success"
-          >
-            <Mail className="h-5 w-5 text-success" />
-            <div className="mt-2 text-xs text-muted-foreground">Per E-Mail</div>
-            <div className="font-semibold text-primary">hallo@energieclever.de</div>
-          </a>
-        </div>
         <Button asChild variant="outline" className="mt-10">
           <Link to="/">
             Zurück zur Startseite <ArrowRight className="ml-1 h-4 w-4" />
