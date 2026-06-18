@@ -505,7 +505,19 @@ function Step4({ data, set }: StepProps) {
   );
 }
 
+function isDateYearValid(value: string): boolean {
+  if (!value) return true;
+  const year = parseInt(value.split("-")[0], 10);
+  return !isNaN(year) && year >= 1900 && year <= 2100;
+}
+
 function Step5({ data, set }: StepProps) {
+  const dateValid = isDateYearValid(data.vertragsende ?? "");
+
+  function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
+    set("vertragsende", e.target.value);
+  }
+
   return (
     <Field>
       <StepHead title="Ihre aktuelle Versorgung" sub="So vergleichen wir Ihr Sparpotenzial." />
@@ -534,14 +546,22 @@ function Step5({ data, set }: StepProps) {
           <Input
             id="vertragsende"
             type="date"
+            min="1900-01-01"
+            max="2100-12-31"
             value={data.vertragsende ?? ""}
-            onChange={(e) => set("vertragsende", e.target.value)}
+            onChange={handleDateChange}
+            className={cn(!dateValid && "border-destructive focus-visible:ring-destructive")}
           />
+          {!dateValid && (
+            <p className="mt-1 text-xs text-destructive">
+              Bitte ein gültiges Datum zwischen 1900 und 2100 eingeben.
+            </p>
+          )}
         </div>
         <div>
           <Label>Preisgarantie</Label>
           <RadioGroup
-            className="mt-2 flex gap-4"
+            className="mt-2 flex flex-wrap gap-x-4 gap-y-2"
             value={data.preisgarantie ?? ""}
             onValueChange={(v) => set("preisgarantie", v as LeadInput["preisgarantie"])}
           >
@@ -550,7 +570,7 @@ function Step5({ data, set }: StepProps) {
               { v: "nein", l: "Nein" },
               { v: "weiss_nicht", l: "Weiß ich nicht" },
             ].map((o) => (
-              <label key={o.v} className="flex items-center gap-2 text-sm">
+              <label key={o.v} className="flex items-center gap-2 text-sm whitespace-nowrap">
                 <RadioGroupItem value={o.v} /> {o.l}
               </label>
             ))}
@@ -774,7 +794,7 @@ function validateStep(step: number, d: Draft): boolean {
       return stromOk && gasOk;
     }
     case 5:
-      return true; // optional
+      return isDateYearValid(d.vertragsende ?? "");
     case 6:
       return true; // optional
     case 7:
