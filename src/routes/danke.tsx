@@ -34,16 +34,20 @@ function ThanksPage() {
           innerhalb der nächsten <strong className="text-foreground">24 Stunden</strong>.
         </p>
         {id && (
-          <div className="mx-auto mt-6 inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm">
-            <span className="text-muted-foreground">Ihre Vorgangsnummer:</span>
-            <span className="font-mono font-semibold text-primary">{id}</span>
+          <div className="mt-6 flex justify-center">
+            <div className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm">
+              <span className="text-muted-foreground">Ihre Vorgangsnummer:</span>
+              <span className="font-mono font-semibold text-primary">{id}</span>
+            </div>
           </div>
         )}
-        <Button asChild variant="outline" className="mt-10">
-          <Link to="/">
-            Zurück zur Startseite <ArrowRight className="ml-1 h-4 w-4" />
-          </Link>
-        </Button>
+        <div className="mt-10 flex justify-center">
+          <Button asChild variant="outline">
+            <Link to="/">
+              Zurück zur Startseite <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
       </section>
     </SiteLayout>
   );
