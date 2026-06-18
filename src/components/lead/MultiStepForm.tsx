@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import {
   ArrowLeft,
   ArrowRight,
@@ -53,7 +52,6 @@ export function MultiStepForm({
   initialKwh?: number;
 }) {
   const navigate = useNavigate();
-  const submit = useServerFn(submitLead);
   const [step, setStep] = useState(1);
   const [data, setData] = useState<Draft>(() => {
     if (typeof window === "undefined") return initial;
@@ -145,7 +143,7 @@ export function MultiStepForm({
     try {
       // Finalize numeric estimates
       const payload = finalizePayload(data);
-      const res = await submit({ data: payload });
+      const res = await submitLead(payload);
       track("lead_submitted", { leadId: res.leadId });
       if (payload.rechnungDateiname) track("invoice_uploaded");
       sessionStorage.removeItem(STORAGE_KEY);

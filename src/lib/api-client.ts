@@ -11,6 +11,7 @@ import type {
   BackendListResponse,
   BackendSingleResponse,
   BackendLeadStatus,
+  PublicLeadPayload,
 } from "./api-types";
 
 const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) || "";
@@ -165,7 +166,7 @@ export async function getStatusHistory(
 // /api/public/leads  (kein Auth – Turnstile-Token erforderlich)
 // ---------------------------------------------------------------------------
 
-export async function submitPublicLead(payload: Record<string, unknown>): Promise<{
+export async function submitPublicLead(payload: PublicLeadPayload): Promise<{
   lead_id: string;
   lead_number: string;
 }> {

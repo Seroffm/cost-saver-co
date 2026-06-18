@@ -163,6 +163,45 @@ export interface BackendProfile {
   is_active: boolean;
 }
 
+// ---------------------------------------------------------------------------
+// Public Lead Submit — Request-Payload-Typen
+// ---------------------------------------------------------------------------
+
+export interface PublicLeadElectricityPayload {
+  annual_consumption_kwh: number | null;
+  consumption_known: boolean | null;
+  current_provider?: string;
+  monthly_payment?: number;
+  contract_end_date?: string;
+  price_guarantee?: boolean;
+}
+
+export interface PublicLeadGasPayload extends PublicLeadElectricityPayload {
+  hot_water_with_gas: boolean | null;
+  heating_type?: string;
+  household_size?: number;
+}
+
+export interface PublicLeadPayload {
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  customer_type: BackendCustomerType;
+  product_type: BackendProductType;
+  privacy_consent: true;
+  contact_consent: true;
+  address: { postal_code: string; city: string; street?: string };
+  turnstile_token: string;
+  electricity?: PublicLeadElectricityPayload;
+  gas?: PublicLeadGasPayload;
+  // Felder ohne dedizierte DB-Spalte — landen in leads.notes via p_initial_note
+  ziele?: string[];
+  erreichbarkeit?: string;
+  rechnung_dateiname?: string;
+  rechnung_groesse_kb?: number;
+}
+
 export interface BackendListResponse<T> {
   data: T[];
   count: number;
